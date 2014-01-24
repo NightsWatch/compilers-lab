@@ -1,0 +1,24 @@
+#Guys please go through this grammar and verify if it is 1) correct, and 2) unambigious.
+
+stmt → id := expr; stmt 
+	| if expr then stmt
+	| while expr do stmt
+	| begin opt_stmts end 
+opt_stmts → stmt_list |є
+stmt_list  → stmt_list; stmt | stmt
+
+
+
+expr -> termp expr''
+
+termp -> term expr'
+
+expr' -> PLUS term expr' | MINUS term expr' | є
+
+term -> factor term'
+
+term' -> TIMES factor term' | DIVIDE factor term' | є
+
+factor -> NUM_OR_ID | LP expr RP
+
+expr'' -> LESSTHAN termp expr'' | GREATERTHAN termp expr'' | EQUALTO termp expr'' | є
