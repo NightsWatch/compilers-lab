@@ -1,4 +1,5 @@
 main ()
 {
-	statements ();
+	opt_statement ();
+	// statements();
 }

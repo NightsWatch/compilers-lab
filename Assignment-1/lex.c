@@ -1,7 +1,6 @@
-#include "lex.h"
 #include <stdio.h>
 #include <ctype.h>
-
+#include "lex.h"
 
 char* yytext = ""; /* Lexeme (not '\0'
                       terminated)              */
@@ -52,19 +51,100 @@ int lex(void){
             return LP;
            case ')':
             return RP;
+          case '<':
+            return LESSTHAN;
+          case '>':
+          return GREATERTHAN;
+          case '=':
+          return EQUALTO;
            case '\n':
            case '\t':
            case ' ' :
             break;
            default:
-            if(!isalnum(*current))
-               fprintf(stderr, "Agvonse la8emevn eisagwgn <%c>\n", *current);
-            else{
-               while(isalnum(*current))
+            
+            if (*current==':')
+            {
+              ++current;
+              if(*current=='=')
+                {
                   ++current;
-               yyleng = current - yytext;
-               return NUM_OR_ID;
+                  yyleng=2;
+                 return COLE;
+                }
+
             }
+             
+
+            if(!isalnum(*current))
+               fprintf(stderr, "No valid token <%c>\n", *current);
+
+            else{
+
+                    if (*current=='i' && *(current+1)=='f' &&  *(current+2)==' ' )
+                    {
+                      //current+=3;
+                      yyleng=2;
+
+                      return IF;
+                    }
+
+                    if (*current=='t' && *(current+1)=='h' && *(current+2)=='e' && *(current+3)=='n' && *(current+4)==' '  )
+                        {
+                          //current+=5;
+                          yyleng=4;
+                          return THEN;
+                        }
+
+                   if (*current=='w' && *(current+1)=='h' && *(current+2)=='i' && *(current+3)=='l' && *(current+4)=='e' &&  *(current+5)==' '  )
+                        {
+                          //current+=6;
+                          yyleng=5;
+                          return WHILE;
+                        }
+
+                    if (*current=='d' && *(current+1)=='o'  &&  *(current+2)==' '  )
+                        {
+                          //current+=3;
+                          yyleng=2;
+                          return DO;
+                        }
+
+                    if (*current=='b' && *(current+1)=='e' && *(current+2)=='g' && *(current+3)=='i' && *(current+4)=='n' &&  *(current+5)==' '  )
+                        {
+                          //current+=6;
+                          yyleng=5;
+                          return BEGIN;
+                        }
+
+                    if (*current=='e' && *(current+1)=='n' && *(current+2)=='d' /* && (*(current+4)==' ' ||  *(current+5)=='\0') */ )
+                        {
+                          yyleng=3;
+                          // current+=4;
+                          return END;
+                        }
+
+
+             // do for-- do, end, begin
+
+
+                     if( ( *current-'a'>=0 && 'z'-(*current)>=0 ) || ( *current-'A'>=0 && 'Z'-(*current)>=0 ) )
+                     {
+                        while(isalnum(*current))
+                          ++current;
+                         yyleng = current - yytext;
+                        return ID;
+                     }
+
+                     if(*current-'0'>=0 && '9'-(*current)>=0)
+                     {
+                        while(*current-'0'>=0 && '9'-(*current)>=0)
+                          ++current;
+                         yyleng = current - yytext;
+                        return NUM;
+                     }
+              
+                }
             break;
          }
       }

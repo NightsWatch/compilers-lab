@@ -1,0 +1,1 @@
+begin a=0; end
