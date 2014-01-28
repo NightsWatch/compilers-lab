@@ -19,7 +19,7 @@ term -> factor term'
 
 term' -> TIMES factor term' | DIVIDE term term' | є
 
-factor -> NUM_OR_ID | LP expr RP
+factor -> NUM_OR_ID | expr
 
 expr'' -> LESSTHAN termp expr'' | GREATERTHAN termp expr'' | EQUALTO termp expr'' | є
 
@@ -305,7 +305,7 @@ statements()
                 if(match(END))
                    {
                    printf("end ");
-                   
+                   if(count>0)
                    {
                      FILE* file1=fopen("8086.txt", "a");
                     fprintf(file1, "%s:\n", label);
@@ -319,12 +319,6 @@ statements()
                else if(match(END))
                    {
                      printf("end ");
-                     {
-                     FILE* file1=fopen("8086.txt", "a");
-                    fprintf(file1, "%s:\n", label);
-                    fclose(file1);
-                   }
-
                    
                    //printf("begin end1 ");
                    freename( tempvar );advance();break;
@@ -447,7 +441,7 @@ char    *expression()
             //printf("%s=%s > %s\n", tempvar, tempvar, tempvar2 );
             freename( tempvar2 );
             freename(tempvar);
-            return longone;
+           return longone;
         }
 
         //if(flagg=1)continue;

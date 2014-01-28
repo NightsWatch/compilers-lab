@@ -1,0 +1,59 @@
+jmp start 
+
+a db 0
+b db 0
+c db 0
+d db 0
+start:  mov BL ,  2 
+
+mov a , BL 
+
+mov BL ,  3 
+
+mov b , BL 
+
+mov BL ,  1 
+
+mov c , BL 
+
+mov BL ,  a 
+
+mov BH ,  b 
+
+add BL , BH 
+
+mov BH ,  c 
+
+mov CH ,  a 
+
+mov AL , CH 
+
+mul BH
+
+cmp BL , BH 
+
+jnbe label0
+
+mov BL ,  1 
+
+mov d , BL 
+
+mov BL ,  a 
+
+mov BH ,  5 
+
+add BL , BH 
+
+mov c , BL 
+
+label0:
+
+mov BL ,  a 
+
+mov BH ,  c 
+
+add BL , BH 
+
+mov a , BL 
+
+ret
