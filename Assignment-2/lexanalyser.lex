@@ -31,4 +31,4 @@ int main() {
 	return 0;
 }
 
-/* Code for identifying and ignoring block comments to be added. It's a bit tricky */
+/* Code for identifying and ignoring block comments to be added. It's a bit tricky.. */
