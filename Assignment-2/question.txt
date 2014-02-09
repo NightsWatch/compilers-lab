@@ -1,0 +1,21 @@
+Problem #2(a).
+
+Take a language which is a subset of C. You may take any other language
+(or its subset). Define its alphabets and the tokens using regular
+expressions.
+
+Take a sample program in the language you have considered. Perform lexical
+analysis for the program and generate the symbol table. Also, your lexical
+analysis module should have error detection capability.
+
+The problem defined above describes ONLY the basic requirements. You are
+free to implement in your own way for efficiency in implementation.
+However, you must remember that computation power should not be more than
+that of DFA. Extra credits will be given for “efficiency in "implementation".
+
+
+Problem #2(b).
+Implement a Lexical analyzer using FLEX for the same language language
+considered above.
+
+-------------------------------------------------------------
