@@ -1,7 +1,8 @@
 /* Lexical analyser for a sample c like language. */
-
+%option noyywrap
 %{
 	#include <math.h>
+	
 %}
 
 DIGIT	[0-9]

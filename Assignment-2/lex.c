@@ -66,11 +66,6 @@ int lex (void) {
                 continue;
             }
 
-
-
-
-
-
           switch( *current )
           {
              case ';':
@@ -96,13 +91,16 @@ int lex (void) {
               else if(*(current+1)=='*')
                 if(linecommented)
                   continue;
-
                 blockcommented=1;
               return DIV;
              case '(':
               return LP;
              case ')':
               return RP;
+            case '[':
+                return LSB;
+            case ']':
+                return RSB;
             case '<':
               return LESSTHAN;
             case '>':
@@ -160,7 +158,32 @@ int lex (void) {
                           return ELSE;
                       }
 
-                  if( ( *current-'a'>=0 && 'z'-(*current)>=0 ) || ( *current-'A'>=0 && 'Z'-(*current)>=0 ) )
+                     if (*current=='i' && *(current+1)=='n' && *(current+2)=='t') 
+                      {
+                          yyleng=3;
+                          return INT;
+                      }
+
+
+                     if (*current=='c' && *(current+1)=='h' && *(current+2)=='a'&& *(current+3)=='r') 
+                      {
+                          yyleng=4;
+                          return CHAR;
+                      }
+
+                    if (*current=='d' && *(current+1)=='o' && *(current+2)=='u'&& *(current+3)=='b' && *(current+4)=='l' && *(current+5)=='e') 
+                      {
+                          yyleng=6;
+                          return DOUBLE;
+                      }
+
+                     if (*current=='f' && *(current+1)=='l' && *(current+2)=='o'&& *(current+3)=='a'&& *(current+2)=='t') 
+                      {
+                          yyleng=5;
+                          return FLOAT;
+                      }                      
+
+                     if( ( *current-'a'>=0 && 'z'-(*current)>=0 ) || ( *current-'A'>=0 && 'Z'-(*current)>=0 ) )
                        {
                           while(isalnum(*current))
                             ++current;
@@ -192,14 +215,23 @@ int main() {
     val=lex();
     if(val==EOI)
       break;
-    printf("%d\t",val);
+    printf("<%d,",val);
+    if(val==22 || val==23)
+      printf("'");
+    else
+      {
+        printf(">\n");
+        continue;
+      }
+
+
     int temp=0;
     for (temp=0;temp<yyleng;temp++)
     {
       printf("%c",yytext[temp]);
 
     }
-    printf("\n");
+    printf("'>\n");
   }
   return 0;
 }

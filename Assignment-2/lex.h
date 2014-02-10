@@ -3,6 +3,9 @@
 #define SEMI	1	/* ; 				*/
 #define LP		2	/* (				*/
 #define RP		3	/* )				*/
+#define LSB		26
+#define RSB		27
+
 
 #define LESSTHAN	4
 #define GREATERTHAN	5
