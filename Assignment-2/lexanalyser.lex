@@ -8,14 +8,14 @@ DIGIT	[0-9]
 ID 	[a-zA-Z][a-zA-Z0-9_]*
 
 %%
-{DIGIT}+											printf("int\t\t%d\n",atoi(yytext));
-{DIGIT}+"."{DIGIT}*									printf("float\t\t%g\n",atof(yytext));
+{DIGIT}+							printf("int\t\t%d\n",atoi(yytext));
+{DIGIT}+"."{DIGIT}*						printf("float\t\t%g\n",atof(yytext));
 if|else|while|for|int|float|char|double				printf("keyword\t\t%s\n",yytext);
-{ID}												printf("id\t\t%s\n",yytext);
-"+"|"-"|"*"|"/"|"="									printf("operator\t%s\n",yytext);
-"/""/"[^\n]*										/* eat up one line comments	*/
-[ \t\n]+											/* eat up white spaces */
-.													printf("Invalid characters: %s\n",yytext);	/* All other default erroneous characters */
+{ID}								printf("id\t\t%s\n",yytext);
+"+"|"-"|"*"|"/"|"="						printf("operator\t%s\n",yytext);
+"/""/"[^\n]*							/* eat up one line comments	*/
+[ \t\n]+							/* eat up white spaces */
+.								printf("Invalid characters: %s\n",yytext);	/* All other default erroneous characters */
 %%
 
 int main() {
