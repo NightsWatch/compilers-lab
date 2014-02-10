@@ -26,7 +26,10 @@ int lex (void) {
          * white space on the line,
          * until a nonblank line is found.
          */
-
+         if (linecommented)
+         {
+          linecommented=0;
+         }
          current = input_buffer;
          if(!gets(input_buffer)){
             *current = '\0' ;
@@ -41,6 +44,32 @@ int lex (void) {
       for(; *current; ++current){
           yytext = current;
           yyleng = 1;
+          //printf("%c", *current);
+        //printf("lc %d, bc %d",linecommented,blockcommented);
+        if(linecommented || blockcommented)
+            {
+              
+
+              if(*current=='*' && *(current+1)=='/')
+               { 
+                if(blockcommented)
+                  {
+                    blockcommented=0;
+                   
+                  }
+           
+                  continue;
+
+               }
+
+              else
+                continue;
+            }
+
+
+
+
+
 
           switch( *current )
           {
@@ -51,8 +80,24 @@ int lex (void) {
              case '-':
               return MINUS;
              case '*':
+             if((*current)=='/')
+             {
+              fprintf(stderr, "Stray */ found\n");
+              continue;
+             }
               return TIMES;
+
              case '/':
+              if(*(current+1)=='/')
+              {
+                linecommented=1;
+                continue;
+              }
+              else if(*(current+1)=='*')
+                if(linecommented)
+                  continue;
+
+                blockcommented=1;
               return DIV;
              case '(':
               return LP;
@@ -79,29 +124,18 @@ int lex (void) {
            if(!isalnum(*current))
                fprintf(stderr, "No valid token <%c>\n", *current);
 
-            else if(linecommented || blockcommented)
-            {
-
-              if(*current=='*' && *(current+1)=='/')
-                blockcommented=0;
-              else
-                continue;
-            }
-
-
-            /*sdgdfsgdfgd// */ 
-    
+                
             else {
-                      if(*current=='/' && *(current+1)=='*')
+                   /*   if(*current=='/' && *(current+1)=='*')
                         blockcommented=1;
 
-                      if(*current=='/' && *(current+1)=='/'))
+                      if(*current=='/' && *(current+1)=='/')
                         {
                         if (!blockcommented)
                           linecommented=1;
                         else
                           continue;
-                        }
+                        }*/
 
                       if (*current=='i' && *(current+1)=='f' &&  (*(current+2)==' ' ) || *(current+2)=='(') {
                             //current+=3;
