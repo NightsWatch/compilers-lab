@@ -11,6 +11,8 @@ char* yytext = ""; /* Lexeme (not '\0'
 int yyleng   = 0;  /* Lexeme length.           */
 int yylineno = 0;  /* Input line number        */
 
+int linecommented=0;
+int blockcommented=0;
 
 int lex (void) {
      static char input_buffer[1024];
@@ -67,6 +69,8 @@ int lex (void) {
             case  '}':
               return RFP;
              case '\n':
+                if(linecommented)
+                  linecommented=0;
              case '\t':
              case ' ' :
               break;
@@ -75,7 +79,30 @@ int lex (void) {
            if(!isalnum(*current))
                fprintf(stderr, "No valid token <%c>\n", *current);
 
+            else if(linecommented || blockcommented)
+            {
+
+              if(*current=='*' && *(current+1)=='/')
+                blockcommented=0;
+              else
+                continue;
+            }
+
+
+            /*sdgdfsgdfgd// */ 
+    
             else {
+                      if(*current=='/' && *(current+1)=='*')
+                        blockcommented=1;
+
+                      if(*current=='/' && *(current+1)=='/'))
+                        {
+                        if (!blockcommented)
+                          linecommented=1;
+                        else
+                          continue;
+                        }
+
                       if (*current=='i' && *(current+1)=='f' &&  (*(current+2)==' ' ) || *(current+2)=='(') {
                             //current+=3;
                           yyleng=2;
@@ -96,7 +123,7 @@ int lex (void) {
                       if (*current=='e' && *(current+1)=='l' && *(current+2)=='s' && *(current+3)=='s' &&  (*(current+4)==' ' || *(current+4)=='(' )) 
                       {
                           yyleng=5;
-                          return WHILE;
+                          return ELSE;
                       }
 
                   if( ( *current-'a'>=0 && 'z'-(*current)>=0 ) || ( *current-'A'>=0 && 'Z'-(*current)>=0 ) )
@@ -131,7 +158,14 @@ int main() {
     val=lex();
     if(val==EOI)
       break;
-    printf("%d\t%s\n",val,yytext);
+    printf("%d\t",val);
+    int temp=0;
+    for (temp=0;temp<yyleng;temp++)
+    {
+      printf("%c",yytext[temp]);
+
+    }
+    printf("\n");
   }
   return 0;
 }
