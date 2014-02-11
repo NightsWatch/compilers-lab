@@ -340,6 +340,9 @@ void yyfree (void *  );
 
 /* Begin user sect3 */
 
+#define yywrap(n) 1
+#define YY_SKIP_YYWRAP
+
 typedef unsigned char YY_CHAR;
 
 FILE *yyin = (FILE *) 0, *yyout = (FILE *) 0;
@@ -506,8 +509,9 @@ char *yytext;
 /* Lexical analyser for a sample c like language. */
 #line 4 "lexanalyser.lex"
 	#include <math.h>
+	
 
-#line 511 "lex.yy.c"
+#line 515 "lex.yy.c"
 
 #define INITIAL 0
 #define BL_CMNT 1
@@ -695,9 +699,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 12 "lexanalyser.lex"
+#line 13 "lexanalyser.lex"
 
-#line 701 "lex.yy.c"
+#line 705 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -782,86 +786,86 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 13 "lexanalyser.lex"
+#line 14 "lexanalyser.lex"
 {BEGIN BL_CMNT;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 14 "lexanalyser.lex"
+#line 15 "lexanalyser.lex"
 {BEGIN 0;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 15 "lexanalyser.lex"
+#line 16 "lexanalyser.lex"
 /* eat up the block comment characters */
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 16 "lexanalyser.lex"
+#line 17 "lexanalyser.lex"
 printf("int\t\t%d\n",atoi(yytext));
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 17 "lexanalyser.lex"
+#line 18 "lexanalyser.lex"
 printf("float\t\t%g\n",atof(yytext));
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 18 "lexanalyser.lex"
+#line 19 "lexanalyser.lex"
 printf("char\t\t%c\n",yytext[1]);
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 19 "lexanalyser.lex"
+#line 20 "lexanalyser.lex"
 printf("keyword\t\t%s\n",yytext);
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 20 "lexanalyser.lex"
+#line 21 "lexanalyser.lex"
 printf("id\t\t%s\n",yytext);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 21 "lexanalyser.lex"
+#line 22 "lexanalyser.lex"
 printf("operator\t%s\n",yytext);
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 22 "lexanalyser.lex"
+#line 23 "lexanalyser.lex"
 printf("compoper\t%s\n",yytext);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 23 "lexanalyser.lex"
+#line 24 "lexanalyser.lex"
 printf("brace\t\t%s\n", yytext);/* Matching braces for if, for etc */
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 24 "lexanalyser.lex"
+#line 25 "lexanalyser.lex"
 printf("delimiter\t%s\n",yytext);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 25 "lexanalyser.lex"
+#line 26 "lexanalyser.lex"
 /* eat up one line comments	*/
 	YY_BREAK
 case 14:
 /* rule 14 can match eol */
 YY_RULE_SETUP
-#line 26 "lexanalyser.lex"
+#line 27 "lexanalyser.lex"
 /* eat up white spaces */
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 27 "lexanalyser.lex"
+#line 28 "lexanalyser.lex"
 printf("Invalid characters: %s\n",yytext);	/* All other erroneous characters */
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 28 "lexanalyser.lex"
+#line 29 "lexanalyser.lex"
 ECHO;
 	YY_BREAK
-#line 865 "lex.yy.c"
+#line 869 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(BL_CMNT):
 	yyterminate();
@@ -1860,7 +1864,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 28 "lexanalyser.lex"
+#line 29 "lexanalyser.lex"
 
 
 

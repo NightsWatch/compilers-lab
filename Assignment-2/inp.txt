@@ -1,5 +1,6 @@
 while(i<3)
 {
-	i=j+3;
+	///*fgjhghfg*/i=j+3;
 	c=k+4;
+	int a[5];
 }

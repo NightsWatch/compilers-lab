@@ -11,6 +11,8 @@ char* yytext = ""; /* Lexeme (not '\0'
 int yyleng   = 0;  /* Lexeme length.           */
 int yylineno = 0;  /* Input line number        */
 
+int linecommented=0;
+int blockcommented=0;
 
 int lex (void) {
      static char input_buffer[1024];
@@ -24,7 +26,10 @@ int lex (void) {
          * white space on the line,
          * until a nonblank line is found.
          */
-
+         if (linecommented)
+         {
+          linecommented=0;
+         }
          current = input_buffer;
          if(!gets(input_buffer)){
             *current = '\0' ;
@@ -39,6 +44,27 @@ int lex (void) {
       for(; *current; ++current){
           yytext = current;
           yyleng = 1;
+          //printf("%c", *current);
+        //printf("lc %d, bc %d",linecommented,blockcommented);
+        if(linecommented || blockcommented)
+            {
+              
+
+              if(*current=='*' && *(current+1)=='/')
+               { 
+                if(blockcommented)
+                  {
+                    blockcommented=0;
+                   
+                  }
+           
+                  continue;
+
+               }
+
+              else
+                continue;
+            }
 
           switch( *current )
           {
@@ -49,13 +75,32 @@ int lex (void) {
              case '-':
               return MINUS;
              case '*':
+             if((*current)=='/')
+             {
+              fprintf(stderr, "Stray */ found\n");
+              continue;
+             }
               return TIMES;
+
              case '/':
+              if(*(current+1)=='/')
+              {
+                linecommented=1;
+                continue;
+              }
+              else if(*(current+1)=='*')
+                if(linecommented)
+                  continue;
+                blockcommented=1;
               return DIV;
              case '(':
               return LP;
              case ')':
               return RP;
+            case '[':
+                return LSB;
+            case ']':
+                return RSB;
             case '<':
               return LESSTHAN;
             case '>':
@@ -67,6 +112,8 @@ int lex (void) {
             case  '}':
               return RFP;
              case '\n':
+                if(linecommented)
+                  linecommented=0;
              case '\t':
              case ' ' :
               break;
@@ -75,7 +122,19 @@ int lex (void) {
            if(!isalnum(*current))
                fprintf(stderr, "No valid token <%c>\n", *current);
 
+                
             else {
+                   /*   if(*current=='/' && *(current+1)=='*')
+                        blockcommented=1;
+
+                      if(*current=='/' && *(current+1)=='/')
+                        {
+                        if (!blockcommented)
+                          linecommented=1;
+                        else
+                          continue;
+                        }*/
+
                       if (*current=='i' && *(current+1)=='f' &&  (*(current+2)==' ' ) || *(current+2)=='(') {
                             //current+=3;
                           yyleng=2;
@@ -96,10 +155,35 @@ int lex (void) {
                       if (*current=='e' && *(current+1)=='l' && *(current+2)=='s' && *(current+3)=='s' &&  (*(current+4)==' ' || *(current+4)=='(' )) 
                       {
                           yyleng=5;
-                          return WHILE;
+                          return ELSE;
                       }
 
-                  if( ( *current-'a'>=0 && 'z'-(*current)>=0 ) || ( *current-'A'>=0 && 'Z'-(*current)>=0 ) )
+                     if (*current=='i' && *(current+1)=='n' && *(current+2)=='t') 
+                      {
+                          yyleng=3;
+                          return INT;
+                      }
+
+
+                     if (*current=='c' && *(current+1)=='h' && *(current+2)=='a'&& *(current+3)=='r') 
+                      {
+                          yyleng=4;
+                          return CHAR;
+                      }
+
+                    if (*current=='d' && *(current+1)=='o' && *(current+2)=='u'&& *(current+3)=='b' && *(current+4)=='l' && *(current+5)=='e') 
+                      {
+                          yyleng=6;
+                          return DOUBLE;
+                      }
+
+                     if (*current=='f' && *(current+1)=='l' && *(current+2)=='o'&& *(current+3)=='a'&& *(current+2)=='t') 
+                      {
+                          yyleng=5;
+                          return FLOAT;
+                      }                      
+
+                     if( ( *current-'a'>=0 && 'z'-(*current)>=0 ) || ( *current-'A'>=0 && 'Z'-(*current)>=0 ) )
                        {
                           while(isalnum(*current))
                             ++current;
@@ -131,7 +215,23 @@ int main() {
     val=lex();
     if(val==EOI)
       break;
-    printf("%d\t%s\n",val,yytext);
+    printf("<%d,",val);
+    if(val==22 || val==23)
+      printf("'");
+    else
+      {
+        printf(">\n");
+        continue;
+      }
+
+
+    int temp=0;
+    for (temp=0;temp<yyleng;temp++)
+    {
+      printf("%c",yytext[temp]);
+
+    }
+    printf("'>\n");
   }
   return 0;
 }
