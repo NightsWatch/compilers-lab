@@ -802,12 +802,12 @@ YY_RULE_SETUP
 case 4:
 YY_RULE_SETUP
 #line 17 "lexanalyser.lex"
-printf("int\t\t%d\n",atoi(yytext));
+printf("int\t\t\t%s\n",(yytext));
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 18 "lexanalyser.lex"
-printf("float\t\t%g\n",atof(yytext));
+printf("float\t\t%s\n",(yytext));
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
@@ -822,7 +822,7 @@ printf("keyword\t\t%s\n",yytext);
 case 8:
 YY_RULE_SETUP
 #line 21 "lexanalyser.lex"
-printf("id\t\t%s\n",yytext);
+printf("id\t\t\t%s\n",yytext);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP

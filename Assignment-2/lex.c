@@ -248,17 +248,7 @@ int main() {
     printf("<%d,",val);
     if(val==23 || val==28)
       printf("'");
-    else if (val==16 || val==22 || val ==15)
-    {
-
-    }
-    else
-      {
-        printf(">\n");
-        continue;
-      }
-
-
+    
    int temp=0;
     for (temp=0;temp<yyleng;temp++)
     {
