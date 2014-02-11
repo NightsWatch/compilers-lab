@@ -4,9 +4,11 @@
 <rp,)>
 <lfp,{>
 <keyword,int>
-Invalid token
+<num,4>
+<id,a>
 <semi,;>
-Stray */ found
+<operator,*>
+<operator,/>
 <keyword,if>
 <lp,(>
 <id,d>
