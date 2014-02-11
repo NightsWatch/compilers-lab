@@ -1,42 +1,32 @@
 /*	Delimiters	*/
-#define EOI		0	/* End of input			*/
-#define SEMI	1	/* ; 				*/
-#define LP		2	/* (				*/
-#define RP		3	/* )				*/
+#define EOI		"eoi"
+	/* End of input			*/
+#define SEMI	"semi"	/* ; 				*/
+#define LP		"lp"	/* (				*/
+#define RP		"rp"	/* )				*/
 //#define LSB		26
 //#define RSB		27
 
 
-#define LESSTHAN	4
-#define GREATERTHAN	5
-#define EQUALTO 6
-#define LEQ	7
-#define GEQ	8
-#define DEQUAL	9
-
-#define IF 10
-#define ELSE 11
-#define WHILE 12
-#define FOR	13
 
 
-#define CHAR 	16
-#define FLOAT 15
+#define COMPOPER "compoper"
+
+
 /*	Operators	*/
-#define MINUS 18
-#define DIV 19
-#define PLUS	20 /* + 				*/
-#define TIMES	21	/* * 				*/
+#define OPERATOR "operator"	/* * 				*/
 
+#define CHAR 	"char"
+#define FLOAT "float"
 /*	ID	*/
-#define NUM	22
-#define ID	23
+#define NUM	"num"
+#define ID	"id"
 
-#define KEYWORD 28
+#define KEYWORD "keyword"
 
 
-#define LFP	24
-#define RFP	25
+#define LFP	"lfp"
+#define RFP	"rfp"
 
 extern char *yytext;		/* in lex.c			*/
 extern int yyleng;

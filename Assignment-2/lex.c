@@ -14,7 +14,7 @@ int yylineno = 0;  /* Input line number        */
 int linecommented=0;
 int blockcommented=0;
 
-int lex (void) {
+char* lex (void) {
      static char input_buffer[1024];
    char        *current;
 
@@ -55,6 +55,7 @@ int lex (void) {
                 if(blockcommented)
                   {
                     blockcommented=0;
+                    ++current;
                    
                   }
            
@@ -71,16 +72,17 @@ int lex (void) {
              case ';':
               return SEMI;
              case '+':
-              return PLUS;
+              return OPERATOR;
              case '-':
-              return MINUS;
+              return OPERATOR;
              case '*':
-             if((*current)=='/')
+             if(*(current+1)=='/')
              {
-              fprintf(stderr, "Stray */ found\n");
+              printf("Stray */ found\n");
+              ++current;
               continue;
              }
-              return TIMES;
+              return OPERATOR;
 
              case '/':
               if(*(current+1)=='/')
@@ -89,11 +91,13 @@ int lex (void) {
                 continue;
               }
               else if(*(current+1)=='*')
-                if(linecommented)
+               { if(linecommented)
                   continue;
 
                  blockcommented=1;
-              return DIV;
+                 continue;
+               }
+              return OPERATOR;
              case '(':
               return LP;
              case ')':
@@ -103,11 +107,11 @@ int lex (void) {
             // case ']':
             //     return RSB;
             case '<':
-              return LESSTHAN;
+              return COMPOPER;
             case '>':
-            return GREATERTHAN;
+            return COMPOPER;
             case '=':
-            return EQUALTO;
+            return COMPOPER;
             case  '{':
               return LFP;
             case  '}':
@@ -150,23 +154,23 @@ int lex (void) {
                             //current+=3;
                           yyleng=2;
 
-                          return IF;
+                          return KEYWORD;
                       }
 
                       if(*current=='f' && *(current+1)=='o' && *(current+2)=='r' && (*(current+3)=='(' || *(current+3)==' ')) {
                           yyleng=3;
-                          return FOR;
+                          return KEYWORD;
                       }
 
                       if (*current=='w' && *(current+1)=='h' && *(current+2)=='i' && *(current+3)=='l' && *(current+4)=='e' &&  (*(current+5)==' ' || *(current+5)=='(' )) {
                           yyleng=5;
-                          return WHILE;
+                          return KEYWORD;
                       }
 
                       if (*current=='e' && *(current+1)=='l' && *(current+2)=='s' && *(current+3)=='s' &&  (*(current+4)==' ' || *(current+4)=='(' )) 
                       {
                           yyleng=5;
-                          return ELSE;
+                          return KEYWORD;
                       }
 
                      if (*current=='i' && *(current+1)=='n' && *(current+2)=='t') 
@@ -192,7 +196,12 @@ int lex (void) {
                       {
                           yyleng=5;
                           return KEYWORD;
-                      }                      
+                      } 
+                      /*if (*current=='m' && *(current+1)=='a' && *(current+2)=='i'&& *(current+3)=='n') 
+                      {
+                          yyleng=4;
+                          return KEYWORD;
+                      } */                    
 
                      if( ( *current-'a'>=0 && 'z'-(*current)>=0 ) || ( *current-'A'>=0 && 'Z'-(*current)>=0 ) )
                        {
@@ -204,20 +213,34 @@ int lex (void) {
 
                        if(*current-'0'>=0 && '9'-(*current)>=0)
                        {
-                          while(*current-'0'>=0 && '9'-(*current)>=0 )
-                            {
-                              ++current;
+
+                            while(*current-'0'>=0 && '9'-(*current)>=0 )
+                            {  
+                                                         ++current;
                              // printf("%c",*current);
                             }
+                         if( ( *current-'a'>=0 && 'z'-(*current)>=0 ) || ( *current-'A'>=0 && 'Z'-(*current)>=0 ) )
+                         {
+                            printf("Invalid token\n");
+                            continue;
 
+                         }
                           //printf("yes");
                           if(*current=='.')
                           { //printf("sadsadyes");
                               ++current;
                               while(*current-'0'>=0 && '9'-(*current)>=0 )
                                 {
+
                                   ++current;
                                 }    
+                                  if( ( *current-'a'>=0 && 'z'-(*current)>=0 ) || ( *current-'A'>=0 && 'Z'-(*current)>=0 ) )
+                                  {
+                                      printf("Invalid token\n");
+                                      continue;
+
+                                  }
+
                                 yyleng = current - yytext;
                                 return FLOAT;                      }    
                           }
@@ -241,13 +264,12 @@ int lex (void) {
 
 int main() {
   while(1) {
-    int val;
+    char *val;
     val=lex();
     if(val==EOI)
       break;
-    printf("<%d,",val);
-    if(val==23 || val==28)
-      printf("'");
+    printf("<%s,",val);
+    
     
    int temp=0;
     for (temp=0;temp<yyleng;temp++)
@@ -256,9 +278,7 @@ int main() {
 
     }
     
-    if(val==23 || val==28)
-      printf("'");
-
+    
     printf(">\n");
   }
   return 0;

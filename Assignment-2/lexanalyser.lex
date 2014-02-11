@@ -1,9 +1,5 @@
 /* Lexical analyser for a sample c like language. */
 %option noyywrap
-%{
-	#include <math.h>
-	
-%}
 
 %Start	BL_CMNT
 
@@ -14,6 +10,9 @@ ID 	[a-zA-Z][a-zA-Z0-9_]*
 <INITIAL>"/*"													{BEGIN BL_CMNT;}
 <BL_CMNT>"*/"													{BEGIN 0;}
 <BL_CMNT>.														/* eat up the block comment characters */
+<BL_CMNT>\n 													/* eat up lines in block comments */
+<INITIAL>"*/"													printf("Unmatched end of comment\n");
+<INITIAL>{DIGIT}+{ID}+{DIGIT}*								printf("Error:\tInvalid numbers\n");
 <INITIAL>{DIGIT}+												printf("int\t\t\t%s\n",(yytext));
 <INITIAL>{DIGIT}+"."{DIGIT}*									printf("float\t\t%s\n",(yytext));
 <INITIAL>"'"."'"												printf("char\t\t%c\n",yytext[1]);
@@ -32,4 +31,5 @@ int main() {
 	yylex();
 	return 0;
 }
+
 
