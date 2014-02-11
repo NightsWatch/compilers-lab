@@ -3,8 +3,8 @@
 #define SEMI	1	/* ; 				*/
 #define LP		2	/* (				*/
 #define RP		3	/* )				*/
-#define LSB		26
-#define RSB		27
+//#define LSB		26
+//#define RSB		27
 
 
 #define LESSTHAN	4
@@ -20,11 +20,8 @@
 #define FOR	13
 
 
-#define INT  14
-#define FLOAT	15
 #define CHAR 	16
-#define DOUBLE	17
-
+#define FLOAT 15
 /*	Operators	*/
 #define MINUS 18
 #define DIV 19
@@ -34,6 +31,9 @@
 /*	ID	*/
 #define NUM	22
 #define ID	23
+
+#define KEYWORD 28
+
 
 #define LFP	24
 #define RFP	25

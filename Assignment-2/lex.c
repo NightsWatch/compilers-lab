@@ -91,16 +91,17 @@ int lex (void) {
               else if(*(current+1)=='*')
                 if(linecommented)
                   continue;
-                blockcommented=1;
+
+                 blockcommented=1;
               return DIV;
              case '(':
               return LP;
              case ')':
               return RP;
-            case '[':
-                return LSB;
-            case ']':
-                return RSB;
+            // case '[':
+            //     return LSB;
+            // case ']':
+            //     return RSB;
             case '<':
               return LESSTHAN;
             case '>':
@@ -119,9 +120,19 @@ int lex (void) {
               break;
              default:
 
-           if(!isalnum(*current))
+          if(*current=='\'')
+            {
+              if(*(current+2)!='\'')
+                 fprintf(stderr, "No valid token <%c>\n", *current);
+              else
+                {yyleng=3;
+                return CHAR;}
+            }
+
+           else if(!isalnum(*current))
                fprintf(stderr, "No valid token <%c>\n", *current);
 
+            
                 
             else {
                    /*   if(*current=='/' && *(current+1)=='*')
@@ -161,26 +172,26 @@ int lex (void) {
                      if (*current=='i' && *(current+1)=='n' && *(current+2)=='t') 
                       {
                           yyleng=3;
-                          return INT;
+                          return KEYWORD;
                       }
 
 
                      if (*current=='c' && *(current+1)=='h' && *(current+2)=='a'&& *(current+3)=='r') 
                       {
                           yyleng=4;
-                          return CHAR;
+                          return KEYWORD;
                       }
 
                     if (*current=='d' && *(current+1)=='o' && *(current+2)=='u'&& *(current+3)=='b' && *(current+4)=='l' && *(current+5)=='e') 
                       {
                           yyleng=6;
-                          return DOUBLE;
+                          return KEYWORD;
                       }
 
                      if (*current=='f' && *(current+1)=='l' && *(current+2)=='o'&& *(current+3)=='a'&& *(current+2)=='t') 
                       {
                           yyleng=5;
-                          return FLOAT;
+                          return KEYWORD;
                       }                      
 
                      if( ( *current-'a'>=0 && 'z'-(*current)>=0 ) || ( *current-'A'>=0 && 'Z'-(*current)>=0 ) )
@@ -193,18 +204,37 @@ int lex (void) {
 
                        if(*current-'0'>=0 && '9'-(*current)>=0)
                        {
-                          while(*current-'0'>=0 && '9'-(*current)>=0)
-                            ++current;
-                           yyleng = current - yytext;
+                          while(*current-'0'>=0 && '9'-(*current)>=0 )
+                            {
+                              ++current;
+                             // printf("%c",*current);
+                            }
+
+                          //printf("yes");
+                          if(*current=='.')
+                          { //printf("sadsadyes");
+                              ++current;
+                              while(*current-'0'>=0 && '9'-(*current)>=0 )
+                                {
+                                  ++current;
+                                }    
+                                yyleng = current - yytext;
+                                return FLOAT;                      }    
+                          }
+                          
+                          yyleng = current - yytext;
                           return NUM;
-                       }
+                       
+                     }
 
-            }
+            
             break;
+            }
+          }
 
-        }
+        
 
-    }
+      
 
   }
 }
@@ -216,8 +246,12 @@ int main() {
     if(val==EOI)
       break;
     printf("<%d,",val);
-    if(val==22 || val==23)
+    if(val==23 || val==28)
       printf("'");
+    else if (val==16 || val==22 || val ==15)
+    {
+
+    }
     else
       {
         printf(">\n");
@@ -225,13 +259,17 @@ int main() {
       }
 
 
-    int temp=0;
+   int temp=0;
     for (temp=0;temp<yyleng;temp++)
     {
       printf("%c",yytext[temp]);
 
     }
-    printf("'>\n");
+    
+    if(val==23 || val==28)
+      printf("'");
+
+    printf(">\n");
   }
   return 0;
 }
