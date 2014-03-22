@@ -19,7 +19,7 @@ void printMap(map<string, set<string> > List)
 {
 	 for(map<string, set<string> >::iterator iter = List.begin(); iter != List.end(); iter++ ) 
 	 {
-	 	       // cout << (*iter)->first << " is " << endl;
+	 	        cout << (iter)->first << " is " << endl;
 
 	 }
 }
@@ -92,9 +92,12 @@ int main(int argc, char** argv)
  	/*
  	check for left recursion and remove it
  	*/
- 	
- 	/* loop through grammar and get first sets of each nonterminal */
- 	getFirstSet("E");
+
+ 	/* loop through the grammar to find firtsets for all the nonterminals */
+ 	for(map<string, set<string> >::iterator iter = grammar.begin(); iter != grammar.end(); iter++ ) 
+	{
+ 		getFirstSet(iter->first);
+ 	}
  	//getFollowSet();
  	//createTable();
  	//parse();
