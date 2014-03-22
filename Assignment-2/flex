@@ -1,0 +1,32 @@
+keyword		int
+id			main
+brace		(
+brace		)
+brace		{
+keyword		int
+Error:	Invalid numbers
+delimiter	;
+Unmatched end of comment
+keyword		if
+brace		(
+id			d
+compoper	<
+int			5
+brace		)
+brace		{
+id			a
+operator	=
+int			8
+delimiter	;
+brace		}
+keyword		else
+brace		{
+id			b
+operator	=
+int			7
+delimiter	;
+brace		}
+keyword		return
+int			0
+delimiter	;
+brace		}

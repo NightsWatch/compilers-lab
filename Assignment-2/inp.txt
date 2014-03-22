@@ -1,0 +1,7 @@
+while(i<3)
+{
+	///*fgjhghfg*/i=j+3;
+	c=k+4;
+	char a = '3';
+	int a=5.3434234243243;
+}

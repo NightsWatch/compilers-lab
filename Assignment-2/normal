@@ -1,0 +1,32 @@
+<keyword,int>
+<id,main>
+<lp,(>
+<rp,)>
+<lfp,{>
+<keyword,int>
+Invalid token
+<semi,;>
+Stray */ found
+<keyword,if>
+<lp,(>
+<id,d>
+<compoper,<>
+<num,5>
+<rp,)>
+<lfp,{>
+<id,a>
+<compoper,=>
+<num,8>
+<semi,;>
+<rfp,}>
+<id,else>
+<lfp,{>
+<id,b>
+<compoper,=>
+<num,7>
+<semi,;>
+<rfp,}>
+<id,return>
+<num,0>
+<semi,;>
+<rfp,}>

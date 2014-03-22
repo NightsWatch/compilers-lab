@@ -1,0 +1,1 @@
+a:=1; b:=4; if a<b then begin a:=a+b; d:=7 end

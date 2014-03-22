@@ -1,0 +1,16 @@
+Assignment 3(a):
+Design an LL(1) parser for the language you have used in Assignment 2.
+The parser needs to call the lexical analyzer. The Parser takes input as
+the source code, calls the lexical analyzer to generate tokens and finally
+do parsing. The parser should also have the facility to take an arbitrary
+CFG and generate LL(1)table and display it. Also, parsing stack should be
+displayed.
+-----------------------
+The problem defined above describes ONLY the basic requirements. You are
+free to implement in your own way for efficiency in implementation.
+Extra credits will be given for “efficiency in implementation”, display of
+results, extra features like handling ambiguity, elimination of left
+recursion etc.
+
+Assignment 3(b):
+Implement a Parser using Yacc for the language used in Assignment 2(b).

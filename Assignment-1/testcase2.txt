@@ -1,0 +1,7 @@
+a:=2; 
+b:=3;
+c:=1;
+if a+b<c*a then begin 
+d:=1; 
+c:=a+5 end
+a:= a+c
