@@ -216,6 +216,7 @@ void Parser::getFirstSet(string nonterm)
 			if(terminals.find(*it) != terminals.end())
 			{
 				symbols.insert(*it);
+				continue;
 
 			}
 
