@@ -16,6 +16,17 @@ int length(string* array)
 }
 
 
+void printMap(map<string, set<string> > List)
+
+{
+	 for(map<string, set<string> >::iterator iter = List.begin(); iter != List.end(); iter++ ) 
+	 {
+	 	        cout << iter->first << " is " << endl;
+
+	 }
+}
+
+
 std::vector<std::string> tokenize(std::string s, std::string sep){
 	// Skip delimiters at beginning.
 	std::string::size_type lastPos = s.find_first_not_of(sep, 0);	
@@ -32,25 +43,11 @@ std::vector<std::string> tokenize(std::string s, std::string sep){
 	return tokens;
 }
 
-
-void printMap(map<string, set<string> > List)
-
-{
-	 for(map<string, set<string> >::iterator iter = List.begin(); iter != List.end(); iter++ ) 
-	 {
-	 	        cout << (iter)->first << " is " << endl;
-
-	 }
-}
-
-
-
-
 void printSet(set<string> List)
 {
 	 for(set<string>::iterator iter = List.begin(); iter != List.end(); iter++ ) 
 	 {
-	 	        cout << (*iter)<< " value in set"<< endl;
+	 	        cout << *iter << " value in set"<< endl;
 
 	 }
 }
@@ -80,21 +77,16 @@ void Parser::getGrammar(string fname)
   				// if(strcmp(tokens[0],"t:")!=0) break;
 				for(int i=1;i<tokens.size();i++)
 				{
-				  terminals.insert(tokens[i]);
+				  terminals[i-1]=tokens[i];
 				}
 				linenum++;
 				continue;
 
 			}
 
-			// Adding the list of nonterminals
-			nonterminals.insert(tokens[0]);
-
-		/* adding productions to the grammar -*/
-
+			/* adding productions to the grammar -*/
 			for(int i=1;i<tokens.size();i++)
 				{
-
 				  productions.insert(tokens[i]);
 				}
 			grammar.insert( std::pair<string, set<string> >(tokens[0],productions) );
@@ -146,56 +138,135 @@ int main(int argc, char** argv)
 	{
  		getFollowSet(iter->first);
  	}
+ 	//getFollowSet();
+ 	//createTable();
+ 	//parse();
+ }
 
-	for(map<string, string >::iterator iter = followOverlap.begin(); iter != followOverlap.end(); iter++ ) 
-	{
-		/* check if iter is A check if followOverlap[something]=A so that you update follw(A) before adding everything 
-		 in follw(A) to B */
+set<string> Parser::appendSets(set<string> first,set<string> second) {
+	set<string> result;
+	for(sit it=first.begin();it!=first.end();it++) {
+		result.insert(*it);
+	}
 
-		for(map<string, string>::iterator iter2 = followOverlap.begin(); iter2 != followOverlap.end(); iter2++ ) 
+	for(sit it=second.begin();it!=second.end();it++) {
+		result.insert(*it);
+	}
+	return result;
+}
+
+set<string> Parser::giveFirst(string prod) {
+	int j=0;
+	set<string> result;
+	for(int i=0;i<prod.size();i++) {
+		if(terminals.find(prod.substr(j,i-j+1))!=terminals.end()) {
+			result.insert(substr(j,i-j+1));
+			return result;
+		}
+
+		else if (nonterminals.find(prod.substr(j,i-j+1))!=nonterminals.end())
 		{
-			if((iter->first)==(iter2->second))
-			{
-				// copy everything in follow of iter2 to follow of iter
-				string temp= iter2->first;
-				set<string> fromset= followSet[temp];
-				set<string> tempset;
-				for (std::set<string>::iterator iter3=fromset.begin(); iter3!=fromset.end(); ++iter3)
-					tempset.insert(*iter3);
-				followSet.insert(std::pair<string, set<string> >(iter->first, tempset));
+			string nont=substr(j,i-j+1);
+			if(firstSet[nont].find("e")!=firstSet[nont].end()) {
+				result=appendSets(firstSet[nont],giveFirst.substr(i+1,prod.size()-i));
+			} else {
+				return firstSet[nont];
+			}
+		} 
+
+		else {
+			continue;
+		}
+	}
+	return result;
+}
+
+
+void Parser::createTable() {
+	for(pit iter = grammar.begin(); iter != grammar.end(); iter++ ) {
+ 		
+ 		for(sit it=(iter->second).begin();it!=(iter->second).end();it++) {
+ 			set<string> firstSymbols=giveFirst(*it);
+ 			for(sit fs=firstSymbols.begin();fs!=firstSymbols.end();fs++) {
+ 				//map<string , map<string,string> > parsing_table;
+ 				//parsing_table[iter->first]=
+ 				 pair<sit, bool> pr = parsing_table[iter->first].insert(make_pair(*fs,*it));
+ 				 if(!pr.second)
+ 				 {	
+ 				 	printf("Grammar is not LL(1). Exiting parsing.\n");
+ 				 	exit(0);
+
+ 				 }
+
+ 				//someStorage["key"].insert(std::make_pair("key2", "value2")));
+ 			}
+
+ 			if(firstSymbols.find("e")!=firstSymbols.end()) 
+ 			{
+ 				for(sit fs=followSet[iter->first].begin(); fs!=firstSet[iter->first].end(); fs++)
+ 				{	
+ 					pair<sit, bool> pr = parsing_table[iter->first].insert(make_pair(*fs,*it));
+ 					if(!pr.second)
+ 					{	
+	 				 	printf("Grammar is not LL(1). Exiting parsing.\n");
+	 				 	exit(0);
+
+ 				 	}
+
+ 				}
+ 			}
+ 		}
+ 	}
+}
+
+void eliminateLRecurse() {
+	map<int,string> ind;
+	int i=1;
+	for(sit it=nonterminals.begin();it!=nonterminals.end();it++) {
+		ind[i]=*it;
+		i++
+	}
+
+	for(int i=1;i<=nontermianls.size();i++) {
+		for(int j=1;j<i;j++) {
+			for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
+				int len=ind[j].size();
+				string str=*it;
+				if(str.substr(0,len)==ind[j]) {
+					grammar[ind[i]].erase(it);
+					for(sit it2=grammar[ind[j]].begin();it2!=grammar[ind[j]].end();it2++) {
+						string temp=(*it2)+str.substr(len,str.size()-len);
+						grammar[ind[i]].insert(temp);
+					}
+				}
 			}
 		}
 
+		//eliminate left-recursion from among the Ai productions
+		string newNonTerm=grammar[ind[i]]+"1";
+		int len=ind[i].size();
+		set<string> upr,lpr;
+		for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
+			string str=*it;
+			if(str.substr(0,len)==ind[i]) {
+				lpr.insert(str.substr(len,str.size()-len)+newNonTerm);
+			} else {
+				upr.insert(str+newNonTerm);
+			}
+		}
+		lpr.insert("e");
 
-		// Adding followset(iter) to followset(B) B=followoverlap(a)
-	string temp2= iter->first;
-
-	set<string> copyset= followSet[temp2];
-		set<string> toset;		
-		for (std::set<string>::iterator iter2=copyset.begin(); iter2!=copyset.end(); ++iter2)
-								toset.insert(*iter2);
-
-		string b=followOverlap[temp2];
-				followSet.insert(std::pair<string, set<string> >(b, toset));
-
-	}	
-
-	//createTable();
- 	//parse();
-
- }
-
-
-
-
+		grammar[ind[i]]=upr;
+		grammar[newNonTerm]=lpr;
+	}
+}
 
 void Parser::getFirstSet(string nonterm)
-
 {
 	set<string> productions = grammar[nonterm];
  	set<string> symbols;
 
-   for (set<string>::iterator it=productions.begin(); it!=productions.end(); ++it)
+   for (sit it=productions.begin(); it!=productions.end(); ++it)
 	{
 		if(strcmp((*it).c_str(),"e")==0)
 			{
@@ -203,23 +274,14 @@ void Parser::getFirstSet(string nonterm)
 				continue;
 			}
  			// Check if the production string is a terminal
- 			// for(int i=0;i< length(terminals) ;i++)
- 			// {
- 			// 	if(strcmp((*it).c_str(),terminals[i].c_str())==0)
- 			// 		{
- 			// 			symbols.insert(*it);
- 			// 			continue;
- 			// 		}					
- 			// }
-
-
-			if(terminals.find(*it) != terminals.end())
-			{
-				symbols.insert(*it);
-				continue;
-
-			}
-
+ 			for(int i=0;i< length(terminals) ;i++)
+ 			{
+ 				if(strcmp((*it).c_str(),terminals[i].c_str())==0)
+ 					{
+ 						symbols.insert(*it);
+ 						continue;
+ 					}					
+ 			}
 
 			int i=0;
  			int len= (*it).size();
@@ -231,11 +293,14 @@ void Parser::getFirstSet(string nonterm)
 				// check for terminals if found add and break
 				if(i>=1)
 				{
-					if(terminals.find(s) != terminals.end())
-					{
-						symbols.insert(s);
-						break;
-					}				
+					for(int j=0;j< length(terminals) ;j++)
+		 			{
+		 				if(strcmp((s).c_str(),terminals[j].c_str())==0)
+		 					{
+		 						symbols.insert(s);
+		 						break;
+		 					}					
+		 			}
 				}
 
 				map<string, set<string> >::iterator mapit = firstSet.find(s);
@@ -278,22 +343,19 @@ void Parser::getFirstSet(string nonterm)
 
 
 
-
 void Parser::getFollowSet(string nonterm)
 {
 	set<string> symbols;
-	// if the non-term is the start symbol add $ & return
 
-	if(strcmp(nonterm.c_str(),"S")==0)
+
+	if(strcmp(nonterm,"S"))
 	{
 		symbols.insert("$");
-		return;
+		break;
 	}
 
 	set<string> productions = grammar[nonterm];
 
-
-	// iterarte through all the productions
 	for (set<string>::iterator it=productions.begin(); it!=productions.end(); ++it)
 	{
 
@@ -301,45 +363,118 @@ void Parser::getFollowSet(string nonterm)
  		int len= (*it).size();
  		i=len;
 
- 		
- 		string str= (*it);
-		string s= str.substr(i-1,1);
-		string prev= str.substr(i-2,1);
-
-				//  first check if the firstSet is already computed else compute it
-
-/*		map<string, set<string> >::iterator mapit = firstSet.find(s);
-		if(mapit == firstSet.end())
+ 		while(i!=0)
  		{
-				getFirstSet(s);
- 		}	
-*/
+ 			string str= (*it);
+			string s= str.substr(i-1,1);
+			i--;
 
- 		// X-> GhB so first calcluate the firstSet(B) and add it to followSet(h) AND IF first(B) has 'e' 
- 		// then set followOverlap to add follow of A to follow of(h)
- 				set<string> prodfirstSet = firstSet[s];
-						
- 				set<string> followseth;  //
-				for (std::set<string>::iterator iter=prodfirstSet.begin(); iter!=prodfirstSet.end(); ++iter)
-					{
-						string temp=(*iter);
-						if(strcmp(temp.c_str(),"e")!=0)
-						followseth.insert(*iter);
-						else
-							followOverlap[nonterm]=prev; // set the followOverlap value of nonterm as e is found in the firstSet(B)
-					}
+			map<string, set<string> >::iterator mapit = firstSet.find(s);
+
+				// check if the prdtnfirstset has 'e'
+				//  first check if the firstset is already computed else compute it
+
+				if(mapit == firstSet.end())
+ 				{
+					getFirstSet(s);
+ 				}	
+ 						set<string> prdfirstSet = firstSet[s];
+ 						set<string>::iterator setit= prdfirstSet.find("e");
+
+ 						if(setit == prdfirstSet.end())
+						{
+							/* 'e' not found so copy the first set of the prdtn to the nonterminal*/
+
+							for (std::set<string>::iterator iter=prdfirstSet.begin(); iter!=prdfirstSet.end(); ++iter)
+							{
+								symbols.insert(*iter);
+							}
+ 							break;
+
+					  }
 
 
-					followSet.insert(std::pair<string, set<string> > (prev,followseth) );
-					  
-					
- 		
+
+
+ 		}
 	}
+
+	followSet[nonterm]=symbols;
 
 }
 
-//// void Parser::getfollowSet(string);
+//// void Parser::getFirstSet(string);
 // void Parser::createTable();
 
-// void Parser::parse();
+bool Parser::parse(string tokensfile)
+{
+
+	parserstack.push("$");
+	parserstack.push("S");
+
+	string x,a;
+
+	ifstream tokensfilestream (tokensfile.c_str());
+
+	if (tokensfile.is_open())
+  	{
+		//while()
+		//{
+		while (!parserstack.empty())
+		{
+			x = parserstack.pop();
+			getline(tokensfilestream, a);
+			if (tokensfilestream.eof())
+				a = "$";
+
+			if(terminals.find(x)!=terminals.end() || !strcmp(x.c_str(),"$"))
+			{
+				if(!strcmp(x,a))
+					continue;
+				else
+					return false;
+			}
+			else
+			{
+				string value = parsing_table[x][a];
+
+				if ( parsing_table.find(x) == parsing_table.end() ) 
+				{
+				 	return false;
+				} 
+				else 
+				{
+				 	if ( parsing_table[x].find(a) == parsing_table[x].end()  ) 
+				 	{
+						  return false;
+					} 
+					else 
+					{
+						  string value = parsing_table[x][a];
+						  vector nterms = tokenize(value,".");
+						  for(int i=nterms.size()-1;i>0;i--) 
+						  {
+						  	parserstack.push(nterms[i]);
+						  }
+					}
+
+				}
+
+			}
+		}
+		
+		if (!tokensfilestream.eof())
+			return false;
+
+
+		return true;
+		
+  
+	}
+	tokensfilestream.close();
+
+
+	
+
+}
 

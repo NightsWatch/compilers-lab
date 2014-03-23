@@ -28,17 +28,9 @@ public:
 
 		map<string , map<string,string> > parsing_table;
 
-
-		map<string, string> followOverlap;
-
 		stack <string> parserstack;
 
-
-		set<string> nonterminals;
-
-
-		set<string> terminals;
-
+		string terminals[];
 
 		void getGrammar(string);
 		void start();

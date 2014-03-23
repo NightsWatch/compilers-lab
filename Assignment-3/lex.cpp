@@ -17,7 +17,7 @@ int blockcommented=0;
 
 FILE* fp;
 
-char* LexAnalyser::lex () {
+char* lex (void) {
      static char input_buffer[1024];
    char        *current;
 
