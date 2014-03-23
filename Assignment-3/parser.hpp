@@ -11,6 +11,9 @@
 #include <iterator>
 #include <map>
 
+#define map<string, set<string> >::iterator pit
+#define set<string>::iterator sit
+
 using namespace std;
 
 class Parser

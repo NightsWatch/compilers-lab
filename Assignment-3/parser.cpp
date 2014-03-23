@@ -115,12 +115,12 @@ int main(int argc, char** argv)
  	/* loop through the grammar to find firtsets for all the nonterminals */
  	for(map<string, set<string> >::iterator iter = grammar.begin(); iter != grammar.end(); iter++ ) 
 	{
- 		firstSet[iter->first]=getFirstSet(iter->first);
+ 		getFirstSet(iter->first);
  	}
 
  	for(map<string, set<string> >::iterator iter = grammar.begin(); iter != grammar.end(); iter++ ) 
 	{
- 		followSet[iter->first]=getFollowSet(iter->first);
+ 		getFollowSet(iter->first);
  	}
  	//getFollowSet();
  	//createTable();
@@ -128,17 +128,21 @@ int main(int argc, char** argv)
 
  }
 
-void Parser::getFollowSet(string nonterm) {
-	set<string> productions = grammar[nonterm];
-	set<string> symbols;
 
-	for(set<string>::iterator it=productions.begin();it!=productions.end();it++) {
+void Parser::createTable() {
+	for(pit iter = grammar.begin(); iter != grammar.end(); iter++ ) {
+ 		
+ 		for(sit it=(iter->second).begin();it!=(iter->second).end();it++) {
 
-	}
-
-	return symbols;
+ 			for(sit fs=firstSet[iter->first].begin();fs!=firstSet[iter->first].end();fs++) {
+ 				//map<string , map<string,string> > parsing_table;
+ 				//parsing_table[iter->first]=
+ 				parsing_table[iter->first].insert(make_pair(*fs,));
+ 				someStorage["key"].insert(std::make_pair("key2", "value2")));
+ 			}
+ 		}
+ 	}
 }
-
 
 void Parser::getFirstSet(string nonterm)
 
@@ -146,7 +150,7 @@ void Parser::getFirstSet(string nonterm)
 	set<string> productions = grammar[nonterm];
  	set<string> symbols;
 
-   for (set<string>::iterator it=productions.begin(); it!=productions.end(); ++it)
+   for (sit it=productions.begin(); it!=productions.end(); ++it)
 	{
 		if(strcmp((*it).c_str(),"e")==0)
 			{
