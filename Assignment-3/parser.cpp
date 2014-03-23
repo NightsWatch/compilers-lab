@@ -279,6 +279,8 @@ void Parser::getFollowSet(string nonterm)
  		}
 	}
 
+	followSet[nonterm]=symbols;
+
 }
 
 //// void Parser::getFirstSet(string);
