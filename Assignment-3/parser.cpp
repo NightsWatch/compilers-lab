@@ -1,6 +1,5 @@
-
 #include "parser.hpp"
-#include "lex.cpp"
+#include "lex.hpp"
 
 extern string terminals[];
 
@@ -93,6 +92,7 @@ int main(int argc, char** argv)
 		exit(1);
 	}
 
+
 	// Parser p=Parser();
 	// LexAnalyser l=LexAnalyser();
 
@@ -115,7 +115,12 @@ int main(int argc, char** argv)
  	/* loop through the grammar to find firtsets for all the nonterminals */
  	for(map<string, set<string> >::iterator iter = grammar.begin(); iter != grammar.end(); iter++ ) 
 	{
- 		getFirstSet(iter->first);
+ 		firstSet[iter->first]=getFirstSet(iter->first);
+ 	}
+
+ 	for(map<string, set<string> >::iterator iter = grammar.begin(); iter != grammar.end(); iter++ ) 
+	{
+ 		followSet[iter->first]=getFollowSet(iter->first);
  	}
  	//getFollowSet();
  	//createTable();
@@ -123,17 +128,23 @@ int main(int argc, char** argv)
 
  }
 
+void Parser::getFollowSet(string nonterm) {
+	set<string> productions = grammar[nonterm];
+	set<string> symbols;
 
+	for(set<string>::iterator it=productions.begin();it!=productions.end();it++) {
+
+	}
+
+	return symbols;
+}
 
 
 void Parser::getFirstSet(string nonterm)
 
 {
-
 	set<string> productions = grammar[nonterm];
-
  	set<string> symbols;
-
 
    for (set<string>::iterator it=productions.begin(); it!=productions.end(); ++it)
 	{
@@ -150,7 +161,6 @@ void Parser::getFirstSet(string nonterm)
  						symbols.insert(*it);
  						continue;
  					}					
-
  			}
 
 			int i=0;
@@ -170,12 +180,9 @@ void Parser::getFirstSet(string nonterm)
 		 						symbols.insert(s);
 		 						break;
 		 					}					
-
 		 			}
 				}
 
-
-				
 				map<string, set<string> >::iterator mapit = firstSet.find(s);
 
 				// check if the prdtnfirstset has 'e'
@@ -201,17 +208,17 @@ void Parser::getFirstSet(string nonterm)
 					  }
 
  						i++;
-				symbols.insert("e");
-				
+				symbols.insert("e");	
 			}
-
 	}
+
 
 
 	firstSet[nonterm]=symbols;
 
 
 	
+
  }
 
 
