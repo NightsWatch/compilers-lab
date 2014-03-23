@@ -171,12 +171,12 @@ void Parser::createTable() {
 	for(pit iter = grammar.begin(); iter != grammar.end(); iter++ ) {
  		
  		for(sit it=(iter->second).begin();it!=(iter->second).end();it++) {
-
- 			for(sit fs=firstSet[iter->first].begin();fs!=firstSet[iter->first].end();fs++) {
+ 			set<string> firstSymbols=giveFirst(*it);
+ 			for(sit fs=firstSymbols.begin();fs!=firstSymbols.end();fs++) {
  				//map<string , map<string,string> > parsing_table;
  				//parsing_table[iter->first]=
- 				parsing_table[iter->first].insert(make_pair(*fs,));
- 				someStorage["key"].insert(std::make_pair("key2", "value2")));
+ 				parsing_table[iter->first].insert(make_pair(*fs,*it));
+ 				//someStorage["key"].insert(std::make_pair("key2", "value2")));
  			}
  		}
  	}
