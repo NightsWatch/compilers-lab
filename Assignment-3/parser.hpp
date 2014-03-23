@@ -17,6 +17,7 @@ class Parser
 {
 
 public:
+		string terminals[];
         map< string, set<string> > grammar;
 
         map< string, set<string> > firstSet;

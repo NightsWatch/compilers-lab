@@ -8,6 +8,8 @@
 #include <sstream>
 #include <set>
 #include <map>
+#include <ctype.h>
+
 
 using namespace std;
 
@@ -15,6 +17,8 @@ class LexAnalyser
 {
 	public:
 			string terminals[];
+			void getTokens( string , string );
 
-		void getTokens( string, string);
+
+		
 };

@@ -1,6 +1,6 @@
 
 #include "parser.hpp"
-#include "lex.hpp"
+#include "lex.cpp"
 
 extern string terminals[];
 
@@ -69,16 +69,17 @@ void Parser::getGrammar(string fname)
 
 int main(int argc, char** argv)
 {
-	if(argc!=3)
+	/*if(argc!=3)
 	{
 		cout<<"Input format: exec codefilename grammarfilename";
 		exit(1);
-	}
+	}*/
+
 
 	// Parser p=Parser();
-	// LexAnalyser l=LexAnalyser();
+	 LexAnalyser l=LexAnalyser();
 
-	// l.getTokens(argv[1],tokenfile);
+	l.getTokens(argv[1],tokenfile);
 
 	// p.getGrammar(argv[2]);
 
