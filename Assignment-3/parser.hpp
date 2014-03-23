@@ -25,7 +25,12 @@ public:
 
 		map<string , map<string,string> > parsing_table;
 
-		string terminals[];
+		map<string, string> followOverlap;
+
+		set<string> nonterminals;
+
+
+		set<string> terminals;
 
 		void getGrammar(string);
 		void start();

@@ -18,5 +18,5 @@ class LexAnalyser
 
 
 		void getTokens( string, string);
+		char* lex();
 };
-
