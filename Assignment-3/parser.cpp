@@ -190,19 +190,78 @@ void Parser::createTable() {
  			for(sit fs=firstSymbols.begin();fs!=firstSymbols.end();fs++) {
  				//map<string , map<string,string> > parsing_table;
  				//parsing_table[iter->first]=
- 				parsing_table[iter->first].insert(make_pair(*fs,*it));
+ 				 pair<sit, bool> pr = parsing_table[iter->first].insert(make_pair(*fs,*it));
+ 				 if(!pr.second)
+ 				 {	
+ 				 	printf("Grammar is not LL(1). Exiting parsing.\n");
+ 				 	exit(0);
+
+ 				 }
+
  				//someStorage["key"].insert(std::make_pair("key2", "value2")));
  			}
 
- 			if(firstSymbols.find("e")!=firstSymbols.end()) {
+ 			if(firstSymbols.find("e")!=firstSymbols.end()) 
+ 			{
+ 				for(sit fs=followSet[iter->first].begin(); fs!=firstSet[iter->first].end(); fs++)
+ 				{	
+ 					pair<sit, bool> pr = parsing_table[iter->first].insert(make_pair(*fs,*it));
+ 					if(!pr.second)
+ 					{	
+	 				 	printf("Grammar is not LL(1). Exiting parsing.\n");
+	 				 	exit(0);
 
+ 				 	}
+
+ 				}
  			}
  		}
  	}
 }
 
-void Parser::getFirstSet(string nonterm)
+void eliminateLRecurse() {
+	map<int,string> ind;
+	int i=1;
+	for(sit it=nonterminals.begin();it!=nonterminals.end();it++) {
+		ind[i]=*it;
+		i++
+	}
 
+	for(int i=1;i<=nontermianls.size();i++) {
+		for(int j=1;j<i;j++) {
+			for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
+				int len=ind[j].size();
+				string str=*it;
+				if(str.substr(0,len)==ind[j]) {
+					grammar[ind[i]].erase(it);
+					for(sit it2=grammar[ind[j]].begin();it2!=grammar[ind[j]].end();it2++) {
+						string temp=(*it2)+str.substr(len,str.size()-len);
+						grammar[ind[i]].insert(temp);
+					}
+				}
+			}
+		}
+
+		//eliminate left-recursion from among the Ai productions
+		string newNonTerm=grammar[ind[i]]+"1";
+		int len=ind[i].size();
+		set<string> upr,lpr;
+		for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
+			string str=*it;
+			if(str.substr(0,len)==ind[i]) {
+				lpr.insert(str.substr(len,str.size()-len)+newNonTerm);
+			} else {
+				upr.insert(str+newNonTerm);
+			}
+		}
+		lpr.insert("e");
+
+		grammar[ind[i]]=upr;
+		grammar[newNonTerm]=lpr;
+	}
+}
+
+void Parser::getFirstSet(string nonterm)
 {
 	set<string> productions = grammar[nonterm];
  	set<string> symbols;
