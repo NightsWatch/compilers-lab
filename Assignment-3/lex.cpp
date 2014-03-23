@@ -15,6 +15,8 @@ int yylineno = 0;  /* Input line number        */
 int linecommented=0;
 int blockcommented=0;
 
+FILE* fp;
+
 char* lex (void) {
      static char input_buffer[1024];
    char        *current;
@@ -31,8 +33,9 @@ char* lex (void) {
          {
           linecommented=0;
          }
+
          current = input_buffer;
-         if(!gets(input_buffer)){
+         if(!fgets(input_buffer,1023,fp)){
             *current = '\0' ;
 
             return EOI;
@@ -263,27 +266,33 @@ char* lex (void) {
   }
 }
 
-void getTokens( string inp, string outp)
+void LexAnalyser::getTokens( string inp, string outp)
     {
+      //ifstream fin(inp);
+      fp=fopen(inp.c_str(),"r");
+      FILE* fop;
+      fop=fopen(outp.c_str(),"w");
       while(1) {
           char *val;
           val=lex();
           if(val==EOI)
             break;
-          printf("<%s,",val);
+          fprintf(fop,"<%s,",val);
           
           
          int temp=0;
           for (temp=0;temp<yyleng;temp++)
           {
-            printf("%c",yytext[temp]);
+            fprintf(fop,"%c",yytext[temp]);
 
           }
           
           
-          printf(">\n");
+          fprintf(fop,">\n");
         }
-        return ;
+
+        fclose(fp);
+        fclose(fop);
 
 
     }

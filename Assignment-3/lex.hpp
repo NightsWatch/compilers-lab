@@ -18,7 +18,5 @@ class LexAnalyser
 	public:
 			string terminals[];
 			void getTokens( string , string );
-
-
 		
 };

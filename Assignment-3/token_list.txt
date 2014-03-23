@@ -1,0 +1,5 @@
+<keyword,int>
+<id,a>
+<compoper,=>
+<num,3>
+<semi,;>
