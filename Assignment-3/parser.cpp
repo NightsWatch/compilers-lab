@@ -21,7 +21,7 @@ void printMap(map<string, set<string> > List)
 {
 	 for(map<string, set<string> >::iterator iter = List.begin(); iter != List.end(); iter++ ) 
 	 {
-	 	        cout << (iter)->first << " is " << endl;
+	 	        cout << iter->first << " is " << endl;
 
 	 }
 }
@@ -31,7 +31,7 @@ void printSet(set<string> List)
 {
 	 for(set<string>::iterator iter = List.begin(); iter != List.end(); iter++ ) 
 	 {
-	 	        cout << (*iter)<< " value in set"<< endl;
+	 	        cout << *iter << " value in set"<< endl;
 
 	 }
 }
