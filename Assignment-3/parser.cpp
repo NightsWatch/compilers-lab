@@ -27,6 +27,22 @@ void printMap(map<string, set<string> > List)
 }
 
 
+std::vector<std::string> tokenize(std::string s, std::string sep){
+	// Skip delimiters at beginning.
+	std::string::size_type lastPos = s.find_first_not_of(sep, 0);	
+	// Find first "non-delimiter", which will be between lastPos and pos
+	std::string::size_type pos = s.find_first_of(sep, lastPos); 
+	std::vector<std::string> tokens;
+	while(pos != std::string::npos || lastPos != std::string::npos){
+		tokens.push_back(s.substr(lastPos,(pos - lastPos)));
+		// Skip delimiters
+		lastPos = s.find_first_not_of(sep, pos);	
+		// Find "non-delimiter", which will be between lastPos and pos
+		pos = s.find_first_of(sep, lastPos); 
+	}
+	return tokens;
+}
+
 void printSet(set<string> List)
 {
 	 for(set<string>::iterator iter = List.begin(); iter != List.end(); iter++ ) 
@@ -125,7 +141,6 @@ int main(int argc, char** argv)
  	//getFollowSet();
  	//createTable();
  	//parse();
-
  }
 
 set<string> Parser::appendSets(set<string> first,set<string> second) {
@@ -391,5 +406,75 @@ void Parser::getFollowSet(string nonterm)
 //// void Parser::getFirstSet(string);
 // void Parser::createTable();
 
-// void Parser::parse();
+bool Parser::parse(string tokensfile)
+{
+
+	parserstack.push("$");
+	parserstack.push("S");
+
+	string x,a;
+
+	ifstream tokensfilestream (tokensfile.c_str());
+
+	if (tokensfile.is_open())
+  	{
+		//while()
+		//{
+		while (!parserstack.empty())
+		{
+			x = parserstack.pop();
+			getline(tokensfilestream, a);
+			if (tokensfilestream.eof())
+				a = "$";
+
+			if(terminals.find(x)!=terminals.end() || !strcmp(x.c_str(),"$"))
+			{
+				if(!strcmp(x,a))
+					continue;
+				else
+					return false;
+			}
+			else
+			{
+				string value = parsing_table[x][a];
+
+				if ( parsing_table.find(x) == parsing_table.end() ) 
+				{
+				 	return false;
+				} 
+				else 
+				{
+				 	if ( parsing_table[x].find(a) == parsing_table[x].end()  ) 
+				 	{
+						  return false;
+					} 
+					else 
+					{
+						  string value = parsing_table[x][a];
+						  vector nterms = tokenize(value,".");
+						  for(int i=nterms.size()-1;i>0;i--) 
+						  {
+						  	parserstack.push(nterms[i]);
+						  }
+					}
+
+				}
+
+			}
+		}
+		
+		if (!tokensfilestream.eof())
+			return false;
+
+
+		return true;
+		
+  
+	}
+	tokensfilestream.close();
+
+
+	
+
+}
 

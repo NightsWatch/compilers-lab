@@ -28,6 +28,8 @@ public:
 
 		map<string , map<string,string> > parsing_table;
 
+		stack <string> parserstack;
+
 		string terminals[];
 
 		void getGrammar(string);
