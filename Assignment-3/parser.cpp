@@ -128,6 +128,44 @@ int main(int argc, char** argv)
 
  }
 
+set<string> Parser::appendSets(set<string> first,set<string> second) {
+	set<string> result;
+	for(sit it=first.begin();it!=first.end();it++) {
+		result.insert(*it);
+	}
+
+	for(sit it=second.begin();it!=second.end();it++) {
+		result.insert(*it);
+	}
+	return result;
+}
+
+set<string> Parser::giveFirst(string prod) {
+	int j=0;
+	set<string> result;
+	for(int i=0;i<prod.size();i++) {
+		if(terminals.find(prod.substr(j,i-j+1))!=terminals.end()) {
+			result.insert(substr(j,i-j+1));
+			return result;
+		}
+
+		else if (nonterminals.find(prod.substr(j,i-j+1))!=nonterminals.end())
+		{
+			string nont=substr(j,i-j+1);
+			if(firstSet[nont].find("e")!=firstSet[nont].end()) {
+				result=appendSets(firstSet[nont],giveFirst.substr(i+1,prod.size()-i));
+			} else {
+				return firstSet[nont];
+			}
+		} 
+
+		else {
+			continue;
+		}
+	}
+	return result;
+}
+
 
 void Parser::createTable() {
 	for(pit iter = grammar.begin(); iter != grammar.end(); iter++ ) {

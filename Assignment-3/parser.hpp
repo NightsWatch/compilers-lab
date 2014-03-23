@@ -35,6 +35,8 @@ public:
 		void getFollowSet(string);
 		void getFirstSet(string);
 		void createTable();
+		set<string> giveFirst(string);
+		void appendSets(set<string>,set<string>);
 
 		void parse();
 		
