@@ -178,6 +178,10 @@ void Parser::createTable() {
  				parsing_table[iter->first].insert(make_pair(*fs,*it));
  				//someStorage["key"].insert(std::make_pair("key2", "value2")));
  			}
+
+ 			if(firstSymbols.find("e")!=firstSymbols.end()) {
+
+ 			}
  		}
  	}
 }
