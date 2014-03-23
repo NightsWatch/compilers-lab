@@ -1,6 +1,8 @@
 
 #include "parser.hpp"
-#include "lex.hpp"
+#include "lex.cpp"
+
+extern string terminals[];
 
 
 
@@ -16,6 +18,7 @@ int length(string* array)
 
 
 void printMap(map<string, set<string> > List)
+
 {
 	 for(map<string, set<string> >::iterator iter = List.begin(); iter != List.end(); iter++ ) 
 	 {
@@ -108,6 +111,7 @@ int main(int argc, char** argv)
  	check for left recursion and remove it
  	*/
 
+
  	/* loop through the grammar to find firtsets for all the nonterminals */
  	for(map<string, set<string> >::iterator iter = grammar.begin(); iter != grammar.end(); iter++ ) 
 	{
@@ -121,7 +125,9 @@ int main(int argc, char** argv)
 
 
 
+
 void Parser::getFirstSet(string nonterm)
+
 {
 
 	set<string> productions = grammar[nonterm];
@@ -201,6 +207,7 @@ void Parser::getFirstSet(string nonterm)
 
 	}
 
+
 	firstSet[nonterm]=symbols;
 
 
@@ -208,9 +215,11 @@ void Parser::getFirstSet(string nonterm)
  }
 
 
+
 void Parser::getFollowSet(string nonterm)
 {
 	set<string> symbols;
+
 
 	if(strcmp(nonterm,"S"))
 	{
@@ -269,3 +278,4 @@ void Parser::getFollowSet(string nonterm)
 // void Parser::createTable();
 
 // void Parser::parse();
+
