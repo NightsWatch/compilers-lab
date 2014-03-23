@@ -175,12 +175,30 @@ void Parser::createTable() {
  			for(sit fs=firstSymbols.begin();fs!=firstSymbols.end();fs++) {
  				//map<string , map<string,string> > parsing_table;
  				//parsing_table[iter->first]=
- 				parsing_table[iter->first].insert(make_pair(*fs,*it));
+ 				 pair<sit, bool> pr = parsing_table[iter->first].insert(make_pair(*fs,*it));
+ 				 if(!pr.second)
+ 				 {	
+ 				 	printf("Grammar is not LL(1). Exiting parsing.\n");
+ 				 	exit(0);
+
+ 				 }
+
  				//someStorage["key"].insert(std::make_pair("key2", "value2")));
  			}
 
- 			if(firstSymbols.find("e")!=firstSymbols.end()) {
+ 			if(firstSymbols.find("e")!=firstSymbols.end()) 
+ 			{
+ 				for(sit fs=followSet[iter->first].begin(); fs!=firstSet[iter->first].end(); fs++)
+ 				{	
+ 					pair<sit, bool> pr = parsing_table[iter->first].insert(make_pair(*fs,*it));
+ 					if(!pr.second)
+ 					{	
+	 				 	printf("Grammar is not LL(1). Exiting parsing.\n");
+	 				 	exit(0);
 
+ 				 	}
+
+ 				}
  			}
  		}
  	}
