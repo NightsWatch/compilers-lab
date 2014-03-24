@@ -1,7 +1,7 @@
 %{
 
 #include <iostream>	
-
+using namespace std;
 void yyerror(char *s);
 int yylex(void);
 
@@ -12,14 +12,18 @@ int yylex(void);
 %%
 
 func_list:
-	| func func_list  
+	| func func_list  {cout << "func_list" << endl;}
 	;
 func:
-	void_or_datatype ID LP arg_list RP LFP stmnts RFP
+	void_or_datatype ID LP arg_list_or_void RP LFP stmnts RFP  {cout << "func" << endl;}
 	;
 void_or_datatype:
 	VOID
 	| DATA_TYPE
+	;
+arg_list_or_void: 
+	VOID
+	| arg_list {cout << "arg_list_or_void" << endl;}
 	;
 arg_list:
 	arg COMMA arg_list
@@ -29,15 +33,15 @@ arg:
 	DATA_TYPE ID
 	;
 stmnts:
-	| stmnt SEMI stmnts
+	| stmnt stmnts {cout << "stmnt; stmnts" << endl;}
 	;
 stmnt:
-	declaration SEMI
-	| ID EQUALS expr SEMI
+	declaration SEMI  {cout << "declaration" << endl;}
+	| ID EQUALS expr SEMI {cout << "id = expr;" << endl;}
 	| func_call SEMI
 	| iff
 	| WHILE LP expr RP LFP stmnts RFP 
-	| FOR LP ID EQUALS expr SEMI expr SEMI expr RP LFP stmnts RFP
+	| FOR LP ID EQUALS expr SEMI expr SEMI ID EQUALS expr RP LFP stmnts RFP
 	| CONTINUE SEMI
 	| BREAK SEMI
 	| RETURN id_or_data SEMI
@@ -117,9 +121,14 @@ extern int yylex();
 extern int yyparse();
 extern FILE *yyin;
 
-main() {
-	// open a file handle to a particular file:
-	FILE *myfile = fopen("input.txt", "r");
+main(int argc, char** argv) {
+	
+	if(argc!=2)
+	{
+		cout << "Input format : ./yaccparser inputfile" <<endl;
+		exit(1);
+	}
+	FILE *myfile = fopen(argv[1], "r");
 	
 	
 	yyin = myfile;
