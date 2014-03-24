@@ -11,13 +11,20 @@ arg -> DATA_TYPE ID
 
 
 
-stmnts -> expr; stmnts | e
+stmnts -> stmt; stmnts | e
 
-expr -> DATA_TYPE ID assign; | 
+stmt -> declaration | expr
 
-assign -> EQUAL num_or_char | e
+expr ->  ID EQUALS rhs;
 
-num_or_char -> NUM | FLOAT | CHAR
+
+
+
+declaration -> DATA_TYPE ID assign;
+
+assign -> EQUALS rhs | e
+
+#num_or_char -> NUM | FLOAT | CHAR
 
 
 
