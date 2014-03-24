@@ -1,0 +1,59 @@
+
+func_list -> func func_list | e
+
+func -> DATA_TYPE ID (arg_list) { stmnts }
+
+
+arg_list -> arg , arg_list | arg
+
+arg -> DATA_TYPE ID
+
+
+
+stmnts -> stmt; stmnts | e
+
+stmt -> declaration; | id EQUALS expr; | func_call; | iff | while(expr){stmts} | for(id EQUALS expr; expr; expr){stmts} | CONTINUE; | BREAK; | RETURN id_or_data;
+
+iff -> IF (expr) {stmts} ell 
+
+ell -> ELSE IF (expr) {stmts} ell | ELSE (expr) {stmts} | e
+
+
+
+
+
+id_or_data -> ID | num_or_char
+
+
+expr -> func_call | eval
+
+func_call -> ID (arg_passed)
+
+arg_passed -> ID, arg_passed | ID:
+
+
+
+declaration -> DATA_TYPE ID assign
+
+assign -> EQUALS expr | e
+
+num_or_char -> NUM | FLOAT | CHAR
+
+
+
+
+
+eval -> termp expr''
+
+termp -> term expr'
+
+expr' -> PLUS term expr' | MINUS term expr' | є
+
+term -> factor term'
+
+term' -> TIMES factor term' | DIVIDE factor term' | є
+
+factor -> NUM_OR_ID | LP expr RP
+
+expr'' -> LESSTHAN termp expr'' | GREATERTHAN termp expr'' | EQUALTO termp expr'' | є
+
