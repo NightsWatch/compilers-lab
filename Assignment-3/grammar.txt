@@ -1,0 +1,36 @@
+
+
+
+this is my grammar
+
+
+func_list -> func func_list | e
+
+func -> DATA_TYPE ID (arg_list) { stmnts }
+
+
+arg_list -> arg , arg_list | arg
+
+arg -> DATA_TYPE ID
+
+
+
+stmnts -> stmt; stmnts | e
+
+stmt -> declaration | expr
+
+expr ->  ID EQUALS rhs;
+
+
+
+
+declaration -> DATA_TYPE ID assign;
+
+assign -> EQUALS rhs | e
+
+#num_or_char -> NUM | FLOAT | CHAR
+
+
+
+
+
