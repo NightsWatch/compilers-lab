@@ -1,5 +1,5 @@
-<keyword,int>
+<lp,(>
 <id,a>
-<compoper,=>
-<num,3>
-<semi,;>
+<operator,+>
+<id,a>
+<rp,)>
