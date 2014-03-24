@@ -15,7 +15,8 @@
 using namespace std;
 
 #define pit map< string, set< string> >::iterator 
-#define sit set< string>::iterator 
+#define sit set< string>::iterator
+#define tab_it map< pair<string,string> , string >::iterator
 
 class Parser
 {
@@ -27,9 +28,11 @@ public:
 
 		map< string, set<string> > followSet;
 
-		map<string , map<string,string> > parsing_table;
-		//map< pair<string,string>, string > parsing_table;
+
+		//map<string , map<string,string> > parsing_table;
+		map< pair<string,string>, string > parsing_table;
 		map<string, set<string> > followOverlap;
+
 
 		set<string> nonterminals;
 

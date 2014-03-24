@@ -20,8 +20,13 @@ int main(int argc, char** argv)
 
 	p.getGrammar(argv[2]);
 
-	//p.eliminateLRecurse();
+	p.eliminateLRecurse();
+
+
 	p.start();
+
+	p.createTable();
+
 }
 
 
@@ -48,6 +53,13 @@ std::vector<std::string> tokenize(std::string s, std::string sep){
 		pos = s.find_first_of(sep, lastPos); 
 	}
 	return tokens;
+}
+
+void printTable(map < pair<string, string>, string > table) {
+	for(tab_it it=table.begin();it!=table.end();it++) {
+		cout << (it->first).first<<"\t" << (it->first).second<<"\t" << it->second<<"\n";
+	}
+
 }
 
 
@@ -143,6 +155,8 @@ set<string> Parser::appendSets(set<string> first,set<string> second) {
 	return result;
 }
 
+
+
 set<string> Parser::giveFirst(string prod) {
 	int j=0;
 	set<string> result;
@@ -174,38 +188,23 @@ void Parser::createTable() {
 	for(pit iter = grammar.begin(); iter != grammar.end(); iter++ ) {
  		
  		for(sit it=(iter->second).begin();it!=(iter->second).end();it++) {
+
  			set<string> firstSymbols=giveFirst(*it);
  			for(sit fs=firstSymbols.begin();fs!=firstSymbols.end();fs++) {
- 				//map<string , map<string,string> > parsing_table;
- 				//parsing_table[iter->first]=
- 				  /*pair<sit, bool> pr =*/ 
- 				parsing_table[iter->first].insert(make_pair(*fs,*it));
- 				  // if(!pr.second)
- 				  // {	
- 				  // 	printf("Grammar is not LL(1). Exiting parsing.\n");
- 				  // 	exit(0);
-
- 				  // }
-
- 				//someStorage["key"].insert(std::make_pair("key2", "value2")));
+ 				parsing_table[make_pair(iter->first,*fs)]=*it;
  			}
 
  			if(firstSymbols.find("e")!=firstSymbols.end()) 
  			{
  				for(sit fs=followSet[iter->first].begin(); fs!=firstSet[iter->first].end(); fs++)
  				{	
- 					parsing_table[iter->first].insert(make_pair(*fs,*it));
- 					// if(!pr.second)
- 					// {	
-	 				//  	printf("Grammar is not LL(1). Exiting parsing.\n");
-	 				//  	exit(0);
-
- 				 // 	}
-
+ 					parsing_table[make_pair(iter->first,*fs)]=*it;
  				}
  			}
  		}
  	}
+ 	cout<<"Created Table:\n";
+ 	printTable(parsing_table);
 }
 
 void Parser::eliminateLRecurse() {
@@ -230,23 +229,25 @@ void Parser::eliminateLRecurse() {
 				}
 			}
 		}
+		//check if Ai has left recursion
+		int len=ind[i].size()+2;
+		for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
+			string str=*it;
+			if(str.substr(0,len)==("."+ind[i]+".")) {
+				goto lr_eliminate;
+			}
+		}
+		continue;
 
-		cout<<"Eliminated Grammar step-1 is:"<<endl;
-		printMap(grammar);
-		cout<<endl;
-
+		lr_eliminate:
 		//eliminate left-recursion from among the Ai productions
-		string newNonTerm=ind[i]+"1";
-		int len=ind[i].size();
+		string newNonTerm="."+ind[i]+"1"+".";
+		//int len=ind[i].size()+2;
 		set<string> upr,lpr;
 		bool flag=true;
 		for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
 			string str=*it;
-		
-			string temp = getStringBetweenTwoDots(0, getNextDotLocation(0,str) , str);
-			if(temp==ind[i]) {
-				printf("head!!!\n");
-				grammar[ind[i]].erase(it);
+			if(str.substr(0,len)==("."+ind[i]+".")) {
 				lpr.insert(str.substr(len,str.size()-len)+newNonTerm);
 			} else {
 				upr.insert(str+newNonTerm);
@@ -255,9 +256,10 @@ void Parser::eliminateLRecurse() {
 		lpr.insert("e");
 
 		grammar[ind[i]]=upr;
-		grammar[newNonTerm]=lpr;
+		grammar[ind[i]+"1"]=lpr;
 	
 	}
+
 	cout<<"Eliminated Grammar is:"<<endl;
 	printMap(grammar);
 	cout<<endl;
@@ -646,73 +648,6 @@ void Parser::getFollowSet(string nonterm)
 }
 
 
-
-
-
-/*
-void Parser::getFollowSet(string nonterm){
-	
-	set<string> symbols;
-	// if the non-term is the start symbol add $ & return
-
-	if(strcmp(nonterm.c_str(),"S")==0)
-	{
-		symbols.insert("$");
-		return;
-	}
-
-	set<string> productions = grammar[nonterm];
-
-
-	// iterarte through all the productions
-	for (set<string>::iterator it=productions.begin(); it!=productions.end(); ++it)
-	{
-
-		int i=0;
- 		int len= (*it).size();
- 		i=len;
-
- 		
- 		string str= (*it);
-		string s= str.substr(i-1,1);
-		string prev= str.substr(i-2,1);
-
-//  first check if the firstSet is already computed else compute it
-
-/*		map<string, set<string> >::iterator mapit = firstSet.find(s);
-		if(mapit == firstSet.end())
- 		{
-				getFirstSet(s);
- 		}	
-
-
- 		// X-> GhB so first calcluate the firstSet(B) and add it to followSet(h) AND IF first(B) has 'e' 
- 		// then set followOverlap to add follow of A to follow of(h)
- 				set<string> prodfirstSet = firstSet[s];
-						
- 				set<string> followseth;  //
-				for (std::set<string>::iterator iter=prodfirstSet.begin(); iter!=prodfirstSet.end(); ++iter)
-					{
-						string temp=(*iter);
-						if(strcmp(temp.c_str(),"e")!=0)
-						followseth.insert(*iter);
-						else
-							followOverlap[nonterm]=prev; // set the followOverlap value of nonterm as e is found in the firstSet(B)
-					}
-
-
-					followSet.insert(std::pair<string, set<string> > (prev,followseth) );
-					  
-					
- 		
-	}
-
-	
-
-}
-*/
-
-
 void Parser::parse(string tokensfile)
 {
 
@@ -728,7 +663,7 @@ void Parser::parse(string tokensfile)
 		while (!parserstack.empty())
 		{
 			x = parserstack.top();
-			parserstack.top();
+			parserstack.pop();
 			getline(tokensfilestream, a);
 			if (tokensfilestream.eof())
 				a = "$";
@@ -738,34 +673,26 @@ void Parser::parse(string tokensfile)
 				if(x==a)
 					continue;
 				else
+				{
+					cout << "Syntax error" << endl;
 					return ;
+				}
 			}
 			else
 			{
-				string value = parsing_table[x][a];
+				string value = parsing_table[make_pair(x,a)];
 
-				if ( parsing_table.find(x) == parsing_table.end() ) 
-				{
+				if(parsing_table.find(make_pair(x,a)) == parsing_table.end()) {
+					cout << "Syntax error" << endl;
 				 	return ;
-				} 
-				else 
-				{
-				 	if ( parsing_table[x].find(a) == parsing_table[x].end()  ) 
-				 	{
-						  return ;
-					} 
-					else 
+				} else {
+					string value = parsing_table[make_pair(x,a)];
+					vector<string> nterms = tokenize(value,".");
+					for(int i=nterms.size()-1;i>0;i--) 
 					{
-						  string value = parsing_table[x][a];
-						  vector<string> nterms = tokenize(value,".");
-						  for(int i=nterms.size()-1;i>0;i--) 
-						  {
-						  	parserstack.push(nterms[i]);
-						  }
+						parserstack.push(nterms[i]);
 					}
-
 				}
-
 			}
 		}
 		

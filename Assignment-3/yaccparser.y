@@ -1,6 +1,9 @@
 %{
 
 #include <iostream>	
+using namespace std;
+void yyerror(char *s);
+int yylex(void);
 
 %}
 
@@ -12,11 +15,15 @@ func_list:
 	| func func_list  
 	;
 func:
-	void_or_datatype ID LP arg_list RP LFP stmnts RFP
+	void_or_datatype ID LP arg_list_or_void RP LFP stmnts RFP  
 	;
 void_or_datatype:
 	VOID
 	| DATA_TYPE
+	;
+arg_list_or_void: 
+	VOID
+	| arg_list 
 	;
 arg_list:
 	arg COMMA arg_list
@@ -26,15 +33,15 @@ arg:
 	DATA_TYPE ID
 	;
 stmnts:
-	| stmnt SEMI stmnts
+	| stmnt stmnts 
 	;
 stmnt:
-	declaration SEMI
-	| ID EQUALS expr SEMI
+	declaration SEMI  
+	| ID EQUALS expr SEMI 
 	| func_call SEMI
 	| iff
 	| WHILE LP expr RP LFP stmnts RFP 
-	| FOR LP id EQUALS expr SEMI expr SEMI expr RP LFP stmnts RFP
+	| FOR LP ID EQUALS expr SEMI expr SEMI ID EQUALS expr RP LFP stmnts RFP
 	| CONTINUE SEMI
 	| BREAK SEMI
 	| RETURN id_or_data SEMI
@@ -73,31 +80,72 @@ num_or_char:
 	| CHAR
 	;
 eval:
-	termp expr''
+	termp expr2
 	;
 termp:
-	term expr'
+	term expr1
 	;
-expr':
-	| PLUS term expr'
-	| MINUS term expr'
+expr1:
+	| PLUS term expr1
+	| MINUS term expr1
 	;
 term:
-	factor term'
+	factor term1
 	;
-term':
-	| TIMES factor term'
-	| DIVIDE factor term'
+term1:
+	| TIMES factor term1
+	| DIVIDE factor term1
 	;
 factor:
 	id_or_data
 	| LP expr RP
 	;
-expr'':
-	| LESSTHAN termp expr''
-	| GREATERTHAN termp expr''
-	| EQUALTO termp expr''
+expr2:
+	| LESSTHAN termp expr2
+	| GREATERTHAN termp expr2
+	| EQUALTO termp expr2
 	;
 
 
 
+%%
+
+
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
+
+// stuff from lex that yacc needs to know about:
+extern int yylex();
+extern int yyparse();
+extern FILE *yyin;
+extern char *yytext;
+extern int yylineno;
+
+main(int argc, char** argv) {
+	
+	if(argc!=2)
+	{
+		cout << "Input format : ./yaccparser inputfile" <<endl;
+		exit(1);
+	}
+	FILE *myfile = fopen(argv[1], "r");
+	
+	
+	yyin = myfile;
+
+	
+	do {
+		yyparse();
+	} while (!feof(yyin));
+	
+	cout << argv[1] << " successfully parsed." << endl;	
+}
+
+void yyerror(char *s) {
+	
+	printf("%d: %s at %s\n", yylineno, s, yytext);
+
+	exit(-1);
+}

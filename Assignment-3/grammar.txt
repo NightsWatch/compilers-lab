@@ -1,9 +1,11 @@
 
 func_list -> func func_list | e
 
-func -> void_or_datatype ID (arg_list) { stmnts }
+func -> void_or_datatype ID (arg_list_or_void) { stmnts }
 
 void_or_datatype -> VOID | DATA_TYPE
+
+arg_list_or_void -> VOID | arg_list
 
 arg_list -> arg , arg_list | arg
 
@@ -13,11 +15,11 @@ arg -> DATA_TYPE ID
 
 stmnts -> stmt; stmnts | e
 
-stmt -> declaration; | ID EQUALS expr; | func_call; | iff | while(expr){stmts} | FOR (id EQUALS expr; expr; expr){stmts} | CONTINUE; | BREAK; | RETURN id_or_data;
+stmt -> declaration; | ID EQUALS expr; | func_call; | iff | while(expr){stmnts} | FOR (id EQUALS expr; expr; ID EQUALS expr){stmnts} | CONTINUE; | BREAK; | RETURN id_or_data;
 
-iff -> IF (expr) {stmts} ell 
+iff -> IF (expr) {stmnts} ell 
 
-ell -> ELSE IF (expr) {stmts} ell | ELSE (expr) {stmts} | e
+ell -> ELSE IF (expr) {stmnts} ell | ELSE (expr) {stmnts} | e
 
 
 
@@ -30,7 +32,7 @@ expr -> func_call | eval
 
 func_call -> ID (arg_passed)
 
-arg_passed -> ID, arg_passed | ID:
+arg_passed -> ID, arg_passed | ID
 
 
 

@@ -1,6 +1,13 @@
 /* Lexical analyser for a sample c like language. */
-%option noyywrap
 
+%{
+#include <iostream>
+#include "y.tab.h"
+
+%}
+
+%option noyywrap
+%option yylineno
 %Start	BL_CMNT
 
 DIGIT	[0-9]
@@ -13,7 +20,7 @@ ID 	[a-zA-Z][a-zA-Z0-9_]*
 <BL_CMNT>\n 													/* eat up lines in block comments */
 <INITIAL>"*/"													printf("Unmatched end of comment\n");
 <INITIAL>{DIGIT}+{ID}+{DIGIT}*									printf("Error:\tInvalid numbers\n");
-<INITIAL>{DIGIT}+												{printf("int\t\t\t%s\n",(yytext));return NUM;}
+<INITIAL>{DIGIT}+												{printf("int\t\t%s\n",(yytext));return NUM;}
 <INITIAL>{DIGIT}+"."{DIGIT}*									{printf("float\t\t%s\n",(yytext));return FLOAT;}
 <INITIAL>"'"."'"												{printf("char\t\t%c\n",yytext[1]);return CHAR;}
 <INITIAL>if														{printf("keyword\t\t%s\n",yytext);return IF;}
@@ -23,8 +30,9 @@ ID 	[a-zA-Z][a-zA-Z0-9_]*
 <INITIAL>return													{printf("return\n");return RETURN;}
 <INITIAL>break													{printf("break\n");return BREAK;}
 <INITIAL>continue												{printf("continue\n");return CONTINUE;}
+<INITIAL>void													{printf("void\n");return VOID;}
 <INITIAL>int|float|char|double									{printf("data_type\n");return DATA_TYPE;}		
-<INITIAL>{ID}													{printf("id\t\t\t%s\n",yytext);return ID;}
+<INITIAL>{ID}													{printf("id\t\t%s\n",yytext);return ID;}
 <INITIAL>"+"													{printf("operator\t%s\n",yytext);return PLUS;}
 <INITIAL>"-"													{printf("operator\t%s\n",yytext);return MINUS;}
 <INITIAL>"*"													{printf("operator\t%s\n",yytext);return TIMES;}
@@ -43,5 +51,3 @@ ID 	[a-zA-Z][a-zA-Z0-9_]*
 <INITIAL>[ \t\n]+												/* eat up white spaces */
 <INITIAL>.														printf("Invalid characters: %s\n",yytext);	/* All other erroneous characters */
 %%
-
-

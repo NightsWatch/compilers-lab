@@ -5,6 +5,13 @@ S is .(.S.+.F.).
 S is .F.
 X is .c.
 
+Eliminated Grammar is:
+F is .X.a.
+F is .b.
+S is .(.S.+.F.).
+S is .F.
+X is .c.
+
 calling F
 i:0
 string is:.X.a.
@@ -293,26 +300,18 @@ done
 follow overlap printing
 S is F
 iter first(
-emptpy
 iter first)
-emptpy
 iter first+
-emptpy
 iter firstF
-emptpy
 iter firstS
 F value in set
 iter first: S
 copyset: $ value in set
 + value in set
 iter firstX
-emptpy
 iter firsta
-emptpy
 iter firstb
-emptpy
 iter firstc
-emptpy
 Followset is:
 ( is (
 ( is b
@@ -326,3 +325,4 @@ S is $
 S is +
 X is a
 
+Created Table:
