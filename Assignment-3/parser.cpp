@@ -246,9 +246,20 @@ void Parser::eliminateLRecurse() {
 			}
 		}
 
+		//check if Ai has left recursion
+		int len=ind[i].size()+2;
+		for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
+			string str=*it;
+			if(str.substr(0,len)==("."+ind[i]+".")) {
+				goto lr_eliminate;
+			}
+		}
+		continue;
+
+		lr_eliminate:
 		//eliminate left-recursion from among the Ai productions
 		string newNonTerm="."+ind[i]+"1"+".";
-		int len=ind[i].size()+2;
+		//int len=ind[i].size()+2;
 		set<string> upr,lpr;
 		for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
 			string str=*it;
