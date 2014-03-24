@@ -1,0 +1,12 @@
+
+func_list -> func func_list
+
+func -> ret ID (arg_list) { stmnts }
+
+ret-> DATA_TYPE
+
+
+
+stmnts -> expr; stmnt | e
+
+
