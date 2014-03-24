@@ -30,6 +30,7 @@ ID 	[a-zA-Z][a-zA-Z0-9_]*
 <INITIAL>return													{printf("return\n");return RETURN;}
 <INITIAL>break													{printf("break\n");return BREAK;}
 <INITIAL>continue												{printf("continue\n");return CONTINUE;}
+<INITIAL>void													{printf("void\n");return VOID;}
 <INITIAL>int|float|char|double									{printf("data_type\n");return DATA_TYPE;}		
 <INITIAL>{ID}													{printf("id\t\t\t%s\n",yytext);return ID;}
 <INITIAL>"+"													{printf("operator\t%s\n",yytext);return PLUS;}
