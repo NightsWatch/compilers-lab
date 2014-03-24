@@ -1,12 +1,25 @@
 
-func_list -> func func_list
+func_list -> func func_list | e
 
-func -> ret ID (arg_list) { stmnts }
-
-ret-> DATA_TYPE
+func -> DATA_TYPE ID (arg_list) { stmnts }
 
 
 
-stmnts -> expr; stmnt | e
+arg_list -> arg , arg_list | arg
+
+arg -> DATA_TYPE ID
+
+
+
+stmnts -> expr; stmnts | e
+
+expr -> DATA_TYPE ID assign; | 
+
+assign -> EQUAL num_or_char | e
+
+num_or_char -> NUM | FLOAT | CHAR
+
+
+
 
 
