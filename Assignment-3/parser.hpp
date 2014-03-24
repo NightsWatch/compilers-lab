@@ -1,53 +1,3 @@
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <iostream>
-// #include <cstring>
-// #include <string>
-// #include <stack>
-// #include <vector>
-// #include <fstream>
-// #include <sstream>
-// #include <set>
-// #include <iterator>
-// #include <map>
-
-// #define pit map< string, set< string> >::iterator 
-// #define sit set< string>::iterator 
-
-// using namespace std;
-
-// class Parser
-// {
-
-// public:
-//         map< string, set<string> > grammar;
-
-//         map< string, set<string> > firstSet;
-
-// 		map< string, set<string> > followSet;
-
-// 		map<string , map<string,string> > parsing_table;
-
-// 		map<string, string> followOverlap;
-		
-// 		set<string> terminals;
-// 		set<string> nonterminals;
-
-// 		stack <string> parserstack;
-
-
-// 		void getGrammar(string);
-// 		void start();
-// 		void getFollowSet(string);
-// 		void getFirstSet(string);
-// 		void createTable();
-// 		set<string> giveFirst(string);
-// 		void appendSets(set<string>,set<string>);
-
-// 		void parse();
-		
-// };
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -60,6 +10,7 @@
 #include <set>
 #include <iterator>
 #include <map>
+#include <algorithm>
 
 using namespace std;
 
