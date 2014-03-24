@@ -1,9 +1,4 @@
 
-
-
-this is my grammar
-
-
 func_list -> func func_list | e
 
 func -> DATA_TYPE ID (arg_list) { stmnts }
@@ -17,20 +12,39 @@ arg -> DATA_TYPE ID
 
 stmnts -> stmt; stmnts | e
 
-stmt -> declaration | expr
+stmt -> declaration; | id EQUALS expr; | func_call; | CONTINUE; | BREAK; | RETURN id_or_data;
 
-expr ->  ID EQUALS rhs;
-
-
+id_or_data -> ID | num_or_char
 
 
-declaration -> DATA_TYPE ID assign;
+expr -> func_call | eval
 
-assign -> EQUALS rhs | e
+func_call -> ID (arg_passed)
 
-#num_or_char -> NUM | FLOAT | CHAR
+arg_passed -> ID, arg_passed | ID
 
 
 
+declaration -> DATA_TYPE ID assign
 
+assign -> EQUALS expr | e
+
+num_or_char -> NUM | FLOAT | CHAR
+
+
+
+
+eval -> termp expr''
+
+termp -> term expr'
+
+expr' -> PLUS term expr' | MINUS term expr' | є
+
+term -> factor term'
+
+term' -> TIMES factor term' | DIVIDE factor term' | є
+
+factor -> NUM_OR_ID | LP expr RP
+
+expr'' -> LESSTHAN termp expr'' | GREATERTHAN termp expr'' | EQUALTO termp expr'' | є
 
