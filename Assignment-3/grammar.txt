@@ -1,8 +1,12 @@
 
+
+
+this is my grammar
+
+
 func_list -> func func_list | e
 
 func -> DATA_TYPE ID (arg_list) { stmnts }
-
 
 
 arg_list -> arg , arg_list | arg

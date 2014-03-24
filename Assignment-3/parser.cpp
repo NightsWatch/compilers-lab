@@ -542,4 +542,3 @@ void Parser::parse(string tokensfile)
 // void Parser::createTable();
 
 // void Parser::parse();
-
