@@ -108,6 +108,129 @@ void Parser::getGrammar(string fname)
 
 
 
+set<string> Parser::appendSets(set<string> first,set<string> second) {
+	set<string> result;
+	for(sit it=first.begin();it!=first.end();it++) {
+		result.insert(*it);
+	}
+
+	for(sit it=second.begin();it!=second.end();it++) {
+		result.insert(*it);
+	}
+	return result;
+}
+
+set<string> Parser::giveFirst(string prod) {
+	int j=0;
+	set<string> result;
+	for(int i=0;i<prod.size();i++) {
+		if(terminals.find(prod.substr(j,i-j+1))!=terminals.end()) {
+			result.insert(prod.substr(j,i-j+1));
+			return result;
+		}
+
+		else if (nonterminals.find(prod.substr(j,i-j+1))!=nonterminals.end())
+		{
+			string nont=prod.substr(j,i-j+1);
+			if(firstSet[nont].find("e")!=firstSet[nont].end()) {
+				result=appendSets(firstSet[nont],giveFirst(prod.substr(i+1,prod.size()-i)));
+			} else {
+				return firstSet[nont];
+			}
+		} 
+
+		else {
+			continue;
+		}
+	}
+	return result;
+}
+
+
+void Parser::createTable() {
+	for(pit iter = grammar.begin(); iter != grammar.end(); iter++ ) {
+ 		
+ 		for(sit it=(iter->second).begin();it!=(iter->second).end();it++) {
+ 			set<string> firstSymbols=giveFirst(*it);
+ 			for(sit fs=firstSymbols.begin();fs!=firstSymbols.end();fs++) {
+ 				//map<string , map<string,string> > parsing_table;
+ 				//parsing_table[iter->first]=
+ 				  /*pair<sit, bool> pr =*/ 
+ 				parsing_table[iter->first].insert(make_pair(*fs,*it));
+ 				  // if(!pr.second)
+ 				  // {	
+ 				  // 	printf("Grammar is not LL(1). Exiting parsing.\n");
+ 				  // 	exit(0);
+
+ 				  // }
+
+ 				//someStorage["key"].insert(std::make_pair("key2", "value2")));
+ 			}
+
+ 			if(firstSymbols.find("e")!=firstSymbols.end()) 
+ 			{
+ 				for(sit fs=followSet[iter->first].begin(); fs!=firstSet[iter->first].end(); fs++)
+ 				{	
+ 					parsing_table[iter->first].insert(make_pair(*fs,*it));
+ 					// if(!pr.second)
+ 					// {	
+	 				//  	printf("Grammar is not LL(1). Exiting parsing.\n");
+	 				//  	exit(0);
+
+ 				 // 	}
+
+ 				}
+ 			}
+ 		}
+ 	}
+}
+
+void Parser::eliminateLRecurse() {
+	map<int,string> ind;
+	int i=1;
+	for(sit it=nonterminals.begin();it!=nonterminals.end();it++) {
+		ind[i]=*it;
+		i++;
+	}
+
+	for(int i=1;i<=nonterminals.size();i++) {
+		for(int j=1;j<i;j++) {
+			for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
+				int len=ind[j].size();
+				string str=*it;
+				if(str.substr(0,len)==ind[j]) {
+					grammar[ind[i]].erase(it);
+					for(sit it2=grammar[ind[j]].begin();it2!=grammar[ind[j]].end();it2++) {
+						string temp=(*it2)+str.substr(len,str.size()-len);
+						grammar[ind[i]].insert(temp);
+					}
+				}
+			}
+		}
+
+		//eliminate left-recursion from among the Ai productions
+		string newNonTerm=ind[i]+"1";
+		int len=ind[i].size();
+		set<string> upr,lpr;
+		for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
+			string str=*it;
+			if(str.substr(0,len)==ind[i]) {
+				lpr.insert(str.substr(len,str.size()-len)+newNonTerm);
+			} else {
+				upr.insert(str+newNonTerm);
+			}
+		}
+		lpr.insert("e");
+
+		grammar[ind[i]]=upr;
+		grammar[newNonTerm]=lpr;
+	
+	}
+}
+
+
+
+
 int main(int argc, char** argv)
 {
 	if(argc!=3)
@@ -306,7 +429,7 @@ void Parser::getFollowSet(string nonterm)
 		string s= str.substr(i-1,1);
 		string prev= str.substr(i-2,1);
 
-				//  first check if the firstSet is already computed else compute it
+//  first check if the firstSet is already computed else compute it
 
 /*		map<string, set<string> >::iterator mapit = firstSet.find(s);
 		if(mapit == firstSet.end())
@@ -338,8 +461,84 @@ void Parser::getFollowSet(string nonterm)
 
 }
 
+
+
+
+void Parser::parse(string tokensfile)
+{
+
+	//parserstack.push("$");
+	//parserstack.push("S");
+
+	string x,a;
+
+	ifstream tokensfilestream(tokensfile.c_str());
+
+	if (tokensfilestream.is_open())
+  	{
+		//while()
+		//{
+		while (!parserstack.empty())
+		{
+			x = parserstack.top();
+			parserstack.top();
+			getline(tokensfilestream, a);
+			if (tokensfilestream.eof())
+				a = "$";
+
+			if(terminals.find(x)!=terminals.end() || !strcmp(x.c_str(),"$"))
+			{
+				if(x==a)
+					continue;
+				else
+					return ;
+			}
+			else
+			{
+				string value = parsing_table[x][a];
+
+				if ( parsing_table.find(x) == parsing_table.end() ) 
+				{
+				 	return ;
+				} 
+				else 
+				{
+				 	if ( parsing_table[x].find(a) == parsing_table[x].end()  ) 
+				 	{
+						  return ;
+					} 
+					else 
+					{
+						  string value = parsing_table[x][a];
+						  vector<string> nterms = tokenize(value,".");
+						  for(int i=nterms.size()-1;i>0;i--) 
+						  {
+						  	parserstack.push(nterms[i]);
+						  }
+					}
+
+				}
+
+			}
+		}
+		
+		if (!tokensfilestream.eof())
+			return ;
+
+
+		return ;
+		
+  
+	}
+	tokensfilestream.close();
+
+
+	
+
+}
+
+
 //// void Parser::getfollowSet(string);
 // void Parser::createTable();
 
 // void Parser::parse();
-
