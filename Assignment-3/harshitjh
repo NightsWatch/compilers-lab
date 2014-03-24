@@ -193,7 +193,7 @@ void Parser::eliminateLRecurse() {
 		i++;
 	}
 
-	for(int i=1;i<=nonterminals.size();i++) {
+	for(int i=1;i<=nontermianls.size();i++) {
 		for(int j=1;j<i;j++) {
 			for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
 				int len=ind[j].size();
@@ -251,8 +251,6 @@ int main(int argc, char** argv)
 }
 
 
-
-
  void Parser::start()
  {
 
@@ -272,43 +270,36 @@ int main(int argc, char** argv)
  		getFollowSet(iter->first);
  	}
 
-	for(pit iter = followOverlap.begin(); iter != followOverlap.end(); iter++ ) 
+	for(map<string, string >::iterator iter = followOverlap.begin(); iter != followOverlap.end(); iter++ ) 
 	{
-		/* check if iter is A check if followOverlap[something]=A so that you update follow(A) before adding everything 
+		/* check if iter is A check if followOverlap[something]=A so that you update follw(A) before adding everything 
 		 in follw(A) to B */
 
-		for(pit iter2 = followOverlap.begin(); iter2 != followOverlap.end(); iter2++ ) 
+		for(map<string, string>::iterator iter2 = followOverlap.begin(); iter2 != followOverlap.end(); iter2++ ) 
 		{
-			set<string> overlapset = followOverlap[(iter2)->first];
-
-			// iterate through the set to check if iter is present i.e if followOverlap[C]=A
-			for (sit iter4=overlapset.begin(); iter4!=overlapset.end(); ++iter4)
+			if((iter->first)==(iter2->second))
 			{
-				if((iter->first)==(*iter4))
-				{
-					// copy everything in follow of iter2 to follow of iter i.e from folow of C to A
-					string temp= iter2->first;
-					set<string> fromset= followSet[temp];
-					// set<string> tempset;
-					// for (std::set<string>::iterator iter3=fromset.begin(); iter3!=fromset.end(); ++iter3)
-					// 	tempset.insert(*iter3);
-					followSet.insert(std::pair<string, set<string> >(iter->first, fromset));
-				}
-
-
+				// copy everything in follow of iter2 to follow of iter
+				string temp= iter2->first;
+				set<string> fromset= followSet[temp];
+				set<string> tempset;
+				for (std::set<string>::iterator iter3=fromset.begin(); iter3!=fromset.end(); ++iter3)
+					tempset.insert(*iter3);
+				followSet.insert(std::pair<string, set<string> >(iter->first, tempset));
 			}
-
 		}
 
 
-		string temp2= iter->first;
+		// Adding followset(iter) to followset(B) B=followoverlap(a)
+	string temp2= iter->first;
 
-		set<string> copyset= followSet[temp2];
-		set<string> overlapset= followOverlap[temp2];		
-		
-		// loop through overlapset of A and insert followset of A into each element
-		for(sit iter4=overlapset.begin(); iter4!=overlapset.end(); ++iter4)
-				followSet.insert(std::pair<string, set<string> >((*iter4), copyset));
+	set<string> copyset= followSet[temp2];
+		set<string> toset;		
+		for (std::set<string>::iterator iter2=copyset.begin(); iter2!=copyset.end(); ++iter2)
+								toset.insert(*iter2);
+
+		string b=followOverlap[temp2];
+				followSet.insert(std::pair<string, set<string> >(b, toset));
 
 	}	
 
@@ -423,7 +414,6 @@ void Parser::getFollowSet(string nonterm)
 	}
 
 	set<string> productions = grammar[nonterm];
-	set<string> overlap;
 
 
 	// iterarte through all the productions
@@ -434,12 +424,12 @@ void Parser::getFollowSet(string nonterm)
  		int len= (*it).size();
  		i=len;
 
- 		//  ex: take prdtn X-> GhB
+ 		
  		string str= (*it);
-		string s= str.substr(i-1,1); // get B
-		string prev= str.substr(i-2,1);   // get h
+		string s= str.substr(i-1,1);
+		string prev= str.substr(i-2,1);
 
-//  first check if the firstSet is already computed else compute it
+				//  first check if the firstSet is already computed else compute it
 
 /*		map<string, set<string> >::iterator mapit = firstSet.find(s);
 		if(mapit == firstSet.end())
@@ -459,7 +449,7 @@ void Parser::getFollowSet(string nonterm)
 						if(strcmp(temp.c_str(),"e")!=0)
 						followseth.insert(*iter);
 						else
-							overlap.insert(prev); // set the followOverlap value of nonterm as e is found in the firstSet(B)
+							followOverlap[nonterm]=prev; // set the followOverlap value of nonterm as e is found in the firstSet(B)
 					}
 
 
@@ -469,86 +459,7 @@ void Parser::getFollowSet(string nonterm)
  		
 	}
 
-	followOverlap.insert(std::pair<string, set<string> > (nonterm, overlap));
-
 }
-
-
-
-
-void Parser::parse(string tokensfile)
-{
-
-	//parserstack.push("$");
-	//parserstack.push("S");
-
-	string x,a;
-
-	ifstream tokensfilestream(tokensfile.c_str());
-
-	if (tokensfilestream.is_open())
-  	{
-		//while()
-		//{
-		while (!parserstack.empty())
-		{
-			x = parserstack.top();
-			parserstack.top();
-			getline(tokensfilestream, a);
-			if (tokensfilestream.eof())
-				a = "$";
-
-			if(terminals.find(x)!=terminals.end() || !strcmp(x.c_str(),"$"))
-			{
-				if(x==a)
-					continue;
-				else
-					return ;
-			}
-			else
-			{
-				string value = parsing_table[x][a];
-
-				if ( parsing_table.find(x) == parsing_table.end() ) 
-				{
-				 	return ;
-				} 
-				else 
-				{
-				 	if ( parsing_table[x].find(a) == parsing_table[x].end()  ) 
-				 	{
-						  return ;
-					} 
-					else 
-					{
-						  string value = parsing_table[x][a];
-						  vector<string> nterms = tokenize(value,".");
-						  for(int i=nterms.size()-1;i>0;i--) 
-						  {
-						  	parserstack.push(nterms[i]);
-						  }
-					}
-
-				}
-
-			}
-		}
-		
-		if (!tokensfilestream.eof())
-			return ;
-
-
-		return ;
-		
-  
-	}
-	tokensfilestream.close();
-
-
-	
-
-}
-
 
 //// void Parser::getfollowSet(string);
 // void Parser::createTable();
