@@ -1,8 +1,9 @@
 
 func_list -> func func_list | e
 
-func -> DATA_TYPE ID (arg_list) { stmnts }
+func -> void_or_datatype ID (arg_list) { stmnts }
 
+void_or_datatype -> VOID | DATA_TYPE
 
 arg_list -> arg , arg_list | arg
 
@@ -12,7 +13,7 @@ arg -> DATA_TYPE ID
 
 stmnts -> stmt; stmnts | e
 
-stmt -> declaration; | id EQUALS expr; | func_call; | iff | while(expr){stmts} | for(id EQUALS expr; expr; expr){stmts} | CONTINUE; | BREAK; | RETURN id_or_data;
+stmt -> declaration; | ID EQUALS expr; | func_call; | iff | while(expr){stmts} | FOR (id EQUALS expr; expr; expr){stmts} | CONTINUE; | BREAK; | RETURN id_or_data;
 
 iff -> IF (expr) {stmts} ell 
 
@@ -53,7 +54,10 @@ term -> factor term'
 
 term' -> TIMES factor term' | DIVIDE factor term' | є
 
-factor -> NUM_OR_ID | LP expr RP
+factor -> id_or_data | LP expr RP
+
+
 
 expr'' -> LESSTHAN termp expr'' | GREATERTHAN termp expr'' | EQUALTO termp expr'' | є
+
 
