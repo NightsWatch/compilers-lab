@@ -267,9 +267,9 @@ void Parser::eliminateLRecurse() {
  		cout<<endl;
  	}
 
- // 	cout<<"Firstset is:"<<endl;
-	//  printMap(firstSet);
-	// cout<<endl;
+ 	cout<<"Firstset is:"<<endl;
+	  printMap(firstSet);
+	 cout<<endl;
 
  	 return;
 	/*for debuggin*/
@@ -351,6 +351,7 @@ void Parser::getFirstSet(string nonterm)
 			int i=0;
  			int len= (*it).size();
  			int prevdot = 0;
+ 			int seconddot;
 			while(i<len)
  			{
  				cout<<"i:"<<i<<endl;
@@ -358,12 +359,19 @@ void Parser::getFirstSet(string nonterm)
  				cout<<"string is:"<<str<<endl;
 
  				cout<<"prevdot is:"<<prevdot<<endl;
- 				int seconddot = str.find(".",prevdot+1);
+
+ 				//int seconddot = str.find(".",prevdot+1);
+ 				seconddot = getNextDotLocation(prevdot,str);
  				if(seconddot<0)
  					break;
+
+
  				cout<<"second dot:"<<seconddot<<endl;
  				//cout<<"dotsplit"<<endl;
- 				string s= str.substr(prevdot+1,seconddot-prevdot-1);
+
+
+ 				string s= getStringBetweenTwoDots(prevdot,seconddot, str);
+ 				//str.substr(prevdot+1,seconddot-prevdot-1);
  				cout<<"split string is:"<<s<<endl;
 
 				// check for terminals if found add and break
@@ -547,24 +555,24 @@ void Parser::parse(string tokensfile)
 }
 
 
-int getNextDotLocation(int currdot, string s)
+int Parser::getNextDotLocation(int currdot, string s)
 {
-	return s.find(".",curdot+1);
+	return s.find(".",currdot+1);
 }
 
-string getStringBetweenTwoDots(int prevdot, int nextdot )
+string Parser::getStringBetweenTwoDots(int prevdot, int nextdot, string str )
 {
 	if(prevdot<nextdot)
- 		return str.substr(prevdot+1,seconddot-prevdot-1);
+ 		return str.substr(prevdot+1,nextdot-prevdot-1);
  	else
- 		return str.substr(seconddot+1, prevdot - seconddot -1);
+ 		return str.substr(nextdot+1, prevdot - nextdot -1);
 }
 
-int getNextDotReverse(int currdot, string str)
+int Parser::getNextDotReverse(int currdot, string str)
 {
 
-	reverse(str.begin(), str.end());
-	int newcurdot= str.length() - curdot -1;
+	std::reverse(str.begin(), str.end());
+	int newcurdot= str.length() - currdot -1;
 	
 	return str.find(".",newcurdot+1);
 
