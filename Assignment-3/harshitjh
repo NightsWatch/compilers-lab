@@ -3,26 +3,9 @@
 
 extern string terminals[];
 
+
+
 string tokenfile="token_list.txt";
-
-int main(int argc, char** argv)
-{
-	if(argc!=3)
-	{
-		cout<<"Input format: exec codefilename grammarfilename";
-		exit(1);
-	}
-
-	Parser p=Parser();
-	LexAnalyser l=LexAnalyser();
-
-	l.getTokens(argv[1],tokenfile);
-
-	p.getGrammar(argv[2]);
-
-	p.start();
-}
-
 
 int length(string* array)
 {
@@ -50,17 +33,14 @@ std::vector<std::string> tokenize(std::string s, std::string sep){
 }
 
 
-void printMap(map < string, set<string> > List)
-{
+void printMap(map<string, set<string> > List)
 
+{
 	 for(map<string, set<string> >::iterator iter = List.begin(); iter != List.end(); iter++ ) 
 	 {
-	 	set <string> value = iter->second;
-	 	        for (sit iter2= value.begin(); iter2 != value.end(); iter2++)
-	 	      {  cout << (iter)->first << " is "<< (*iter2) << endl;} 
-	 	        //
+	 	        cout << (iter)->first << " is " << endl;
+
 	 }
-	 return;
 }
 
 
@@ -68,7 +48,6 @@ void printMap(map < string, set<string> > List)
 
 void printSet(set<string> List)
 {
-
 	 for(set<string>::iterator iter = List.begin(); iter != List.end(); iter++ ) 
 	 {
 	 	        cout << (*iter)<< " value in set"<< endl;
@@ -112,8 +91,10 @@ void Parser::getGrammar(string fname)
 			nonterminals.insert(tokens[0]);
 
 		/* adding productions to the grammar -*/
+
 			for(int i=1;i<tokens.size();i++)
 				{
+
 				  productions.insert(tokens[i]);
 				}
 			grammar.insert( std::pair<string, set<string> >(tokens[0],productions) );
@@ -123,9 +104,6 @@ void Parser::getGrammar(string fname)
 
 		cfgfile.close();
 	}
-	cout<<"Grammar is:"<<endl;
-	printMap(grammar);
-	cout<<endl;
 }
 
 
@@ -215,7 +193,7 @@ void Parser::eliminateLRecurse() {
 		i++;
 	}
 
-	for(int i=1;i<=nonterminals.size();i++) {
+	for(int i=1;i<=nontermianls.size();i++) {
 		for(int j=1;j<i;j++) {
 			for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
 				int len=ind[j].size();
@@ -251,6 +229,28 @@ void Parser::eliminateLRecurse() {
 }
 
 
+
+
+int main(int argc, char** argv)
+{
+	if(argc!=3)
+	{
+		cout<<"Input format: exec codefilename grammarfilename";
+		exit(1);
+	}
+
+
+	// Parser p=Parser();
+	// LexAnalyser l=LexAnalyser();
+
+	// l.getTokens(argv[1],tokenfile);
+
+	// p.getGrammar(argv[2]);
+
+	// p.start();
+}
+
+
  void Parser::start()
  {
 
@@ -262,24 +262,13 @@ void Parser::eliminateLRecurse() {
  	/* loop through the grammar to find firtsets for all the nonterminals */
  	for(map<string, set<string> >::iterator iter = grammar.begin(); iter != grammar.end(); iter++ ) 
 	{
-		cout<<"calling "<<iter->first<<endl;
  		getFirstSet(iter->first);
- 		cout<<endl;
  	}
-
- // 	cout<<"Firstset is:"<<endl;
-	//  printMap(firstSet);
-	// cout<<endl;
-
- 	 return;
-	/*for debuggin*/
 
  	for(map<string, set<string> >::iterator iter = grammar.begin(); iter != grammar.end(); iter++ ) 
 	{
  		getFollowSet(iter->first);
  	}
-
-
 
 	for(map<string, string >::iterator iter = followOverlap.begin(); iter != followOverlap.end(); iter++ ) 
 	{
@@ -321,6 +310,8 @@ void Parser::eliminateLRecurse() {
 
 
 
+
+
 void Parser::getFirstSet(string nonterm)
 
 {
@@ -329,20 +320,25 @@ void Parser::getFirstSet(string nonterm)
 
    for (set<string>::iterator it=productions.begin(); it!=productions.end(); ++it)
 	{
-		if(strcmp((*it).c_str(),".e.")==0)
+		if(strcmp((*it).c_str(),"e")==0)
 			{
 				symbols.insert("e");
 				continue;
 			}
+ 			// Check if the production string is a terminal
+ 			// for(int i=0;i< length(terminals) ;i++)
+ 			// {
+ 			// 	if(strcmp((*it).c_str(),terminals[i].c_str())==0)
+ 			// 		{
+ 			// 			symbols.insert(*it);
+ 			// 			continue;
+ 			// 		}					
+ 			// }
 
-			//takes care of the case A -> .a.
-			string term = (*it).substr(1,((*it).length())-2);
 
-			if(terminals.find(term) != terminals.end())
+			if(terminals.find(*it) != terminals.end())
 			{
-
-				symbols.insert(term);
-				cout<<"added "<<term<<endl;
+				symbols.insert(*it);
 				continue;
 
 			}
@@ -350,63 +346,47 @@ void Parser::getFirstSet(string nonterm)
 
 			int i=0;
  			int len= (*it).size();
- 			int prevdot = 0;
 			while(i<len)
  			{
- 				cout<<"i:"<<i<<endl;
  				string str= (*it);
- 				cout<<"string is:"<<str<<endl;
-
- 				cout<<"prevdot is:"<<prevdot<<endl;
- 				int seconddot = str.find(".",prevdot+1);
- 				if(seconddot<0)
- 					break;
- 				cout<<"second dot:"<<seconddot<<endl;
- 				//cout<<"dotsplit"<<endl;
- 				string s= str.substr(prevdot+1,seconddot-prevdot-1);
- 				cout<<"split string is:"<<s<<endl;
+				string s= str.substr(i,1);
 
 				// check for terminals if found add and break
-				if(terminals.find(s) != terminals.end())
+				if(i>=1)
 				{
-					symbols.insert(s);
-					cout<<"foudn in terminals so added: "<<s<<endl;
-					break;
-				}				
-				
+					if(terminals.find(s) != terminals.end())
+					{
+						symbols.insert(s);
+						break;
+					}				
+				}
 
-				//  first check if the firstset is already computed else compute it
 				map<string, set<string> >::iterator mapit = firstSet.find(s);
-				cout<<"Searching for:"<<s<<"in already computed"<<endl;
-				if(mapit == firstSet.end())
- 					{
-						getFirstSet(s);
-	 				}	
-	 				cout<<"reached"<<endl;
- 					set<string> prdfirstSet = firstSet[s];
- 					printSet(prdfirstSet);
- 					/*debug
- 					cout<<"Printing set "<<s<<endl;
- 					printSet(prdfirstSet);
-					/**/
 
- 					for (set<string>::iterator it=prdfirstSet.begin(); it!=prdfirstSet.end(); ++it)
-					  {
-					  	symbols.insert(*it);
+				// check if the prdtnfirstset has 'e'
+				//  first check if the firstset is already computed else compute it
+
+				if(mapit == firstSet.end())
+ 				{
+					getFirstSet(s);
+ 				}	
+ 						set<string> prdfirstSet = firstSet[s];
+ 						set<string>::iterator setit= prdfirstSet.find("e");
+
+ 						if(setit == prdfirstSet.end())
+						{
+							/* 'e' not found so copy the first set of the prdtn to the nonterminal*/
+
+							for (std::set<string>::iterator iter=prdfirstSet.begin(); iter!=prdfirstSet.end(); ++iter)
+							{
+								symbols.insert(*iter);
+							}
+ 							break;
+
 					  }
 
- 					set<string>::iterator setit= prdfirstSet.find("e");
- 					// check if the prdtnfirstset has 'e'
- 					if(setit == prdfirstSet.end())
-					{
- 						break;
-
-					 }
- 					i++;
- 					prevdot = seconddot;
-					symbols.insert("e");	
-					cout<<"added e to symbols"<<endl;
-
+ 						i++;
+				symbols.insert("e");	
 			}
 	}
 
@@ -422,7 +402,8 @@ void Parser::getFirstSet(string nonterm)
 
 
 
-void Parser::getFollowSet(string nonterm){
+void Parser::getFollowSet(string nonterm)
+{
 	set<string> symbols;
 	// if the non-term is the start symbol add $ & return
 
@@ -448,7 +429,7 @@ void Parser::getFollowSet(string nonterm){
 		string s= str.substr(i-1,1);
 		string prev= str.substr(i-2,1);
 
-//  first check if the firstSet is already computed else compute it
+				//  first check if the firstSet is already computed else compute it
 
 /*		map<string, set<string> >::iterator mapit = firstSet.find(s);
 		if(mapit == firstSet.end())
@@ -480,92 +461,8 @@ void Parser::getFollowSet(string nonterm){
 
 }
 
+//// void Parser::getfollowSet(string);
+// void Parser::createTable();
 
+// void Parser::parse();
 
-void Parser::parse(string tokensfile)
-{
-
-	parserstack.push("$");
-	parserstack.push("S");
-
-	string x,a;
-
-	ifstream tokensfilestream(tokensfile.c_str());
-
-	if (tokensfilestream.is_open())
-  	{
-		while (!parserstack.empty())
-		{
-			x = parserstack.top();
-			parserstack.top();
-			getline(tokensfilestream, a);
-			if (tokensfilestream.eof())
-				a = "$";
-
-			if(terminals.find(x)!=terminals.end() || !strcmp(x.c_str(),"$"))
-			{
-				if(x==a)
-					continue;
-				else
-					return ;
-			}
-			else
-			{
-				string value = parsing_table[x][a];
-
-				if ( parsing_table.find(x) == parsing_table.end() ) 
-				{
-				 	return ;
-				} 
-				else 
-				{
-				 	if ( parsing_table[x].find(a) == parsing_table[x].end()  ) 
-				 	{
-						  return ;
-					} 
-					else 
-					{
-						  string value = parsing_table[x][a];
-						  vector<string> nterms = tokenize(value,".");
-						  for(int i=nterms.size()-1;i>0;i--) 
-						  {
-						  	parserstack.push(nterms[i]);
-						  }
-					}
-
-				}
-
-			}
-		}
-		
-		if (!tokensfilestream.eof())
-			return ;
-
-		return ;
-	}
-	tokensfilestream.close();
-}
-
-
-int getNextDotLocation(int currdot, string s)
-{
-	return s.find(".",curdot+1);
-}
-
-string getStringBetweenTwoDots(int prevdot, int nextdot )
-{
-	if(prevdot<nextdot)
- 		return str.substr(prevdot+1,seconddot-prevdot-1);
- 	else
- 		return str.substr(seconddot+1, prevdot - seconddot -1);
-}
-
-int getNextDotReverse(int currdot, string str)
-{
-
-	reverse(str.begin(), str.end());
-	int newcurdot= str.length() - curdot -1;
-	
-	return str.find(".",newcurdot+1);
-
-}

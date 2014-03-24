@@ -29,7 +29,9 @@ public:
 
 		map<string , map<string,string> > parsing_table;
 
-		map<string, string> followOverlap;
+		//map<string, string> followOverlap;
+
+		map<string, set<string> > followOverlap;
 
 		set<string> nonterminals;
 
