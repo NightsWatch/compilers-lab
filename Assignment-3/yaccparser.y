@@ -64,7 +64,40 @@ arg_passed:
 declaration:
 	DATA_TYPE ID assign
 	;
-assign 
+assign:
+	| EQUALS expr
+	;
+num_or_char:
+	NUM
+	| FLOAT
+	| CHAR
+	;
+eval:
+	termp expr''
+	;
+termp:
+	term expr'
+	;
+expr':
+	| PLUS term expr'
+	| MINUS term expr'
+	;
+term:
+	factor term'
+	;
+term':
+	| TIMES factor term'
+	| DIVIDE factor term'
+	;
+factor:
+	id_or_data
+	| LP expr RP
+	;
+expr'':
+	| LESSTHAN termp expr''
+	| GREATERTHAN termp expr''
+	| EQUALTO termp expr''
+	;
 
 
 
