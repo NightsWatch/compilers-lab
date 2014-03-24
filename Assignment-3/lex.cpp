@@ -277,7 +277,7 @@ void LexAnalyser::getTokens( string inp, string outp)
           val=lex();
           if(val==EOI)
             break;
-          fprintf(fop,"<%s,",val);
+          //fprintf(fop,"<%s,",val);
           
           
          int temp=0;
@@ -288,7 +288,7 @@ void LexAnalyser::getTokens( string inp, string outp)
           }
           
           
-          fprintf(fop,">\n");
+          fprintf(fop,"\n");
         }
 
         fclose(fp);

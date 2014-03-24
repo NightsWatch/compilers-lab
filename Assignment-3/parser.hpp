@@ -40,7 +40,7 @@ public:
 		set<string> terminals;
 
 		stack <string> parserstack;
-
+		stack <string> tempstack;
 
 		void getGrammar(string);
 		void start();
@@ -52,7 +52,7 @@ public:
 		void eliminateLRecurse();
 
 		void parse(string);
-
+		void printFollowMap(map < string, set<string> > );
 		int getNextDotLocation(int , string );
 		string getStringBetweenTwoDots(int , int , string);
 		int getNextDotReverse(int , string );

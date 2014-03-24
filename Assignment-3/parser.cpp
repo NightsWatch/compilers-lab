@@ -1,9 +1,8 @@
 #include "parser.hpp"
 #include "lex.hpp"
 
-extern string terminals[];
-
 string tokenfile="token_list.txt";
+string codefile;
 
 int main(int argc, char** argv)
 {
@@ -12,6 +11,7 @@ int main(int argc, char** argv)
 		cout<<"Input format: exec codefilename grammarfilename";
 		exit(1);
 	}
+	codefile = argv[1];
 
 	Parser p=Parser();
 	LexAnalyser l=LexAnalyser();
@@ -22,10 +22,11 @@ int main(int argc, char** argv)
 
 	p.eliminateLRecurse();
 
-
 	p.start();
 
 	p.createTable();
+
+	p.parse(tokenfile);
 
 }
 
@@ -59,9 +60,10 @@ void printTable(map < pair<string, string>, string > table) {
 	
 	for(tab_it it=table.begin();it!=table.end();it++) 
 	{
+
 		cout<<(it->first).first<<"\t"<<(it->first).second<<"\t" << it->second<<"\n";
 	}
-
+	cout<<endl;
 }
 
 
@@ -78,6 +80,22 @@ void printMap(map < string, set<string> > List)
 	 return;
 }
 
+void Parser::printFollowMap(map < string, set<string> > List)
+{
+
+	 for(map<string, set<string> >::iterator iter = List.begin(); iter != List.end(); iter++ ) 
+	 {
+	 	if(terminals.find(iter->first) == terminals.end())
+	 		{	set <string> value = iter->second;
+	 	        for (sit iter2= value.begin(); iter2 != value.end(); iter2++)
+	 	     		 {  cout << (iter)->first << " is "<< (*iter2) << endl;} 
+	 	        //
+	 		}
+	 }
+	 return;
+}
+
+
 
 void printSet(set<string> List)
 {
@@ -87,6 +105,21 @@ void printSet(set<string> List)
 	 	        cout << (*iter)<< " value in set"<< endl;
 
 	 }
+}
+
+
+void printStack(stack<string> parserstack)
+{
+	stack <string> temp = parserstack;
+
+	while(!temp.empty())
+	{
+		cout<<temp.top()<<" ";
+		temp.pop();
+	}
+	cout<<endl;
+	return;
+
 }
 
 
@@ -155,29 +188,47 @@ set<string> Parser::appendSets(set<string> first,set<string> second) {
 
 
 set<string> Parser::giveFirst(string prod) {
+	//cout<<"prod"<<prod;
+
 	int j=0;
-	set<string> result;
-	for(int i=0;i<prod.size();i++) {
-		if(terminals.find(prod.substr(j,i-j+1))!=terminals.end()) {
-			result.insert(prod.substr(j,i-j+1));
+	set<string> result; 
+
+	int firstloc = 0;
+	int secloc = getNextDotLocation(firstloc,prod);
+	//if(secloc<0)
+		//cout<<"error"<<endl;
+	string token = getStringBetweenTwoDots(firstloc,secloc,prod);
+
+	if(token=="" || secloc<0)
+	{
+		result.insert("e");
+		return result;
+	}
+	
+	//cout<<"token"<<token<<endl;
+	firstloc = secloc;
+	
+	if(terminals.find(token)==terminals.end())
+	{
+		if(firstSet[token].find("e")!=firstSet[token].end())
+		{
+			//cout << "sdasd" << endl;
+
+			result = appendSets(firstSet[token], giveFirst(prod.substr(secloc, prod.length()-secloc)));
+			
 			return result;
 		}
-
-		else if (nonterminals.find(prod.substr(j,i-j+1))!=nonterminals.end())
+		else
 		{
-			string nont=prod.substr(j,i-j+1);
-			if(firstSet[nont].find("e")!=firstSet[nont].end()) {
-				result=appendSets(firstSet[nont],giveFirst(prod.substr(i+1,prod.size()-i)));
-			} else {
-				return firstSet[nont];
-			}
-		} 
-
-		else {
-			continue;
+			return firstSet[token];
 		}
+	}	
+
+	else{
+		result.insert(token);
+		return result;
 	}
-	return result;
+
 }
 
 
@@ -185,20 +236,32 @@ void Parser::createTable() {
 	for(pit iter = grammar.begin(); iter != grammar.end(); iter++ ) {
  		
  		for(sit it=(iter->second).begin();it!=(iter->second).end();it++) {
-
+ 			//cout<<*it<<":\n";
  			set<string> firstSymbols=giveFirst(*it);
- 			printSet(firstSymbols);
+ 			//printSet(firstSymbols);
  			for(sit fs=firstSymbols.begin();fs!=firstSymbols.end();fs++) {
- 				cout<<*it<<"adding"<<endl;
+ 				//cout<<*it<<"adding"<<endl;
+ 				if(*fs=="e")
+ 					continue;
+ 				if(parsing_table.find(make_pair(iter->first,*fs))==parsing_table.end())
  				parsing_table[make_pair(iter->first,*fs)]=*it;
+ 				else
+ 					{
+ 						cout << "Grammar is not LL(1)." << endl;
+ 					}
  			}
 
  			if(firstSymbols.find("e")!=firstSymbols.end()) 
  			{
- 				for(sit fs=followSet[iter->first].begin(); fs!=firstSet[iter->first].end(); fs++)
+ 				for(sit fs=followSet[iter->first].begin(); fs!=followSet[iter->first].end(); fs++)
  				{	
- 					cout<<*it<<"adding2"<<endl;
+ 					//cout<<*it<<"adding2"<<endl;
+ 					if(parsing_table.find(make_pair(iter->first,*fs))==parsing_table.end())
  					parsing_table[make_pair(iter->first,*fs)]=*it;
+ 					else
+ 					{
+ 						cout << "Grammar is not LL(1)." << endl;
+ 					}
  				}
  			}
  		}
@@ -249,12 +312,12 @@ void Parser::eliminateLRecurse() {
 		for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
 			string str=*it;
 			if(str.substr(0,len)==("."+ind[i]+".")) {
-				lpr.insert(str.substr(len,str.size()-len)+newNonTerm);
+				lpr.insert("."+str.substr(len,str.size()-len)+ind[i]+"1"+".");
 			} else {
-				upr.insert(str+newNonTerm);
+				upr.insert(str+ind[i]+"1"+".");
 			}
 		}
-		lpr.insert("e");
+		lpr.insert(".e.");
 
 		grammar[ind[i]]=upr;
 		grammar[ind[i]+"1"]=lpr;
@@ -368,8 +431,10 @@ void Parser::start()
 	}
 
 	cout<<"Followset is:"<<endl;
-	printMap(followSet);
+	printFollowMap(followSet);
 	cout<<endl;
+
+
 
 	 return;
 
@@ -496,9 +561,7 @@ void Parser::getFollowSet(string nonterm)
 
 	if(nonterm=="S")
 	{
-		
 		symbols.insert("$");
-		
 	}
 
 	set<string> productions = grammar[nonterm];
@@ -559,7 +622,7 @@ void Parser::getFollowSet(string nonterm)
 							string temp=(*iter);
 							//cout<<"Temp: "<<temp<<endl;
 							if(strcmp(temp.c_str(),"e")!=0)
-							followseth.insert(*iter);
+								followseth.insert(*iter);
 							else
 								flag=1;
 						}
@@ -654,24 +717,37 @@ void Parser::parse(string tokensfile)
 	parserstack.push("$");
 	parserstack.push("S");
 
+	//printStack(parserstack);
+	cout<<"Stack contents:"<<endl;
+
 	string x,a;
 
 	ifstream tokensfilestream(tokensfile.c_str());
-
+	
 	if (tokensfilestream.is_open())
   	{
+  		getline(tokensfilestream, a);
 		while (!parserstack.empty())
 		{
+			printStack(parserstack);
+
 			x = parserstack.top();
+			//cout << x<< endl;
 			parserstack.pop();
-			getline(tokensfilestream, a);
+
+			
+			//cout << a << endl;
+			//cout << x << " " <<   a << endl;
 			if (tokensfilestream.eof())
 				a = "$";
 
 			if(terminals.find(x)!=terminals.end() || !strcmp(x.c_str(),"$"))
 			{
 				if(x==a)
+				{
+					getline(tokensfilestream, a);
 					continue;
+				}
 				else
 				{
 					cout << "Syntax error" << endl;
@@ -688,17 +764,21 @@ void Parser::parse(string tokensfile)
 				} else {
 					string value = parsing_table[make_pair(x,a)];
 					vector<string> nterms = tokenize(value,".");
-					for(int i=nterms.size()-1;i>0;i--) 
+					for(int i=nterms.size()-1;i>=0;i--) 
 					{
 						parserstack.push(nterms[i]);
 					}
 				}
 			}
+
 		}
 		
 		if (!tokensfilestream.eof())
+		{
+			cout << "Syntax error" << endl;
 			return ;
-
+		}
+		cout << codefile<< " has been parsed successfully." << endl;
 		return ;
 	}
 	tokensfilestream.close();
