@@ -15,7 +15,8 @@
 using namespace std;
 
 #define pit map< string, set< string> >::iterator 
-#define sit set< string>::iterator 
+#define sit set< string>::iterator
+#define tab_it map< string , map<string,string> >::iterator
 
 class Parser
 {

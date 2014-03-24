@@ -20,7 +20,11 @@ int main(int argc, char** argv)
 
 	p.getGrammar(argv[2]);
 
-	p.start();
+	p.eliminateLRecurse();
+
+	p.createTable();
+
+	//p.start();
 }
 
 
@@ -47,6 +51,16 @@ std::vector<std::string> tokenize(std::string s, std::string sep){
 		pos = s.find_first_of(sep, lastPos); 
 	}
 	return tokens;
+}
+
+void printTable(map < string, map < string,string > > table) {
+	for(tab_it it=table.begin();it!=table.end();it++) {
+		cout << "For non-T "<<it->first<<":\n";
+		for(map<string,string>::iterator m_it=(it->second).begin();m_it!=(it->second).end();m_it++) {
+			cout << m_it->first <<" " <<m_it->second<<endl;
+		}
+	}
+
 }
 
 
@@ -205,6 +219,8 @@ void Parser::createTable() {
  			}
  		}
  	}
+ 	cout<<"Created Table:\n";
+ 	printTable(parsing_table);
 }
 
 void Parser::eliminateLRecurse() {
@@ -231,12 +247,12 @@ void Parser::eliminateLRecurse() {
 		}
 
 		//eliminate left-recursion from among the Ai productions
-		string newNonTerm=ind[i]+"1";
-		int len=ind[i].size();
+		string newNonTerm="."+ind[i]+"1"+".";
+		int len=ind[i].size()+2;
 		set<string> upr,lpr;
 		for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
 			string str=*it;
-			if(str.substr(0,len)==ind[i]) {
+			if(str.substr(0,len)==("."+ind[i]+".")) {
 				lpr.insert(str.substr(len,str.size()-len)+newNonTerm);
 			} else {
 				upr.insert(str+newNonTerm);
@@ -245,9 +261,13 @@ void Parser::eliminateLRecurse() {
 		lpr.insert("e");
 
 		grammar[ind[i]]=upr;
-		grammar[newNonTerm]=lpr;
+		grammar[ind[i]+"1"]=lpr;
 	
 	}
+
+	cout<<"Eliminated Grammar is:"<<endl;
+	printMap(grammar);
+	cout<<endl;
 }
 
 
