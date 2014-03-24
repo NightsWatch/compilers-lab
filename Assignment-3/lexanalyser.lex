@@ -1,4 +1,11 @@
 /* Lexical analyser for a sample c like language. */
+
+%{
+#include <iostream>
+#include "y.tab.h"
+
+%}
+
 %option noyywrap
 
 %Start	BL_CMNT
@@ -43,5 +50,3 @@ ID 	[a-zA-Z][a-zA-Z0-9_]*
 <INITIAL>[ \t\n]+												/* eat up white spaces */
 <INITIAL>.														printf("Invalid characters: %s\n",yytext);	/* All other erroneous characters */
 %%
-
-

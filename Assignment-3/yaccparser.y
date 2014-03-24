@@ -2,6 +2,9 @@
 
 #include <iostream>	
 
+void yyerror(char *s);
+int yylex(void);
+
 %}
 
 %token DATA_TYPE ID EQUALS CONTINUE BREAK RETURN NUM FLOAT CHAR IF ELSE WHILE FOR PLUS TIMES LP RP LESSTHAN GREATERTHAN EQUALTO SEMI LFP RFP COMMA VOID MINUS DIVIDE 
@@ -34,7 +37,7 @@ stmnt:
 	| func_call SEMI
 	| iff
 	| WHILE LP expr RP LFP stmnts RFP 
-	| FOR LP id EQUALS expr SEMI expr SEMI expr RP LFP stmnts RFP
+	| FOR LP ID EQUALS expr SEMI expr SEMI expr RP LFP stmnts RFP
 	| CONTINUE SEMI
 	| BREAK SEMI
 	| RETURN id_or_data SEMI
@@ -73,31 +76,63 @@ num_or_char:
 	| CHAR
 	;
 eval:
-	termp expr''
+	termp expr2
 	;
 termp:
-	term expr'
+	term expr1
 	;
-expr':
-	| PLUS term expr'
-	| MINUS term expr'
+expr1:
+	| PLUS term expr1
+	| MINUS term expr1
 	;
 term:
-	factor term'
+	factor term1
 	;
-term':
-	| TIMES factor term'
-	| DIVIDE factor term'
+term1:
+	| TIMES factor term1
+	| DIVIDE factor term1
 	;
 factor:
 	id_or_data
 	| LP expr RP
 	;
-expr'':
-	| LESSTHAN termp expr''
-	| GREATERTHAN termp expr''
-	| EQUALTO termp expr''
+expr2:
+	| LESSTHAN termp expr2
+	| GREATERTHAN termp expr2
+	| EQUALTO termp expr2
 	;
 
 
 
+%%
+
+
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
+
+// stuff from lex that yacc needs to know about:
+extern int yylex();
+extern int yyparse();
+extern FILE *yyin;
+
+main() {
+	// open a file handle to a particular file:
+	FILE *myfile = fopen("input.txt", "r");
+	
+	
+	yyin = myfile;
+
+	
+	do {
+		yyparse();
+	} while (!feof(yyin));
+	
+}
+
+void yyerror(char *s) {
+	cout << "EEK, parse error!  Message: " << s << endl;
+	// might as well halt now:
+	exit(-1);
+}
