@@ -28,8 +28,8 @@ public:
 		map< string, set<string> > followSet;
 
 		map<string , map<string,string> > parsing_table;
-
-		map<string, string> followOverlap;
+		//map< pair<string,string>, string > parsing_table;
+		map<string, set<string> > followOverlap;
 
 		set<string> nonterminals;
 
@@ -49,11 +49,11 @@ public:
 		void eliminateLRecurse();
 
 		void parse(string);
+
 		int getNextDotLocation(int , string );
-
 		string getStringBetweenTwoDots(int , int , string);
-
 		int getNextDotReverse(int , string );
 
+		bool checkepsfirst(string);
 		
 };
