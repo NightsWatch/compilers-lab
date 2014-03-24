@@ -536,7 +536,7 @@ void Parser::parse(string tokensfile)
 		while (!parserstack.empty())
 		{
 			x = parserstack.top();
-			parserstack.top();
+			parserstack.pop();
 			getline(tokensfilestream, a);
 			if (tokensfilestream.eof())
 				a = "$";
@@ -546,7 +546,10 @@ void Parser::parse(string tokensfile)
 				if(x==a)
 					continue;
 				else
+				{
+					cout << "Syntax error" << endl;
 					return ;
+				}
 			}
 			else
 			{
@@ -554,12 +557,17 @@ void Parser::parse(string tokensfile)
 
 				if ( parsing_table.find(x) == parsing_table.end() ) 
 				{
+					cout << "Syntax error" << endl;
+					
 				 	return ;
 				} 
 				else 
 				{
 				 	if ( parsing_table[x].find(a) == parsing_table[x].end()  ) 
 				 	{
+
+				 		cout << "Syntax error" << endl;
+						
 						  return ;
 					} 
 					else 

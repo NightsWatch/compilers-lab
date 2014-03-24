@@ -1,6 +1,6 @@
 int main(void)
 {
 	
+	a = ((5*6/3)/5)+g;
 
-	return 0;
 }

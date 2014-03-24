@@ -1487,45 +1487,9 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 3:
+      
 /* Line 1787 of yacc.c  */
-#line 15 "yaccparser.y"
-    {cout << "func_list" << endl;}
-    break;
-
-  case 4:
-/* Line 1787 of yacc.c  */
-#line 18 "yaccparser.y"
-    {cout << "func" << endl;}
-    break;
-
-  case 8:
-/* Line 1787 of yacc.c  */
-#line 26 "yaccparser.y"
-    {cout << "arg_list_or_void" << endl;}
-    break;
-
-  case 13:
-/* Line 1787 of yacc.c  */
-#line 36 "yaccparser.y"
-    {cout << "stmnt; stmnts" << endl;}
-    break;
-
-  case 14:
-/* Line 1787 of yacc.c  */
-#line 39 "yaccparser.y"
-    {cout << "declaration" << endl;}
-    break;
-
-  case 15:
-/* Line 1787 of yacc.c  */
-#line 40 "yaccparser.y"
-    {cout << "id = expr;" << endl;}
-    break;
-
-
-/* Line 1787 of yacc.c  */
-#line 1529 "y.tab.c"
+#line 1493 "y.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1770,6 +1734,8 @@ using namespace std;
 extern int yylex();
 extern int yyparse();
 extern FILE *yyin;
+extern char *yytext;
+extern int yylineno;
 
 main(int argc, char** argv) {
 	
@@ -1788,10 +1754,12 @@ main(int argc, char** argv) {
 		yyparse();
 	} while (!feof(yyin));
 	
+	cout << argv[1] << " successfully parsed." << endl;	
 }
 
 void yyerror(char *s) {
-	cout << "EEK, parse error!  Message: " << s << endl;
-	// might as well halt now:
+	
+	printf("%d: %s at %s\n", yylineno, s, yytext);
+
 	exit(-1);
 }

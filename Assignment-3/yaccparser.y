@@ -12,10 +12,10 @@ int yylex(void);
 %%
 
 func_list:
-	| func func_list  {cout << "func_list" << endl;}
+	| func func_list  
 	;
 func:
-	void_or_datatype ID LP arg_list_or_void RP LFP stmnts RFP  {cout << "func" << endl;}
+	void_or_datatype ID LP arg_list_or_void RP LFP stmnts RFP  
 	;
 void_or_datatype:
 	VOID
@@ -23,7 +23,7 @@ void_or_datatype:
 	;
 arg_list_or_void: 
 	VOID
-	| arg_list {cout << "arg_list_or_void" << endl;}
+	| arg_list 
 	;
 arg_list:
 	arg COMMA arg_list
@@ -33,11 +33,11 @@ arg:
 	DATA_TYPE ID
 	;
 stmnts:
-	| stmnt stmnts {cout << "stmnt; stmnts" << endl;}
+	| stmnt stmnts 
 	;
 stmnt:
-	declaration SEMI  {cout << "declaration" << endl;}
-	| ID EQUALS expr SEMI {cout << "id = expr;" << endl;}
+	declaration SEMI  
+	| ID EQUALS expr SEMI 
 	| func_call SEMI
 	| iff
 	| WHILE LP expr RP LFP stmnts RFP 
@@ -120,6 +120,8 @@ using namespace std;
 extern int yylex();
 extern int yyparse();
 extern FILE *yyin;
+extern char *yytext;
+extern int yylineno;
 
 main(int argc, char** argv) {
 	
@@ -138,10 +140,12 @@ main(int argc, char** argv) {
 		yyparse();
 	} while (!feof(yyin));
 	
+	cout << argv[1] << " successfully parsed." << endl;	
 }
 
 void yyerror(char *s) {
-	cout << "EEK, parse error!  Message: " << s << endl;
-	// might as well halt now:
+	
+	printf("%d: %s at %s\n", yylineno, s, yytext);
+
 	exit(-1);
 }
