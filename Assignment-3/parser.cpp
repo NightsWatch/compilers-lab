@@ -53,12 +53,9 @@ std::vector<std::string> tokenize(std::string s, std::string sep){
 	return tokens;
 }
 
-void printTable(map < string, map < string,string > > table) {
+void printTable(map < pair<string, string>, string > table) {
 	for(tab_it it=table.begin();it!=table.end();it++) {
-		cout << "For non-T "<<it->first<<":\n";
-		for(map<string,string>::iterator m_it=(it->second).begin();m_it!=(it->second).end();m_it++) {
-			cout << m_it->first <<" " <<m_it->second<<endl;
-		}
+		cout << (it->first).first<<"\t" << (it->first).second<<"\t" << it->second<<"\n";
 	}
 
 }
@@ -187,34 +184,17 @@ void Parser::createTable() {
 	for(pit iter = grammar.begin(); iter != grammar.end(); iter++ ) {
  		
  		for(sit it=(iter->second).begin();it!=(iter->second).end();it++) {
+
  			set<string> firstSymbols=giveFirst(*it);
  			for(sit fs=firstSymbols.begin();fs!=firstSymbols.end();fs++) {
- 				//map<string , map<string,string> > parsing_table;
- 				//parsing_table[iter->first]=
- 				  /*pair<sit, bool> pr =*/ 
- 				parsing_table[iter->first].insert(make_pair(*fs,*it));
- 				  // if(!pr.second)
- 				  // {	
- 				  // 	printf("Grammar is not LL(1). Exiting parsing.\n");
- 				  // 	exit(0);
-
- 				  // }
-
- 				//someStorage["key"].insert(std::make_pair("key2", "value2")));
+ 				parsing_table[make_pair(iter->first,*fs)]=*it;
  			}
 
  			if(firstSymbols.find("e")!=firstSymbols.end()) 
  			{
  				for(sit fs=followSet[iter->first].begin(); fs!=firstSet[iter->first].end(); fs++)
  				{	
- 					parsing_table[iter->first].insert(make_pair(*fs,*it));
- 					// if(!pr.second)
- 					// {	
-	 				//  	printf("Grammar is not LL(1). Exiting parsing.\n");
-	 				//  	exit(0);
-
- 				 // 	}
-
+ 					parsing_table[make_pair(iter->first,*fs)]=*it;
  				}
  			}
  		}
@@ -519,7 +499,7 @@ void Parser::getFollowSet(string nonterm){
 
 }
 
-
+/*
 
 void Parser::parse(string tokensfile)
 {
@@ -592,7 +572,7 @@ void Parser::parse(string tokensfile)
 	}
 	tokensfilestream.close();
 }
-
+*/
 
 int Parser::getNextDotLocation(int currdot, string s)
 {

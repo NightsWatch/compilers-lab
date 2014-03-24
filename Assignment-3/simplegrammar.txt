@@ -1,2 +1,2 @@
 T: a b
-S a.S. b
+S .S.a b
