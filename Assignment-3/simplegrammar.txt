@@ -1,4 +1,6 @@
-T: a ( ) + b c
+T: a ( ) + b c *
 S .F. .(.S.+.F.).
-F .b. .X.a.
-X .c.
+F .b. .X.Y.Z. 
+X .c. 
+Y .e. .b.
+Z .c.

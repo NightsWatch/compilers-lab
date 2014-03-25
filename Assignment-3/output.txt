@@ -1,20 +1,27 @@
 Grammar is:
-F is .X.a.
+F is .X.Y.Z.
 F is .b.
 S is .(.S.+.F.).
 S is .F.
 X is .c.
+Y is .b.
+Y is .e.
+Z is .c.
 
 Eliminated Grammar is:
-F is .X.a.
+F is .X.Y.Z.
 F is .b.
 S is .(.S.+.F.).
 S is .F.
 X is .c.
+Y is .b.
+Y is .e.
+Z is .c.
 
 Firstset is:
 ( is (
 ) is )
+* is *
 + is +
 F is b
 F is c
@@ -22,25 +29,75 @@ S is (
 S is b
 S is c
 X is c
+Y is b
+Y is e
+Z is c
 a is a
 b is b
 c is c
 
+printint set overlap (
+printint set overlap )
+printint set overlap *
+printint set overlap +
+last isZ
+printint set overlap F
+Z value in set
+last isF
+printint set overlap S
+F value in set
+printint set overlap X
+printint set overlap Y
+printint set overlap Z
+printint set overlap a
+printint set overlap b
+printint set overlap c
+fololow ovcerlap
+F is Z
+S is F
+inserting
+iter first: F
+fromset: ser
+$ value in set
+) value in set
++ value in set
+copysetF
+$ value in set
+) value in set
++ value in set
+iter4 Z
+fololow ovcerlap
+F is Z
+S is F
+copysetS
+$ value in set
++ value in set
+iter4 F
+$ value in set
+) value in set
++ value in set
 Followset is:
 F is $
 F is )
 F is +
 S is $
 S is +
-X is a
+X is b
+X is c
+Y is c
+Z is $
+Z is )
+Z is +
 
 Created Table:
 F	b	.b.
-F	c	.X.a.
+F	c	.X.Y.Z.
 S	(	.(.S.+.F.).
 S	b	.F.
 S	c	.F.
 X	c	.c.
+Y	b	.b.
+Z	c	.c.
 
 Stack contents:
 S $ 
