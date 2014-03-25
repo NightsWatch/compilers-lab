@@ -6,3 +6,6 @@ lex.yy.c: lexanalyser.lex y.tab.h
 
 yaccparser: lex.yy.c y.tab.c y.tab.h
 	g++ y.tab.c lex.yy.c -lfl -o yaccparser
+
+parser: 
+	g++ parser.cpp parser.hpp lex.cpp lex.h lex.hpp -w
