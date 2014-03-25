@@ -499,80 +499,78 @@ void Parser::getFollowSet(string nonterm){
 
 }
 
-/*
+// void Parser::parse(string tokensfile)
+// {
 
-void Parser::parse(string tokensfile)
-{
+// 	parserstack.push("$");
+// 	parserstack.push("S");
 
-	parserstack.push("$");
-	parserstack.push("S");
+// 	string x,a;
 
-	string x,a;
+// 	ifstream tokensfilestream(tokensfile.c_str());
 
-	ifstream tokensfilestream(tokensfile.c_str());
+// 	if (tokensfilestream.is_open())
+//   	{
+// 		while (!parserstack.empty())
+// 		{
+// 			x = parserstack.top();
+// 			parserstack.pop();
+// 			getline(tokensfilestream, a);
+// 			if (tokensfilestream.eof())
+// 				a = "$";
 
-	if (tokensfilestream.is_open())
-  	{
-		while (!parserstack.empty())
-		{
-			x = parserstack.top();
-			parserstack.pop();
-			getline(tokensfilestream, a);
-			if (tokensfilestream.eof())
-				a = "$";
+// 			if(terminals.find(x)!=terminals.end() || !strcmp(x.c_str(),"$"))
+// 			{
+// 				if(x==a)
+// 					continue;
+// 				else
+// 				{
+// 					cout << "Syntax error" << endl;
+// 					return ;
+// 				}
+// 			}
+// 			else
+// 			{
+// 				string value = parsing_table[x][a];
 
-			if(terminals.find(x)!=terminals.end() || !strcmp(x.c_str(),"$"))
-			{
-				if(x==a)
-					continue;
-				else
-				{
-					cout << "Syntax error" << endl;
-					return ;
-				}
-			}
-			else
-			{
-				string value = parsing_table[x][a];
-
-				if ( parsing_table.find(x) == parsing_table.end() ) 
-				{
-					cout << "Syntax error" << endl;
+// 				if ( parsing_table.find(x) == parsing_table.end() ) 
+// 				{
+// 					cout << "Syntax error" << endl;
 					
-				 	return ;
-				} 
-				else 
-				{
-				 	if ( parsing_table[x].find(a) == parsing_table[x].end()  ) 
-				 	{
+// 				 	return ;
+// 				} 
+// 				else 
+// 				{
+// 				 	if ( parsing_table[x].find(a) == parsing_table[x].end()  ) 
+// 				 	{
 
-				 		cout << "Syntax error" << endl;
+// 				 		cout << "Syntax error" << endl;
 						
-						  return ;
-					} 
-					else 
-					{
-						  string value = parsing_table[x][a];
-						  vector<string> nterms = tokenize(value,".");
-						  for(int i=nterms.size()-1;i>0;i--) 
-						  {
-						  	parserstack.push(nterms[i]);
-						  }
-					}
+// 						  return ;
+// 					} 
+// 					else 
+// 					{
+// 						  string value = parsing_table[x][a];
+// 						  vector<string> nterms = tokenize(value,".");
+// 						  for(int i=nterms.size()-1;i>0;i--) 
+// 						  {
+// 						  	parserstack.push(nterms[i]);
+// 						  }
+// 					}
 
-				}
+// 				}
 
-			}
-		}
+// 			}
+// 		}
 		
-		if (!tokensfilestream.eof())
-			return ;
+// 		if (!tokensfilestream.eof())
+// 			return ;
 
-		return ;
-	}
-	tokensfilestream.close();
-}
-*/
+// 		return ;
+// 	}
+// 	tokensfilestream.close();
+// }
+	
 
 int Parser::getNextDotLocation(int currdot, string s)
 {

@@ -1,2 +1,4 @@
-T: a b
-S .S.a b
+T: a ( ) + b c
+S .F. .(.S.+.F.).
+F .b. .X.a.
+X .c.
