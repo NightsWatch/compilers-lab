@@ -392,7 +392,7 @@ void Parser::start()
 
 		//cout<<"fololow ovcerlap\n";
 
-		printMap(followOverlap);
+		//printMap(followOverlap);
 		for(pit iter2 = followOverlap.begin(); iter2 != followOverlap.end(); iter2++ ) 
 		{
 			set<string> overlapset = followOverlap[(iter2)->first];
@@ -419,7 +419,7 @@ void Parser::start()
 					if(iter10!=followSet.end())
 					iter10->second.insert(fromset.begin(), fromset.end());
 					//cout << "iter->secondset" << endl;
-					printSet(iter10->second);
+					//printSet(iter10->second);
 					//followSet.insert(std::pair<string, set<string> >(iter->first, fromset));
 				}
 
@@ -431,8 +431,8 @@ void Parser::start()
 
 		set<string> copyset= followSet[temp2];
 		set<string> overlapset= followOverlap[temp2];		
-		cout << "copyset" << iter->first << endl;
-		printSet(copyset);
+		//cout << "copyset" << iter->first << endl;
+		//printSet(copyset);
 
 		// loop through overlapset of A and insert followset of A into each element
 		for(sit iter4=overlapset.begin(); iter4!=overlapset.end(); ++iter4)
@@ -441,8 +441,8 @@ void Parser::start()
 				//cout << "iter4 " <<  *iter4 << endl;
 
 				//sit inserter = followSet[*iter4];
-			if(it5!=followSet.end())
-				printSet(it5->second);
+			/*if(it5!=followSet.end())
+				printSet(it5->second);*/
 			
 				//cout <<  *iter4 << "Not found" << endl;
 				if(it5!=followSet.end())
@@ -693,7 +693,7 @@ void Parser::getFollowSet(string nonterm)
 	 	}
 	}
 	//cout<<"printint set overlap "<<nonterm<<endl;
-	printSet(overlap);
+	//printSet(overlap);
 	
 
 	set<string> temp = followOverlap[nonterm];
@@ -774,7 +774,7 @@ void Parser::parse(string tokensfile)
 			{
 				if(x==a)
 				{
-					cout << "a: " << a << endl;
+					//cout << "a: " << a << endl;
 					getline(tokensfilestream, a);
 
 					continue;
