@@ -1,6 +1,15 @@
 int main(void)
 {
-	return 0;
+	int a=6;
+	if(a>3)
+	{
+		return 0;
+	}
+	else
+	{
+		a=a+10;
+		return 1;
 
+	}
 
 }
