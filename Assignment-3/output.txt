@@ -1,4 +1,5 @@
 here
+here
 Grammar is:
 S is .e.
 S is .func.S.
@@ -454,120 +455,50 @@ term expr1 expr2 SEMI stmnts RFP S $
 factor term1 expr1 expr2 SEMI stmnts RFP S $ 
 id_or_data term1 expr1 expr2 SEMI stmnts RFP S $ 
 num_or_char term1 expr1 expr2 SEMI stmnts RFP S $ 
-FLOAT term1 expr1 expr2 SEMI stmnts RFP S $ 
+NUM term1 expr1 expr2 SEMI stmnts RFP S $ 
 term1 expr1 expr2 SEMI stmnts RFP S $ 
 expr1 expr2 SEMI stmnts RFP S $ 
 expr2 SEMI stmnts RFP S $ 
 SEMI stmnts RFP S $ 
 stmnts RFP S $ 
 stmnt stmnts RFP S $ 
-declaration SEMI stmnts RFP S $ 
-DATA_TYPE ID assign SEMI stmnts RFP S $ 
-ID assign SEMI stmnts RFP S $ 
-assign SEMI stmnts RFP S $ 
+iff stmnts RFP S $ 
+IF LP expr RP LFP stmnts RFP ell stmnts RFP S $ 
+LP expr RP LFP stmnts RFP ell stmnts RFP S $ 
+expr RP LFP stmnts RFP ell stmnts RFP S $ 
+eval RP LFP stmnts RFP ell stmnts RFP S $ 
+termp expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+term expr1 expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+factor term1 expr1 expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+id_or_data term1 expr1 expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+ID term1 expr1 expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+term1 expr1 expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+expr1 expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+GREATERTHAN termp expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+termp expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+term expr1 expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+factor term1 expr1 expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+id_or_data term1 expr1 expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+num_or_char term1 expr1 expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+NUM term1 expr1 expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+term1 expr1 expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+expr1 expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+expr2 RP LFP stmnts RFP ell stmnts RFP S $ 
+RP LFP stmnts RFP ell stmnts RFP S $ 
+LFP stmnts RFP ell stmnts RFP S $ 
+stmnts RFP ell stmnts RFP S $ 
+stmnt stmnts RFP ell stmnts RFP S $ 
+RETURN id_or_data SEMI stmnts RFP ell stmnts RFP S $ 
+id_or_data SEMI stmnts RFP ell stmnts RFP S $ 
+num_or_char SEMI stmnts RFP ell stmnts RFP S $ 
+NUM SEMI stmnts RFP ell stmnts RFP S $ 
+SEMI stmnts RFP ell stmnts RFP S $ 
+stmnts RFP ell stmnts RFP S $ 
+RFP ell stmnts RFP S $ 
+ell stmnts RFP S $ 
+stmnts RFP S $ 
+stmnt stmnts RFP S $ 
+ID EQUALS expr SEMI stmnts RFP S $ 
 EQUALS expr SEMI stmnts RFP S $ 
-expr SEMI stmnts RFP S $ 
-eval SEMI stmnts RFP S $ 
-termp expr2 SEMI stmnts RFP S $ 
-term expr1 expr2 SEMI stmnts RFP S $ 
-factor term1 expr1 expr2 SEMI stmnts RFP S $ 
-id_or_data term1 expr1 expr2 SEMI stmnts RFP S $ 
-num_or_char term1 expr1 expr2 SEMI stmnts RFP S $ 
-FLOAT term1 expr1 expr2 SEMI stmnts RFP S $ 
-term1 expr1 expr2 SEMI stmnts RFP S $ 
-expr1 expr2 SEMI stmnts RFP S $ 
-expr2 SEMI stmnts RFP S $ 
-SEMI stmnts RFP S $ 
-stmnts RFP S $ 
-stmnt stmnts RFP S $ 
-declaration SEMI stmnts RFP S $ 
-DATA_TYPE ID assign SEMI stmnts RFP S $ 
-ID assign SEMI stmnts RFP S $ 
-assign SEMI stmnts RFP S $ 
-EQUALS expr SEMI stmnts RFP S $ 
-expr SEMI stmnts RFP S $ 
-func_call SEMI stmnts RFP S $ 
-FUNCNAME LP arg_passed RP SEMI stmnts RFP S $ 
-LP arg_passed RP SEMI stmnts RFP S $ 
-arg_passed RP SEMI stmnts RFP S $ 
-ID z RP SEMI stmnts RFP S $ 
-z RP SEMI stmnts RFP S $ 
-COMMA arg_passed RP SEMI stmnts RFP S $ 
-arg_passed RP SEMI stmnts RFP S $ 
-ID z RP SEMI stmnts RFP S $ 
-z RP SEMI stmnts RFP S $ 
-RP SEMI stmnts RFP S $ 
-SEMI stmnts RFP S $ 
-stmnts RFP S $ 
-stmnt stmnts RFP S $ 
-RETURN id_or_data SEMI stmnts RFP S $ 
-id_or_data SEMI stmnts RFP S $ 
-num_or_char SEMI stmnts RFP S $ 
-NUM SEMI stmnts RFP S $ 
-SEMI stmnts RFP S $ 
-stmnts RFP S $ 
-RFP S $ 
-S $ 
-func S $ 
-void_or_datatype FUNCNAME LP arg_list_or_void RP LFP stmnts RFP S $ 
-DATA_TYPE FUNCNAME LP arg_list_or_void RP LFP stmnts RFP S $ 
-FUNCNAME LP arg_list_or_void RP LFP stmnts RFP S $ 
-LP arg_list_or_void RP LFP stmnts RFP S $ 
-arg_list_or_void RP LFP stmnts RFP S $ 
-arg_list RP LFP stmnts RFP S $ 
-arg x RP LFP stmnts RFP S $ 
-DATA_TYPE ID x RP LFP stmnts RFP S $ 
-ID x RP LFP stmnts RFP S $ 
-x RP LFP stmnts RFP S $ 
-COMMA arg_list RP LFP stmnts RFP S $ 
-arg_list RP LFP stmnts RFP S $ 
-arg x RP LFP stmnts RFP S $ 
-DATA_TYPE ID x RP LFP stmnts RFP S $ 
-ID x RP LFP stmnts RFP S $ 
-x RP LFP stmnts RFP S $ 
-RP LFP stmnts RFP S $ 
-LFP stmnts RFP S $ 
-stmnts RFP S $ 
-stmnt stmnts RFP S $ 
-declaration SEMI stmnts RFP S $ 
-DATA_TYPE ID assign SEMI stmnts RFP S $ 
-ID assign SEMI stmnts RFP S $ 
-assign SEMI stmnts RFP S $ 
-EQUALS expr SEMI stmnts RFP S $ 
-expr SEMI stmnts RFP S $ 
-eval SEMI stmnts RFP S $ 
-termp expr2 SEMI stmnts RFP S $ 
-term expr1 expr2 SEMI stmnts RFP S $ 
-factor term1 expr1 expr2 SEMI stmnts RFP S $ 
-LP expr RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-expr RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-eval RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-termp expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-term expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-factor term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-id_or_data term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-ID term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-DIVIDE factor term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-factor term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-id_or_data term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-ID term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-RP term1 expr1 expr2 SEMI stmnts RFP S $ 
-term1 expr1 expr2 SEMI stmnts RFP S $ 
-expr1 expr2 SEMI stmnts RFP S $ 
-expr2 SEMI stmnts RFP S $ 
-SEMI stmnts RFP S $ 
-stmnts RFP S $ 
-stmnt stmnts RFP S $ 
-RETURN id_or_data SEMI stmnts RFP S $ 
-id_or_data SEMI stmnts RFP S $ 
-ID SEMI stmnts RFP S $ 
-SEMI stmnts RFP S $ 
-stmnts RFP S $ 
-RFP S $ 
-S $ 
-$ 
-fullinput2.txt has been parsed successfully.
+Syntax error at LFP
