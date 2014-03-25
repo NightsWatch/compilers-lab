@@ -247,7 +247,11 @@ void Parser::createTable() {
  				parsing_table[make_pair(iter->first,*fs)]=*it;
  				else
  					{
+ 						cout << iter->first << " " << *fs << "  " << endl;
+ 						cout << "New prod " << *it << endl;
+ 						cout << "Old prod" << parsing_table[make_pair(iter->first,*fs)] <<endl;
  						cout << "Grammar is not LL(1)." << endl;
+ 						exit(1);
  					}
  			}
 
@@ -261,6 +265,7 @@ void Parser::createTable() {
  					else
  					{
  						cout << "Grammar is not LL(1)." << endl;
+ 						exit(1);
  					}
  				}
  			}

@@ -125,7 +125,7 @@ char* lex (void) {
                 { 
 
                   ++current;
-                  return EQUALSTO;
+                  return EQUALTO;
                 }
             return EQUALS;
             case  '{':
@@ -167,7 +167,7 @@ char* lex (void) {
                         }*/
 
                       if (*current=='v' && *(current+1)=='o' && *(current+2)=='i' && *(current+3)=='d'   && *(current+4)==' ' )
-                            //current+=3;
+                       {     //current+=3;
                           yyleng=4;
 
                           return VOID;
@@ -175,7 +175,7 @@ char* lex (void) {
 
 
                       if (*current=='r' && *(current+1)=='e' && *(current+2)=='t' && *(current+3)=='u' && *(current+4)=='r' &&  *(current+5)=='n'  && (*(current+8)==' ' || *(current+8)==';' ))
-                            //current+=3;
+                       {     //current+=3;
                           yyleng=6;
 
                           return RETURN;
@@ -184,7 +184,7 @@ char* lex (void) {
 
 
                       if (*current=='b' && *(current+1)=='r' && *(current+2)=='e' && *(current+3)=='a' && *(current+4)=='k'  && (*(current+5)==' ' || *(current+5)==';' ))
-                            //current+=3;
+                        {    //current+=3;
                           yyleng=5;
 
                           return BREAK;
@@ -192,7 +192,7 @@ char* lex (void) {
 
 
                       if (*current=='c' && *(current+1)=='o' && *(current+2)=='n' && *(current+3)=='t' && *(current+4)=='i' &&  *(current+5)=='n' &&  *(current+6)=='u' &&  *(current+7)=='e' && (*(current+8)==' ' || *(current+8)==';' ))
-                            //current+=3;
+                        {    //current+=3;
                           yyleng=8;
 
                           return CONTINUE;
@@ -224,7 +224,8 @@ char* lex (void) {
                      if (*current=='i' && *(current+1)=='n' && *(current+2)=='t' && *(current+3)==' ') 
                       {
                           yyleng=3;
-                          return KEYWORD;
+                          cout << "here" << endl;
+                          return DATA_TYPE;
                       }
 
 
@@ -316,7 +317,7 @@ void LexAnalyser::getTokens( string inp, string outp)
           val=lex();
           if(val==EOI)
             break;
-          fprintf(fop,"%s,",val);
+          fprintf(fop,"%s",val);
           
           
          /*int temp=0;

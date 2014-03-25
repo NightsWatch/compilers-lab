@@ -1,113 +1,1738 @@
+here
+here
+here
 Grammar is:
-F is .X.Y.Z.
-F is .b.
-S is .(.S.+.F.).
-S is .F.
-X is .c.
-Y is .b.
-Y is .e.
-Z is .c.
+arg is .DATA_TYPE.ID.
+arg_list is .arg.x.
+arg_list_or_void is .VOID.
+arg_list_or_void is .arg_list.
+arg_list_or_void is .e.
+arg_passed is .ID.z.
+assign is .EQUALS.expr.
+assign is .e.
+declaration is .DATA_TYPE.ID.assign.
+ell is .ELSE.y.
+ell is .e.
+eval is .termp.expr2.
+expr is .eval.
+expr is .func_call.
+expr1 is .MINUS.term.expr1.
+expr1 is .PLUS.term.expr1.
+expr1 is .e.
+expr2 is .EQUALTO.termp.expr2.
+expr2 is .GREATERTHAN.termp.expr2.
+expr2 is .LESSTHAN.termp.expr2.
+expr2 is .e.
+factor is .LP.expr.RP.
+factor is .id_or_data.
+func is .void_or_datatype.ID.LP.arg_list_or_void.RP.LFP.stmnts.RFP.
+func_call is .ID.LP.arg_passed.RP.
+func_list is .e.
+func_list is .func.func_list.
+id_or_data is .ID.
+id_or_data is .num_or_char.
+iff is .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
+num_or_char is .CHAR.
+num_or_char is .FLOAT.
+num_or_char is .NUM.
+stmnt is .BREAK.SEMI.
+stmnt is .CONTINUE.SEMI.
+stmnt is .FOR.LP.ID.EQUALS.expr.SEMI.expr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
+stmnt is .ID.EQUALS.expr.SEMI.
+stmnt is .RETURN.id_or_data.SEMI.
+stmnt is .WHILE.LP.expr.RP.LFP.stmnts.RFP.
+stmnt is .declaration.SEMI.
+stmnt is .func_call.SEMI.
+stmnt is .iff.
+stmnts is .e.
+stmnts is .stmnt.stmnts.
+term is .factor.term1.
+term1 is .DIVIDE.factor.term1.
+term1 is .TIMES.factor.term1.
+term1 is .e.
+termp is .term.expr1.
+void_or_datatype is .DATA_TYPE.
+void_or_datatype is .VOID.
+x is .COMMA.arg_list.
+x is .e.
+y is .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
+y is .LP.expr.RP.LFP.stmnts.RFP.
+z is .COMMA.arg_passed.
+z is .e.
 
 Eliminated Grammar is:
-F is .X.Y.Z.
-F is .b.
-S is .(.S.+.F.).
-S is .F.
-X is .c.
-Y is .b.
-Y is .e.
-Z is .c.
+arg is .DATA_TYPE.ID.
+arg_list is .arg.x.
+arg_list_or_void is .VOID.
+arg_list_or_void is .arg_list.
+arg_list_or_void is .e.
+arg_passed is .ID.z.
+assign is .EQUALS.expr.
+assign is .e.
+declaration is .DATA_TYPE.ID.assign.
+ell is .ELSE.y.
+ell is .e.
+eval is .termp.expr2.
+expr is .eval.
+expr is .func_call.
+expr1 is .MINUS.term.expr1.
+expr1 is .PLUS.term.expr1.
+expr1 is .e.
+expr2 is .EQUALTO.termp.expr2.
+expr2 is .GREATERTHAN.termp.expr2.
+expr2 is .LESSTHAN.termp.expr2.
+expr2 is .e.
+factor is .LP.expr.RP.
+factor is .id_or_data.
+func is .void_or_datatype.ID.LP.arg_list_or_void.RP.LFP.stmnts.RFP.
+func_call is .ID.LP.arg_passed.RP.
+func_list is .e.
+func_list is .func.func_list.
+id_or_data is .ID.
+id_or_data is .num_or_char.
+iff is .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
+num_or_char is .CHAR.
+num_or_char is .FLOAT.
+num_or_char is .NUM.
+stmnt is .BREAK.SEMI.
+stmnt is .CONTINUE.SEMI.
+stmnt is .FOR.LP.ID.EQUALS.expr.SEMI.expr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
+stmnt is .ID.EQUALS.expr.SEMI.
+stmnt is .RETURN.id_or_data.SEMI.
+stmnt is .WHILE.LP.expr.RP.LFP.stmnts.RFP.
+stmnt is .declaration.SEMI.
+stmnt is .func_call.SEMI.
+stmnt is .iff.
+stmnts is .e.
+stmnts is .stmnt.stmnts.
+term is .factor.term1.
+term1 is .DIVIDE.factor.term1.
+term1 is .TIMES.factor.term1.
+term1 is .e.
+termp is .term.expr1.
+void_or_datatype is .DATA_TYPE.
+void_or_datatype is .VOID.
+x is .COMMA.arg_list.
+x is .e.
+y is .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
+y is .LP.expr.RP.LFP.stmnts.RFP.
+z is .COMMA.arg_passed.
+z is .e.
 
 Firstset is:
-( is (
-) is )
-* is *
-+ is +
-F is b
-F is c
-S is (
-S is b
-S is c
-X is c
-Y is b
-Y is e
-Z is c
-a is a
-b is b
-c is c
+BREAK is BREAK
+CHAR is CHAR
+COMMA is COMMA
+CONTINUE is CONTINUE
+DATA_TYPE is DATA_TYPE
+DIVIDE is DIVIDE
+ELSE is ELSE
+EQUALS is EQUALS
+EQUALTO is EQUALTO
+FLOAT is FLOAT
+FOR is FOR
+GREATERTHAN is GREATERTHAN
+ID is ID
+IF is IF
+LESSTHAN is LESSTHAN
+LFP is LFP
+LP is LP
+MINUS is MINUS
+NUM is NUM
+PLUS is PLUS
+RETURN is RETURN
+RFP is RFP
+RP is RP
+SEMI is SEMI
+TIMES is TIMES
+VOID is VOID
+WHILE is WHILE
+arg is DATA_TYPE
+arg_list is DATA_TYPE
+arg_list_or_void is DATA_TYPE
+arg_list_or_void is VOID
+arg_list_or_void is e
+arg_passed is ID
+assign is EQUALS
+assign is e
+declaration is DATA_TYPE
+ell is ELSE
+ell is e
+eval is CHAR
+eval is FLOAT
+eval is ID
+eval is LP
+eval is NUM
+expr is CHAR
+expr is FLOAT
+expr is ID
+expr is LP
+expr is NUM
+expr1 is MINUS
+expr1 is PLUS
+expr1 is e
+expr2 is EQUALTO
+expr2 is GREATERTHAN
+expr2 is LESSTHAN
+expr2 is e
+factor is CHAR
+factor is FLOAT
+factor is ID
+factor is LP
+factor is NUM
+func is DATA_TYPE
+func is VOID
+func_call is ID
+func_list is DATA_TYPE
+func_list is VOID
+func_list is e
+id_or_data is CHAR
+id_or_data is FLOAT
+id_or_data is ID
+id_or_data is NUM
+iff is IF
+num_or_char is CHAR
+num_or_char is FLOAT
+num_or_char is NUM
+stmnt is BREAK
+stmnt is CONTINUE
+stmnt is DATA_TYPE
+stmnt is FOR
+stmnt is ID
+stmnt is IF
+stmnt is RETURN
+stmnt is WHILE
+stmnts is BREAK
+stmnts is CONTINUE
+stmnts is DATA_TYPE
+stmnts is FOR
+stmnts is ID
+stmnts is IF
+stmnts is RETURN
+stmnts is WHILE
+stmnts is e
+term is CHAR
+term is FLOAT
+term is ID
+term is LP
+term is NUM
+term1 is DIVIDE
+term1 is TIMES
+term1 is e
+termp is CHAR
+termp is FLOAT
+termp is ID
+termp is LP
+termp is NUM
+void_or_datatype is DATA_TYPE
+void_or_datatype is VOID
+x is COMMA
+x is e
+y is IF
+y is LP
+z is COMMA
+z is e
 
-printint set overlap (
-printint set overlap )
-printint set overlap *
-printint set overlap +
-last isZ
-printint set overlap F
-Z value in set
-last isF
-printint set overlap S
-F value in set
-printint set overlap X
-printint set overlap Y
-printint set overlap Z
-printint set overlap a
-printint set overlap b
-printint set overlap c
+printint set overlap BREAK
+printint set overlap CHAR
+printint set overlap COMMA
+printint set overlap CONTINUE
+printint set overlap DATA_TYPE
+printint set overlap DIVIDE
+printint set overlap ELSE
+printint set overlap EQUALS
+printint set overlap EQUALTO
+printint set overlap FLOAT
+printint set overlap FOR
+printint set overlap GREATERTHAN
+printint set overlap ID
+printint set overlap IF
+printint set overlap LESSTHAN
+printint set overlap LFP
+printint set overlap LP
+printint set overlap MINUS
+printint set overlap NUM
+printint set overlap PLUS
+printint set overlap RETURN
+printint set overlap RFP
+printint set overlap RP
+printint set overlap SEMI
+printint set overlap TIMES
+printint set overlap VOID
+printint set overlap WHILE
+printint set overlap arg
+last isx
+prev isarg
+printint set overlap arg_list
+arg value in set
+x value in set
+last isarg_list
+printint set overlap arg_list_or_void
+arg_list value in set
+last isz
+prev isID
+printint set overlap arg_passed
+ID value in set
+z value in set
+last isexpr
+printint set overlap assign
+expr value in set
+last isassign
+prev isID
+printint set overlap declaration
+ID value in set
+assign value in set
+last isy
+printint set overlap ell
+y value in set
+last isexpr2
+prev istermp
+printint set overlap eval
+expr2 value in set
+termp value in set
+last iseval
+last isfunc_call
+printint set overlap expr
+eval value in set
+func_call value in set
+last isexpr1
+prev isterm
+last isexpr1
+prev isterm
+printint set overlap expr1
+expr1 value in set
+term value in set
+last isexpr2
+prev istermp
+last isexpr2
+prev istermp
+last isexpr2
+prev istermp
+printint set overlap expr2
+expr2 value in set
+termp value in set
+last isid_or_data
+printint set overlap factor
+id_or_data value in set
+printint set overlap func
+printint set overlap func_call
+last isfunc_list
+prev isfunc
+printint set overlap func_list
+func value in set
+func_list value in set
+last isnum_or_char
+printint set overlap id_or_data
+num_or_char value in set
+last isell
+prev isRFP
+printint set overlap iff
+RFP value in set
+ell value in set
+printint set overlap num_or_char
+last isiff
+printint set overlap stmnt
+iff value in set
+last isstmnts
+prev isstmnt
+printint set overlap stmnts
+stmnt value in set
+stmnts value in set
+last isterm1
+prev isfactor
+printint set overlap term
+factor value in set
+term1 value in set
+last isterm1
+prev isfactor
+last isterm1
+prev isfactor
+printint set overlap term1
+factor value in set
+term1 value in set
+last isexpr1
+prev isterm
+printint set overlap termp
+expr1 value in set
+term value in set
+printint set overlap void_or_datatype
+last isarg_list
+printint set overlap x
+arg_list value in set
+last isell
+prev isRFP
+printint set overlap y
+RFP value in set
+ell value in set
+last isarg_passed
+printint set overlap z
+arg_passed value in set
 fololow ovcerlap
-F is Z
-S is F
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
 inserting
-iter first: F
+iter first: arg_list
 fromset: ser
-$ value in set
-) value in set
-+ value in set
-copysetF
-$ value in set
-) value in set
-+ value in set
-iter4 Z
+RP value in set
+inserting
+iter first: arg_list
+fromset: ser
+RP value in set
+copysetarg_list
+RP value in set
+iter4 arg
+COMMA value in set
+iter4 x
 fololow ovcerlap
-F is Z
-S is F
-copysetS
-$ value in set
-+ value in set
-iter4 F
-$ value in set
-) value in set
-+ value in set
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+copysetarg_list_or_void
+RP value in set
+iter4 arg_list
+RP value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: arg_passed
+fromset: ser
+RP value in set
+copysetarg_passed
+RP value in set
+iter4 ID
+COMMA value in set
+EQUALS value in set
+LP value in set
+iter4 z
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: assign
+fromset: ser
+SEMI value in set
+copysetassign
+SEMI value in set
+iter4 expr
+RP value in set
+SEMI value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+copysetdeclaration
+SEMI value in set
+iter4 ID
+COMMA value in set
+EQUALS value in set
+LP value in set
+RP value in set
+iter4 assign
+SEMI value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: ell
+fromset: ser
+inserting
+iter first: ell
+fromset: ser
+copysetell
+iter4 y
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: eval
+fromset: ser
+RP value in set
+SEMI value in set
+copyseteval
+RP value in set
+SEMI value in set
+iter4 expr2
+iter4 termp
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: expr
+fromset: ser
+RP value in set
+SEMI value in set
+copysetexpr
+RP value in set
+SEMI value in set
+iter4 eval
+RP value in set
+SEMI value in set
+iter4 func_call
+SEMI value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: expr1
+fromset: ser
+inserting
+iter first: expr1
+fromset: ser
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+RP value in set
+SEMI value in set
+copysetexpr1
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+RP value in set
+SEMI value in set
+iter4 expr1
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+RP value in set
+SEMI value in set
+iter4 term
+MINUS value in set
+PLUS value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: expr2
+fromset: ser
+RP value in set
+SEMI value in set
+inserting
+iter first: expr2
+fromset: ser
+RP value in set
+SEMI value in set
+copysetexpr2
+RP value in set
+SEMI value in set
+iter4 expr2
+RP value in set
+SEMI value in set
+iter4 termp
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+RP value in set
+SEMI value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: factor
+fromset: ser
+DIVIDE value in set
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+TIMES value in set
+inserting
+iter first: factor
+fromset: ser
+DIVIDE value in set
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+TIMES value in set
+copysetfactor
+DIVIDE value in set
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+TIMES value in set
+iter4 id_or_data
+SEMI value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: func_list
+fromset: ser
+copysetfunc_list
+iter4 func
+DATA_TYPE value in set
+VOID value in set
+iter4 func_list
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: id_or_data
+fromset: ser
+DIVIDE value in set
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+TIMES value in set
+copysetid_or_data
+DIVIDE value in set
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+TIMES value in set
+iter4 num_or_char
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: iff
+fromset: ser
+BREAK value in set
+CONTINUE value in set
+DATA_TYPE value in set
+FOR value in set
+ID value in set
+IF value in set
+RETURN value in set
+WHILE value in set
+copysetiff
+BREAK value in set
+CONTINUE value in set
+DATA_TYPE value in set
+FOR value in set
+ID value in set
+IF value in set
+RETURN value in set
+WHILE value in set
+iter4 RFP
+ELSE value in set
+iter4 ell
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: stmnt
+fromset: ser
+BREAK value in set
+CONTINUE value in set
+DATA_TYPE value in set
+FOR value in set
+ID value in set
+IF value in set
+RETURN value in set
+RFP value in set
+WHILE value in set
+copysetstmnt
+BREAK value in set
+CONTINUE value in set
+DATA_TYPE value in set
+FOR value in set
+ID value in set
+IF value in set
+RETURN value in set
+RFP value in set
+WHILE value in set
+iter4 iff
+BREAK value in set
+CONTINUE value in set
+DATA_TYPE value in set
+FOR value in set
+ID value in set
+IF value in set
+RETURN value in set
+WHILE value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: stmnts
+fromset: ser
+RFP value in set
+copysetstmnts
+RFP value in set
+iter4 stmnt
+BREAK value in set
+CONTINUE value in set
+DATA_TYPE value in set
+FOR value in set
+ID value in set
+IF value in set
+RETURN value in set
+RFP value in set
+WHILE value in set
+iter4 stmnts
+RFP value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: term
+fromset: ser
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+inserting
+iter first: term
+fromset: ser
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+copysetterm
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+iter4 factor
+DIVIDE value in set
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+TIMES value in set
+iter4 term1
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: term1
+fromset: ser
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+inserting
+iter first: term1
+fromset: ser
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+copysetterm1
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+iter4 factor
+DIVIDE value in set
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+TIMES value in set
+iter4 term1
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: termp
+fromset: ser
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+RP value in set
+SEMI value in set
+inserting
+iter first: termp
+fromset: ser
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+RP value in set
+SEMI value in set
+copysettermp
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+RP value in set
+SEMI value in set
+iter4 expr1
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+RP value in set
+SEMI value in set
+iter4 term
+EQUALTO value in set
+GREATERTHAN value in set
+LESSTHAN value in set
+MINUS value in set
+PLUS value in set
+RP value in set
+SEMI value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: x
+fromset: ser
+RP value in set
+copysetx
+RP value in set
+iter4 arg_list
+RP value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: y
+fromset: ser
+BREAK value in set
+CONTINUE value in set
+DATA_TYPE value in set
+FOR value in set
+ID value in set
+IF value in set
+RETURN value in set
+WHILE value in set
+copysety
+BREAK value in set
+CONTINUE value in set
+DATA_TYPE value in set
+FOR value in set
+ID value in set
+IF value in set
+RETURN value in set
+WHILE value in set
+iter4 RFP
+BREAK value in set
+CONTINUE value in set
+DATA_TYPE value in set
+ELSE value in set
+FOR value in set
+ID value in set
+IF value in set
+RETURN value in set
+WHILE value in set
+iter4 ell
+BREAK value in set
+CONTINUE value in set
+DATA_TYPE value in set
+FOR value in set
+ID value in set
+IF value in set
+RETURN value in set
+WHILE value in set
+fololow ovcerlap
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
+func_list is func
+func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: z
+fromset: ser
+RP value in set
+copysetz
+RP value in set
+iter4 arg_passed
+RP value in set
 Followset is:
-F is $
-F is )
-F is +
-S is $
-S is +
-X is b
-X is c
-Y is c
-Z is $
-Z is )
-Z is +
+arg is COMMA
+arg is RP
+arg_list is RP
+arg_list_or_void is RP
+arg_passed is RP
+assign is SEMI
+declaration is SEMI
+ell is BREAK
+ell is CONTINUE
+ell is DATA_TYPE
+ell is FOR
+ell is ID
+ell is IF
+ell is RETURN
+ell is WHILE
+eval is RP
+eval is SEMI
+expr is RP
+expr is SEMI
+expr1 is EQUALTO
+expr1 is GREATERTHAN
+expr1 is LESSTHAN
+expr1 is RP
+expr1 is SEMI
+expr2 is RP
+expr2 is SEMI
+factor is DIVIDE
+factor is EQUALTO
+factor is GREATERTHAN
+factor is LESSTHAN
+factor is MINUS
+factor is PLUS
+factor is RP
+factor is SEMI
+factor is TIMES
+func is DATA_TYPE
+func is VOID
+func_call is RP
+func_call is SEMI
+id_or_data is DIVIDE
+id_or_data is EQUALTO
+id_or_data is GREATERTHAN
+id_or_data is LESSTHAN
+id_or_data is MINUS
+id_or_data is PLUS
+id_or_data is RP
+id_or_data is SEMI
+id_or_data is TIMES
+iff is BREAK
+iff is CONTINUE
+iff is DATA_TYPE
+iff is FOR
+iff is ID
+iff is IF
+iff is RETURN
+iff is RFP
+iff is WHILE
+num_or_char is DIVIDE
+num_or_char is EQUALTO
+num_or_char is GREATERTHAN
+num_or_char is LESSTHAN
+num_or_char is MINUS
+num_or_char is PLUS
+num_or_char is RP
+num_or_char is SEMI
+num_or_char is TIMES
+stmnt is BREAK
+stmnt is CONTINUE
+stmnt is DATA_TYPE
+stmnt is FOR
+stmnt is ID
+stmnt is IF
+stmnt is RETURN
+stmnt is RFP
+stmnt is WHILE
+stmnts is RFP
+term is EQUALTO
+term is GREATERTHAN
+term is LESSTHAN
+term is MINUS
+term is PLUS
+term is RP
+term is SEMI
+term1 is EQUALTO
+term1 is GREATERTHAN
+term1 is LESSTHAN
+term1 is MINUS
+term1 is PLUS
+term1 is RP
+term1 is SEMI
+termp is EQUALTO
+termp is GREATERTHAN
+termp is LESSTHAN
+termp is RP
+termp is SEMI
+void_or_datatype is ID
+x is RP
+y is BREAK
+y is CONTINUE
+y is DATA_TYPE
+y is FOR
+y is ID
+y is IF
+y is RETURN
+y is WHILE
+z is RP
 
-Created Table:
-F	b	.b.
-F	c	.X.Y.Z.
-S	(	.(.S.+.F.).
-S	b	.F.
-S	c	.F.
-X	c	.c.
-Y	b	.b.
-Z	c	.c.
-
-Stack contents:
-S $ 
-( S + F ) $ 
-S + F ) $ 
-F + F ) $ 
-b + F ) $ 
-+ F ) $ 
-F ) $ 
-b ) $ 
-) $ 
-$ 
-simplecode.txt has been parsed successfully.
+expr ID  
+New prod .func_call.
+Old prod.eval.
+Grammar is not LL(1).
