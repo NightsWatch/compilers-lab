@@ -286,13 +286,16 @@ void Parser::eliminateLRecurse() {
 		ind[i]=*it;
 		i++;
 	}
-
+	for(int i=1;i<=2;i++) {
+		//cout << ind[i]<<" ";
+	}
+	cout<<"\n";
 	for(int i=1;i<=nonterminals.size();i++) {
 		for(int j=1;j<i;j++) {
 			for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
-				int len=ind[j].size();
+				int len=ind[j].size()+2;
 				string str=*it;
-				if(str.substr(0,len)==ind[j]) {
+				if(str.substr(0,len)==("."+ind[j]+".")) {
 					grammar[ind[i]].erase(it);
 					for(sit it2=grammar[ind[j]].begin();it2!=grammar[ind[j]].end();it2++) {
 						string temp=(*it2)+str.substr(len,str.size()-len);
@@ -301,6 +304,7 @@ void Parser::eliminateLRecurse() {
 				}
 			}
 		}
+		//printMap(grammar);cout<<"\n";
 		//check if Ai has left recursion
 		int len=ind[i].size()+2;
 		for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {

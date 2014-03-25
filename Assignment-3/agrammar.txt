@@ -1,0 +1,4 @@
+T: ID LP RP PLUS
+s .s.ID. .x.
+f .ID. .e.
+x .f. .LP.s.PLUS.f.RP.
