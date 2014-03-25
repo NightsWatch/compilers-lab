@@ -1,0 +1,13 @@
+int main(void)
+{
+	
+	while(asda)
+
+	{
+		else{
+		
+		}
+	}
+
+
+}

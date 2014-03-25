@@ -1,7 +1,7 @@
 here
-here
-here
 Grammar is:
+S is .e.
+S is .func.S.
 arg is .DATA_TYPE.ID.
 arg_list is .arg.x.
 arg_list_or_void is .VOID.
@@ -25,10 +25,8 @@ expr2 is .LESSTHAN.termp.expr2.
 expr2 is .e.
 factor is .LP.expr.RP.
 factor is .id_or_data.
-func is .void_or_datatype.ID.LP.arg_list_or_void.RP.LFP.stmnts.RFP.
-func_call is .ID.LP.arg_passed.RP.
-func_list is .e.
-func_list is .func.func_list.
+func is .void_or_datatype.FUNCNAME.LP.arg_list_or_void.RP.LFP.stmnts.RFP.
+func_call is .FUNCNAME.LP.arg_passed.RP.
 id_or_data is .ID.
 id_or_data is .num_or_char.
 iff is .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
@@ -61,6 +59,8 @@ z is .COMMA.arg_passed.
 z is .e.
 
 Eliminated Grammar is:
+S is .e.
+S is .func.S.
 arg is .DATA_TYPE.ID.
 arg_list is .arg.x.
 arg_list_or_void is .VOID.
@@ -84,10 +84,8 @@ expr2 is .LESSTHAN.termp.expr2.
 expr2 is .e.
 factor is .LP.expr.RP.
 factor is .id_or_data.
-func is .void_or_datatype.ID.LP.arg_list_or_void.RP.LFP.stmnts.RFP.
-func_call is .ID.LP.arg_passed.RP.
-func_list is .e.
-func_list is .func.func_list.
+func is .void_or_datatype.FUNCNAME.LP.arg_list_or_void.RP.LFP.stmnts.RFP.
+func_call is .FUNCNAME.LP.arg_passed.RP.
 id_or_data is .ID.
 id_or_data is .num_or_char.
 iff is .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
@@ -131,6 +129,7 @@ EQUALS is EQUALS
 EQUALTO is EQUALTO
 FLOAT is FLOAT
 FOR is FOR
+FUNCNAME is FUNCNAME
 GREATERTHAN is GREATERTHAN
 ID is ID
 IF is IF
@@ -143,6 +142,9 @@ PLUS is PLUS
 RETURN is RETURN
 RFP is RFP
 RP is RP
+S is DATA_TYPE
+S is VOID
+S is e
 SEMI is SEMI
 TIMES is TIMES
 VOID is VOID
@@ -165,6 +167,7 @@ eval is LP
 eval is NUM
 expr is CHAR
 expr is FLOAT
+expr is FUNCNAME
 expr is ID
 expr is LP
 expr is NUM
@@ -182,10 +185,7 @@ factor is LP
 factor is NUM
 func is DATA_TYPE
 func is VOID
-func_call is ID
-func_list is DATA_TYPE
-func_list is VOID
-func_list is e
+func_call is FUNCNAME
 id_or_data is CHAR
 id_or_data is FLOAT
 id_or_data is ID
@@ -198,6 +198,7 @@ stmnt is BREAK
 stmnt is CONTINUE
 stmnt is DATA_TYPE
 stmnt is FOR
+stmnt is FUNCNAME
 stmnt is ID
 stmnt is IF
 stmnt is RETURN
@@ -206,6 +207,7 @@ stmnts is BREAK
 stmnts is CONTINUE
 stmnts is DATA_TYPE
 stmnts is FOR
+stmnts is FUNCNAME
 stmnts is ID
 stmnts is IF
 stmnts is RETURN
@@ -244,6 +246,7 @@ printint set overlap EQUALS
 printint set overlap EQUALTO
 printint set overlap FLOAT
 printint set overlap FOR
+printint set overlap FUNCNAME
 printint set overlap GREATERTHAN
 printint set overlap ID
 printint set overlap IF
@@ -256,6 +259,11 @@ printint set overlap PLUS
 printint set overlap RETURN
 printint set overlap RFP
 printint set overlap RP
+last isS
+prev isfunc
+printint set overlap S
+S value in set
+func value in set
 printint set overlap SEMI
 printint set overlap TIMES
 printint set overlap VOID
@@ -316,11 +324,6 @@ printint set overlap factor
 id_or_data value in set
 printint set overlap func
 printint set overlap func_call
-last isfunc_list
-prev isfunc
-printint set overlap func_list
-func value in set
-func_list value in set
 last isnum_or_char
 printint set overlap id_or_data
 num_or_char value in set
@@ -368,6 +371,8 @@ last isarg_passed
 printint set overlap z
 arg_passed value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -386,8 +391,54 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
+id_or_data is num_or_char
+iff is RFP
+iff is ell
+stmnt is iff
+stmnts is stmnt
+stmnts is stmnts
+term is factor
+term is term1
+term1 is factor
+term1 is term1
+termp is expr1
+termp is term
+x is arg_list
+y is RFP
+y is ell
+z is arg_passed
+inserting
+iter first: S
+fromset: ser
+$ value in set
+copysetS
+$ value in set
+iter4 S
+$ value in set
+iter4 func
+DATA_TYPE value in set
+VOID value in set
+fololow ovcerlap
+S is S
+S is func
+arg_list is arg
+arg_list is x
+arg_list_or_void is arg_list
+arg_passed is ID
+arg_passed is z
+assign is expr
+declaration is ID
+declaration is assign
+ell is y
+eval is expr2
+eval is termp
+expr is eval
+expr is func_call
+expr1 is expr1
+expr1 is term
+expr2 is expr2
+expr2 is termp
+factor is id_or_data
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -418,6 +469,8 @@ iter4 arg
 COMMA value in set
 iter4 x
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -436,8 +489,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -459,6 +510,8 @@ RP value in set
 iter4 arg_list
 RP value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -477,8 +530,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -504,9 +555,10 @@ RP value in set
 iter4 ID
 COMMA value in set
 EQUALS value in set
-LP value in set
 iter4 z
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -525,8 +577,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -553,6 +603,8 @@ iter4 expr
 RP value in set
 SEMI value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -571,8 +623,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -594,11 +644,12 @@ SEMI value in set
 iter4 ID
 COMMA value in set
 EQUALS value in set
-LP value in set
 RP value in set
 iter4 assign
 SEMI value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -617,8 +668,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -644,6 +693,8 @@ fromset: ser
 copysetell
 iter4 y
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -662,8 +713,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -694,6 +743,8 @@ EQUALTO value in set
 GREATERTHAN value in set
 LESSTHAN value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -712,8 +763,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -744,6 +793,8 @@ SEMI value in set
 iter4 func_call
 SEMI value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -762,8 +813,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -807,6 +856,8 @@ iter4 term
 MINUS value in set
 PLUS value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -825,8 +876,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -866,6 +915,8 @@ LESSTHAN value in set
 RP value in set
 SEMI value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -884,8 +935,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -939,6 +988,8 @@ TIMES value in set
 iter4 id_or_data
 SEMI value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -957,53 +1008,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
-id_or_data is num_or_char
-iff is RFP
-iff is ell
-stmnt is iff
-stmnts is stmnt
-stmnts is stmnts
-term is factor
-term is term1
-term1 is factor
-term1 is term1
-termp is expr1
-termp is term
-x is arg_list
-y is RFP
-y is ell
-z is arg_passed
-inserting
-iter first: func_list
-fromset: ser
-copysetfunc_list
-iter4 func
-DATA_TYPE value in set
-VOID value in set
-iter4 func_list
-fololow ovcerlap
-arg_list is arg
-arg_list is x
-arg_list_or_void is arg_list
-arg_passed is ID
-arg_passed is z
-assign is expr
-declaration is ID
-declaration is assign
-ell is y
-eval is expr2
-eval is termp
-expr is eval
-expr is func_call
-expr1 is expr1
-expr1 is term
-expr2 is expr2
-expr2 is termp
-factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -1044,6 +1048,8 @@ SEMI value in set
 TIMES value in set
 iter4 num_or_char
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -1062,8 +1068,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -1087,6 +1091,7 @@ BREAK value in set
 CONTINUE value in set
 DATA_TYPE value in set
 FOR value in set
+FUNCNAME value in set
 ID value in set
 IF value in set
 RETURN value in set
@@ -1096,6 +1101,7 @@ BREAK value in set
 CONTINUE value in set
 DATA_TYPE value in set
 FOR value in set
+FUNCNAME value in set
 ID value in set
 IF value in set
 RETURN value in set
@@ -1104,6 +1110,8 @@ iter4 RFP
 ELSE value in set
 iter4 ell
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -1122,8 +1130,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -1147,6 +1153,7 @@ BREAK value in set
 CONTINUE value in set
 DATA_TYPE value in set
 FOR value in set
+FUNCNAME value in set
 ID value in set
 IF value in set
 RETURN value in set
@@ -1157,6 +1164,7 @@ BREAK value in set
 CONTINUE value in set
 DATA_TYPE value in set
 FOR value in set
+FUNCNAME value in set
 ID value in set
 IF value in set
 RETURN value in set
@@ -1167,11 +1175,14 @@ BREAK value in set
 CONTINUE value in set
 DATA_TYPE value in set
 FOR value in set
+FUNCNAME value in set
 ID value in set
 IF value in set
 RETURN value in set
 WHILE value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -1190,8 +1201,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -1219,6 +1228,7 @@ BREAK value in set
 CONTINUE value in set
 DATA_TYPE value in set
 FOR value in set
+FUNCNAME value in set
 ID value in set
 IF value in set
 RETURN value in set
@@ -1227,6 +1237,8 @@ WHILE value in set
 iter4 stmnts
 RFP value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -1245,8 +1257,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -1303,6 +1313,8 @@ SEMI value in set
 TIMES value in set
 iter4 term1
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -1321,8 +1333,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -1386,6 +1396,8 @@ PLUS value in set
 RP value in set
 SEMI value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -1404,8 +1416,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -1459,6 +1469,8 @@ PLUS value in set
 RP value in set
 SEMI value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -1477,8 +1489,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -1504,6 +1514,8 @@ RP value in set
 iter4 arg_list
 RP value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -1522,8 +1534,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -1547,6 +1557,7 @@ BREAK value in set
 CONTINUE value in set
 DATA_TYPE value in set
 FOR value in set
+FUNCNAME value in set
 ID value in set
 IF value in set
 RETURN value in set
@@ -1556,6 +1567,7 @@ BREAK value in set
 CONTINUE value in set
 DATA_TYPE value in set
 FOR value in set
+FUNCNAME value in set
 ID value in set
 IF value in set
 RETURN value in set
@@ -1566,6 +1578,7 @@ CONTINUE value in set
 DATA_TYPE value in set
 ELSE value in set
 FOR value in set
+FUNCNAME value in set
 ID value in set
 IF value in set
 RETURN value in set
@@ -1575,11 +1588,14 @@ BREAK value in set
 CONTINUE value in set
 DATA_TYPE value in set
 FOR value in set
+FUNCNAME value in set
 ID value in set
 IF value in set
 RETURN value in set
 WHILE value in set
 fololow ovcerlap
+S is S
+S is func
 arg_list is arg
 arg_list is x
 arg_list_or_void is arg_list
@@ -1598,8 +1614,6 @@ expr1 is term
 expr2 is expr2
 expr2 is termp
 factor is id_or_data
-func_list is func
-func_list is func_list
 id_or_data is num_or_char
 iff is RFP
 iff is ell
@@ -1625,6 +1639,7 @@ RP value in set
 iter4 arg_passed
 RP value in set
 Followset is:
+S is $
 arg is COMMA
 arg is RP
 arg_list is RP
@@ -1636,6 +1651,7 @@ ell is BREAK
 ell is CONTINUE
 ell is DATA_TYPE
 ell is FOR
+ell is FUNCNAME
 ell is ID
 ell is IF
 ell is RETURN
@@ -1660,6 +1676,7 @@ factor is PLUS
 factor is RP
 factor is SEMI
 factor is TIMES
+func is $
 func is DATA_TYPE
 func is VOID
 func_call is RP
@@ -1677,6 +1694,7 @@ iff is BREAK
 iff is CONTINUE
 iff is DATA_TYPE
 iff is FOR
+iff is FUNCNAME
 iff is ID
 iff is IF
 iff is RETURN
@@ -1695,6 +1713,7 @@ stmnt is BREAK
 stmnt is CONTINUE
 stmnt is DATA_TYPE
 stmnt is FOR
+stmnt is FUNCNAME
 stmnt is ID
 stmnt is IF
 stmnt is RETURN
@@ -1720,19 +1739,119 @@ termp is GREATERTHAN
 termp is LESSTHAN
 termp is RP
 termp is SEMI
-void_or_datatype is ID
+void_or_datatype is FUNCNAME
 x is RP
 y is BREAK
 y is CONTINUE
 y is DATA_TYPE
 y is FOR
+y is FUNCNAME
 y is ID
 y is IF
 y is RETURN
 y is WHILE
 z is RP
 
-expr ID  
-New prod .func_call.
-Old prod.eval.
-Grammar is not LL(1).
+Created Table:
+S	DATA_TYPE	.func.S.
+S	VOID	.func.S.
+arg	DATA_TYPE	.DATA_TYPE.ID.
+arg_list	DATA_TYPE	.arg.x.
+arg_list_or_void	DATA_TYPE	.arg_list.
+arg_list_or_void	VOID	.VOID.
+arg_passed	ID	.ID.z.
+assign	EQUALS	.EQUALS.expr.
+declaration	DATA_TYPE	.DATA_TYPE.ID.assign.
+ell	ELSE	.ELSE.y.
+eval	CHAR	.termp.expr2.
+eval	FLOAT	.termp.expr2.
+eval	ID	.termp.expr2.
+eval	LP	.termp.expr2.
+eval	NUM	.termp.expr2.
+expr	CHAR	.eval.
+expr	FLOAT	.eval.
+expr	FUNCNAME	.func_call.
+expr	ID	.eval.
+expr	LP	.eval.
+expr	NUM	.eval.
+expr1	MINUS	.MINUS.term.expr1.
+expr1	PLUS	.PLUS.term.expr1.
+expr2	EQUALTO	.EQUALTO.termp.expr2.
+expr2	GREATERTHAN	.GREATERTHAN.termp.expr2.
+expr2	LESSTHAN	.LESSTHAN.termp.expr2.
+factor	CHAR	.id_or_data.
+factor	FLOAT	.id_or_data.
+factor	ID	.id_or_data.
+factor	LP	.LP.expr.RP.
+factor	NUM	.id_or_data.
+func	DATA_TYPE	.void_or_datatype.FUNCNAME.LP.arg_list_or_void.RP.LFP.stmnts.RFP.
+func	VOID	.void_or_datatype.FUNCNAME.LP.arg_list_or_void.RP.LFP.stmnts.RFP.
+func_call	FUNCNAME	.FUNCNAME.LP.arg_passed.RP.
+id_or_data	CHAR	.num_or_char.
+id_or_data	FLOAT	.num_or_char.
+id_or_data	ID	.ID.
+id_or_data	NUM	.num_or_char.
+iff	IF	.IF.LP.expr.RP.LFP.stmnts.RFP.ell.
+num_or_char	CHAR	.CHAR.
+num_or_char	FLOAT	.FLOAT.
+num_or_char	NUM	.NUM.
+stmnt	BREAK	.BREAK.SEMI.
+stmnt	CONTINUE	.CONTINUE.SEMI.
+stmnt	DATA_TYPE	.declaration.SEMI.
+stmnt	FOR	.FOR.LP.ID.EQUALS.expr.SEMI.expr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
+stmnt	FUNCNAME	.func_call.SEMI.
+stmnt	ID	.ID.EQUALS.expr.SEMI.
+stmnt	IF	.iff.
+stmnt	RETURN	.RETURN.id_or_data.SEMI.
+stmnt	WHILE	.WHILE.LP.expr.RP.LFP.stmnts.RFP.
+stmnts	BREAK	.stmnt.stmnts.
+stmnts	CONTINUE	.stmnt.stmnts.
+stmnts	DATA_TYPE	.stmnt.stmnts.
+stmnts	FOR	.stmnt.stmnts.
+stmnts	FUNCNAME	.stmnt.stmnts.
+stmnts	ID	.stmnt.stmnts.
+stmnts	IF	.stmnt.stmnts.
+stmnts	RETURN	.stmnt.stmnts.
+stmnts	WHILE	.stmnt.stmnts.
+term	CHAR	.factor.term1.
+term	FLOAT	.factor.term1.
+term	ID	.factor.term1.
+term	LP	.factor.term1.
+term	NUM	.factor.term1.
+term1	DIVIDE	.DIVIDE.factor.term1.
+term1	TIMES	.TIMES.factor.term1.
+termp	CHAR	.term.expr1.
+termp	FLOAT	.term.expr1.
+termp	ID	.term.expr1.
+termp	LP	.term.expr1.
+termp	NUM	.term.expr1.
+void_or_datatype	DATA_TYPE	.DATA_TYPE.
+void_or_datatype	VOID	.VOID.
+x	COMMA	.COMMA.arg_list.
+y	IF	.IF.LP.expr.RP.LFP.stmnts.RFP.ell.
+y	LP	.LP.expr.RP.LFP.stmnts.RFP.
+z	COMMA	.COMMA.arg_passed.
+
+Stack contents:
+S $ 
+func S $ 
+void_or_datatype FUNCNAME LP arg_list_or_void RP LFP stmnts RFP S $ 
+DATA_TYPE FUNCNAME LP arg_list_or_void RP LFP stmnts RFP S $ 
+a: DATA_TYPE
+FUNCNAME LP arg_list_or_void RP LFP stmnts RFP S $ 
+a: FUNCNAME
+LP arg_list_or_void RP LFP stmnts RFP S $ 
+a: LP
+arg_list_or_void RP LFP stmnts RFP S $ 
+VOID RP LFP stmnts RFP S $ 
+a: VOID
+RP LFP stmnts RFP S $ 
+a: RP
+LFP stmnts RFP S $ 
+a: LFP
+stmnts RFP S $ 
+stmnt stmnts RFP S $ 
+ID EQUALS expr SEMI stmnts RFP S $ 
+a: ID
+EQUALS expr SEMI stmnts RFP S $ 
+Syntax error at ID

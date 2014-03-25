@@ -166,7 +166,7 @@ char* lex (void) {
                           continue;
                         }*/
 
-                      if (*current=='v' && *(current+1)=='o' && *(current+2)=='i' && *(current+3)=='d'   && *(current+4)==' ' )
+                      if (*current=='v' && *(current+1)=='o' && *(current+2)=='i' && *(current+3)=='d'   && (*(current+4)==' ' || *(current+4)==')' ) )
                        {     //current+=3;
                           yyleng=4;
 
@@ -246,12 +246,19 @@ char* lex (void) {
                           yyleng=5;
                           return DATA_TYPE;
                       } 
+
                      
                      if( ( *current-'a'>=0 && 'z'-(*current)>=0 ) || ( *current-'A'>=0 && 'Z'-(*current)>=0 ) )
                        {
+
                           while(isalnum(*current))
                             ++current;
                            yyleng = current - yytext;
+                           if(*current=='(')
+                           {
+                              
+                              return FUNCNAME;
+                           }
                           return ID;
                        }
 

@@ -15,13 +15,13 @@
 
 /*	Operators	*/
 #define OPERATOR "operator"	/* * 				*/
-#define DATA_TYPE "DATE_TYPE"
+#define DATA_TYPE "DATA_TYPE"
 #define EQUALS "EQUALS"
-#define CHAR 	"char"
-#define FLOAT "float"
+#define CHAR 	"CHAR"
+#define FLOAT "FLOAT"
 /*	ID	*/
-#define NUM	"num"
-#define ID	"id"
+#define NUM	"NUM"
+#define ID	"ID"
 #define  CONTINUE "CONTINUE"
 #define BREAK "BREAK"
 #define RETURN "RETURN"
@@ -41,6 +41,7 @@
 #define LFP	"LFP"
 #define RFP	"RFP"
 #define DIVIDE "DIVIDE"
+#define FUNCNAME "FUNCNAME"
 
 extern char *yytext;		/* in lex.c			*/
 extern int yyleng;

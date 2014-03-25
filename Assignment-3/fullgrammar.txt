@@ -1,6 +1,6 @@
-T: DATA_TYPE ID EQUALS CONTINUE BREAK RETURN NUM FLOAT CHAR IF ELSE WHILE FOR PLUS TIMES LP RP LESSTHAN GREATERTHAN EQUALTO SEMI LFP RFP COMMA VOID MINUS DIVIDE
-func_list .func.func_list. .e.  
-func .void_or_datatype.ID.LP.arg_list_or_void.RP.LFP.stmnts.RFP.  
+T: DATA_TYPE ID EQUALS CONTINUE BREAK RETURN NUM FLOAT CHAR IF ELSE WHILE FOR PLUS TIMES LP RP LESSTHAN GREATERTHAN EQUALTO SEMI LFP RFP COMMA VOID MINUS DIVIDE FUNCNAME
+S .func.S. .e.  
+func .void_or_datatype.FUNCNAME.LP.arg_list_or_void.RP.LFP.stmnts.RFP.  
 void_or_datatype .VOID. .DATA_TYPE.
 arg_list_or_void .VOID. .arg_list. .e.
 arg_list .arg.x.
@@ -13,7 +13,7 @@ ell .e. .ELSE.y.
 y .IF.LP.expr.RP.LFP.stmnts.RFP.ell. .LP.expr.RP.LFP.stmnts.RFP.
 id_or_data	.ID. .num_or_char.
 expr .func_call. .eval.
-func_call .ID.LP.arg_passed.RP.
+func_call .FUNCNAME.LP.arg_passed.RP.
 arg_passed .ID.z.
 z .COMMA.arg_passed. .e.
 declaration .DATA_TYPE.ID.assign.

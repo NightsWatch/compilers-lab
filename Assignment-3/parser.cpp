@@ -767,12 +767,14 @@ void Parser::parse(string tokensfile)
 			{
 				if(x==a)
 				{
+					cout << "a: " << a << endl;
 					getline(tokensfilestream, a);
+
 					continue;
 				}
 				else
 				{
-					cout << "Syntax error" << endl;
+					cout << "Syntax error at " << a << endl;
 					return ;
 				}
 			}
@@ -781,7 +783,8 @@ void Parser::parse(string tokensfile)
 				string value = parsing_table[make_pair(x,a)];
 
 				if(parsing_table.find(make_pair(x,a)) == parsing_table.end()) {
-					cout << "Syntax error" << endl;
+					
+					cout << "Syntax error at " << a  << endl;
 				 	return ;
 				} else {
 					string value = parsing_table[make_pair(x,a)];
