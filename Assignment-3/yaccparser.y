@@ -137,6 +137,7 @@ main(int argc, char** argv) {
 
 	
 	do {
+		
 		yyparse();
 	} while (!feof(yyin));
 	
