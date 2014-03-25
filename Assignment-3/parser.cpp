@@ -1,9 +1,8 @@
 #include "parser.hpp"
 #include "lex.hpp"
 
-extern string terminals[];
-
 string tokenfile="token_list.txt";
+string codefile;
 
 int main(int argc, char** argv)
 {
@@ -12,6 +11,7 @@ int main(int argc, char** argv)
 		cout<<"Input format: exec codefilename grammarfilename";
 		exit(1);
 	}
+	codefile = argv[1];
 
 	Parser p=Parser();
 	LexAnalyser l=LexAnalyser();
@@ -22,9 +22,12 @@ int main(int argc, char** argv)
 
 	p.eliminateLRecurse();
 
+	p.start();
+
 	p.createTable();
 
-	//p.start();
+	p.parse(tokenfile);
+
 }
 
 
@@ -53,14 +56,14 @@ std::vector<std::string> tokenize(std::string s, std::string sep){
 	return tokens;
 }
 
-void printTable(map < string, map < string,string > > table) {
-	for(tab_it it=table.begin();it!=table.end();it++) {
-		cout << "For non-T "<<it->first<<":\n";
-		for(map<string,string>::iterator m_it=(it->second).begin();m_it!=(it->second).end();m_it++) {
-			cout << m_it->first <<" " <<m_it->second<<endl;
-		}
-	}
+void printTable(map < pair<string, string>, string > table) {
+	
+	for(tab_it it=table.begin();it!=table.end();it++) 
+	{
 
+		cout<<(it->first).first<<"\t"<<(it->first).second<<"\t" << it->second<<"\n";
+	}
+	cout<<endl;
 }
 
 
@@ -77,6 +80,20 @@ void printMap(map < string, set<string> > List)
 	 return;
 }
 
+void Parser::printFollowMap(map < string, set<string> > List)
+{
+
+	 for(map<string, set<string> >::iterator iter = List.begin(); iter != List.end(); iter++ ) 
+	 {
+	 	if(terminals.find(iter->first) == terminals.end())
+	 		{	set <string> value = iter->second;
+	 	        for (sit iter2= value.begin(); iter2 != value.end(); iter2++)
+	 	     		 {  cout << (iter)->first << " is "<< (*iter2) << endl;} 
+	 	        //
+	 		}
+	 }
+	 return;
+}
 
 
 
@@ -90,6 +107,20 @@ void printSet(set<string> List)
 	 }
 }
 
+
+void printStack(stack<string> parserstack)
+{
+	stack <string> temp = parserstack;
+
+	while(!temp.empty())
+	{
+		cout<<temp.top()<<" ";
+		temp.pop();
+	}
+	cout<<endl;
+	return;
+
+}
 
 
 void Parser::getGrammar(string fname)
@@ -143,7 +174,6 @@ void Parser::getGrammar(string fname)
 }
 
 
-
 set<string> Parser::appendSets(set<string> first,set<string> second) {
 	set<string> result;
 	for(sit it=first.begin();it!=first.end();it++) {
@@ -156,30 +186,49 @@ set<string> Parser::appendSets(set<string> first,set<string> second) {
 	return result;
 }
 
+
 set<string> Parser::giveFirst(string prod) {
+	//cout<<"prod"<<prod;
+
 	int j=0;
-	set<string> result;
-	for(int i=0;i<prod.size();i++) {
-		if(terminals.find(prod.substr(j,i-j+1))!=terminals.end()) {
-			result.insert(prod.substr(j,i-j+1));
+	set<string> result; 
+
+	int firstloc = 0;
+	int secloc = getNextDotLocation(firstloc,prod);
+	//if(secloc<0)
+		//cout<<"error"<<endl;
+	string token = getStringBetweenTwoDots(firstloc,secloc,prod);
+
+	if(token=="" || secloc<0)
+	{
+		result.insert("e");
+		return result;
+	}
+	
+	//cout<<"token"<<token<<endl;
+	firstloc = secloc;
+	
+	if(terminals.find(token)==terminals.end())
+	{
+		if(firstSet[token].find("e")!=firstSet[token].end())
+		{
+			//cout << "sdasd" << endl;
+
+			result = appendSets(firstSet[token], giveFirst(prod.substr(secloc, prod.length()-secloc)));
+			
 			return result;
 		}
-
-		else if (nonterminals.find(prod.substr(j,i-j+1))!=nonterminals.end())
+		else
 		{
-			string nont=prod.substr(j,i-j+1);
-			if(firstSet[nont].find("e")!=firstSet[nont].end()) {
-				result=appendSets(firstSet[nont],giveFirst(prod.substr(i+1,prod.size()-i)));
-			} else {
-				return firstSet[nont];
-			}
-		} 
-
-		else {
-			continue;
+			return firstSet[token];
 		}
+	}	
+
+	else{
+		result.insert(token);
+		return result;
 	}
-	return result;
+
 }
 
 
@@ -187,38 +236,37 @@ void Parser::createTable() {
 	for(pit iter = grammar.begin(); iter != grammar.end(); iter++ ) {
  		
  		for(sit it=(iter->second).begin();it!=(iter->second).end();it++) {
+ 			//cout<<*it<<":\n";
  			set<string> firstSymbols=giveFirst(*it);
+ 			//printSet(firstSymbols);
  			for(sit fs=firstSymbols.begin();fs!=firstSymbols.end();fs++) {
- 				//map<string , map<string,string> > parsing_table;
- 				//parsing_table[iter->first]=
- 				  /*pair<sit, bool> pr =*/ 
- 				parsing_table[iter->first].insert(make_pair(*fs,*it));
- 				  // if(!pr.second)
- 				  // {	
- 				  // 	printf("Grammar is not LL(1). Exiting parsing.\n");
- 				  // 	exit(0);
-
- 				  // }
-
- 				//someStorage["key"].insert(std::make_pair("key2", "value2")));
+ 				//cout<<*it<<"adding"<<endl;
+ 				if(*fs=="e")
+ 					continue;
+ 				if(parsing_table.find(make_pair(iter->first,*fs))==parsing_table.end())
+ 				parsing_table[make_pair(iter->first,*fs)]=*it;
+ 				else
+ 					{
+ 						cout << "Grammar is not LL(1)." << endl;
+ 					}
  			}
 
  			if(firstSymbols.find("e")!=firstSymbols.end()) 
  			{
- 				for(sit fs=followSet[iter->first].begin(); fs!=firstSet[iter->first].end(); fs++)
+ 				for(sit fs=followSet[iter->first].begin(); fs!=followSet[iter->first].end(); fs++)
  				{	
- 					parsing_table[iter->first].insert(make_pair(*fs,*it));
- 					// if(!pr.second)
- 					// {	
-	 				//  	printf("Grammar is not LL(1). Exiting parsing.\n");
-	 				//  	exit(0);
-
- 				 // 	}
-
+ 					//cout<<*it<<"adding2"<<endl;
+ 					if(parsing_table.find(make_pair(iter->first,*fs))==parsing_table.end())
+ 					parsing_table[make_pair(iter->first,*fs)]=*it;
+ 					else
+ 					{
+ 						cout << "Grammar is not LL(1)." << endl;
+ 					}
  				}
  			}
  		}
  	}
+
  	cout<<"Created Table:\n";
  	printTable(parsing_table);
 }
@@ -245,20 +293,31 @@ void Parser::eliminateLRecurse() {
 				}
 			}
 		}
-
-		//eliminate left-recursion from among the Ai productions
-		string newNonTerm="."+ind[i]+"1"+".";
+		//check if Ai has left recursion
 		int len=ind[i].size()+2;
-		set<string> upr,lpr;
 		for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
 			string str=*it;
 			if(str.substr(0,len)==("."+ind[i]+".")) {
-				lpr.insert(str.substr(len,str.size()-len)+newNonTerm);
-			} else {
-				upr.insert(str+newNonTerm);
+				goto lr_eliminate;
 			}
 		}
-		lpr.insert("e");
+		continue;
+
+		lr_eliminate:
+		//eliminate left-recursion from among the Ai productions
+		string newNonTerm="."+ind[i]+"1"+".";
+		//int len=ind[i].size()+2;
+		set<string> upr,lpr;
+		bool flag=true;
+		for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
+			string str=*it;
+			if(str.substr(0,len)==("."+ind[i]+".")) {
+				lpr.insert("."+str.substr(len,str.size()-len)+ind[i]+"1"+".");
+			} else {
+				upr.insert(str+ind[i]+"1"+".");
+			}
+		}
+		lpr.insert(".e.");
 
 		grammar[ind[i]]=upr;
 		grammar[ind[i]+"1"]=lpr;
@@ -271,82 +330,133 @@ void Parser::eliminateLRecurse() {
 }
 
 
- void Parser::start()
+void Parser::start()
  {
 
  	/*
  	check for left recursion and remove it
  	*/
 
-
  	/* loop through the grammar to find firtsets for all the nonterminals */
  	for(map<string, set<string> >::iterator iter = grammar.begin(); iter != grammar.end(); iter++ ) 
 	{
-		cout<<"calling "<<iter->first<<endl;
+		//cout<<"calling "<<iter->first<<endl;
  		getFirstSet(iter->first);
- 		cout<<endl;
+ 		//cout<<endl;
  	}
 
+ 	for(sit iter = terminals.begin(); iter != terminals.end(); iter++ ) 
+	{
+		//cout<<"calling "<<*iter<<endl;
+ 		getFirstSet(*iter);
+ 		//cout<<endl;
+ 	}
  	cout<<"Firstset is:"<<endl;
-	  printMap(firstSet);
-	 cout<<endl;
+	printMap(firstSet);
+	cout<<endl;
 
- 	 return;
-	/*for debuggin*/
+ 	
 
  	for(map<string, set<string> >::iterator iter = grammar.begin(); iter != grammar.end(); iter++ ) 
 	{
  		getFollowSet(iter->first);
+
  	}
 
+ 	
+	/*for debuggin*/
+	//cout<<"follow overlap printing"<<endl;
+ 	//printMap(followOverlap);
 
-
-	for(map<string, string >::iterator iter = followOverlap.begin(); iter != followOverlap.end(); iter++ ) 
+	for(pit iter = followOverlap.begin(); iter != followOverlap.end(); iter++ ) 
 	{
-		/* check if iter is A check if followOverlap[something]=A so that you update follw(A) before adding everything 
+		//cout<<"iter first"<<iter->first<<endl;
+		//printSet(iter->second);
+		/* check if iter is A check if followOverlap[something]=A so that you update follow(A) before adding everything 
 		 in follw(A) to B */
-
-		for(map<string, string>::iterator iter2 = followOverlap.begin(); iter2 != followOverlap.end(); iter2++ ) 
+		
+		if((iter->second).empty())
+			continue;
+		
+		for(pit iter2 = followOverlap.begin(); iter2 != followOverlap.end(); iter2++ ) 
 		{
-			if((iter->first)==(iter2->second))
+			set<string> overlapset = followOverlap[(iter2)->first];
+
+			// iterate through the set to check if iter is present i.e if followOverlap[C]=A
+			for (sit iter4=overlapset.begin(); iter4!=overlapset.end(); ++iter4)
 			{
-				// copy everything in follow of iter2 to follow of iter
-				string temp= iter2->first;
-				set<string> fromset= followSet[temp];
-				set<string> tempset;
-				for (std::set<string>::iterator iter3=fromset.begin(); iter3!=fromset.end(); ++iter3)
-					tempset.insert(*iter3);
-				followSet.insert(std::pair<string, set<string> >(iter->first, tempset));
+				if((iter->first)==(*iter4))
+				{
+					// copy everything in follow of iter2 to follow of iter i.e from folow of C to A
+					string temp= iter2->first;
+					//cout<<"iter2:"<<iter2->first<<endl;
+					//cout<<"iter:"<<iter->first<<endl;
+					set<string> fromset= followSet[temp];
+					// set<string> tempset;
+					// for (std::set<string>::iterator iter3=fromset.begin(); iter3!=fromset.end(); ++iter3)
+					// 	tempset.insert(*iter3);
+					//cout<<"inserting"<<endl;
+					//cout<<"iter first: "<<iter->first<<endl;
+					//cout<<"fromset: ";
+					//printSet(fromset);
+
+					//pit it4=followSet.find(iter->first);
+					iter->second.insert(fromset.begin(), fromset.end());
+					//followSet.insert(std::pair<string, set<string> >(iter->first, fromset));
+				}
+
 			}
+
 		}
 
+		string temp2= iter->first;
 
-		// Adding followset(iter) to followset(B) B=followoverlap(a)
-	string temp2= iter->first;
+		set<string> copyset= followSet[temp2];
+		set<string> overlapset= followOverlap[temp2];		
+		
+		// loop through overlapset of A and insert followset of A into each element
+		for(sit iter4=overlapset.begin(); iter4!=overlapset.end(); ++iter4)
+			{		
+				pit it5=followSet.find(*iter4);
+				if(it5!=followSet.end())
+					(it5->second).insert(copyset.begin(), copyset.end());
+				//followSet.insert(std::pair<string, set<string> >((*iter4), copyset));
 
-	set<string> copyset= followSet[temp2];
-		set<string> toset;		
-		for (std::set<string>::iterator iter2=copyset.begin(); iter2!=copyset.end(); ++iter2)
-								toset.insert(*iter2);
+					//cout<<"iter first: "<<iter->first<<endl;
+					//cout<<"copyset: ";
+					//printSet(copyset);
 
-		string b=followOverlap[temp2];
-				followSet.insert(std::pair<string, set<string> >(b, toset));
+			}
 
-	}	
+	}
 
-	//createTable();
- 	//parse();
+	cout<<"Followset is:"<<endl;
+	printFollowMap(followSet);
+	cout<<endl;
+
+
+
+	 return;
+
 
  }
 
 
-
 void Parser::getFirstSet(string nonterm)
-
 {
 	set<string> productions = grammar[nonterm];
  	set<string> symbols;
 
+	if(terminals.find(nonterm) != terminals.end())
+			{
+				symbols.insert(nonterm);
+				firstSet[nonterm]=symbols;
+				//cout<<"added "<<nonterm<<endl;
+				return;
+
+			}
+
+	
    for (set<string>::iterator it=productions.begin(); it!=productions.end(); ++it)
 	{
 		if(strcmp((*it).c_str(),".e.")==0)
@@ -362,7 +472,7 @@ void Parser::getFirstSet(string nonterm)
 			{
 
 				symbols.insert(term);
-				cout<<"added "<<term<<endl;
+				//cout<<"added "<<term<<endl;
 				continue;
 
 			}
@@ -374,11 +484,11 @@ void Parser::getFirstSet(string nonterm)
  			int seconddot;
 			while(i<len)
  			{
- 				cout<<"i:"<<i<<endl;
+ 				//cout<<"i:"<<i<<endl;
  				string str= (*it);
- 				cout<<"string is:"<<str<<endl;
+ 				//cout<<"string is:"<<str<<endl;
 
- 				cout<<"prevdot is:"<<prevdot<<endl;
+ 				//cout<<"prevdot is:"<<prevdot<<endl;
 
  				//int seconddot = str.find(".",prevdot+1);
  				seconddot = getNextDotLocation(prevdot,str);
@@ -386,33 +496,33 @@ void Parser::getFirstSet(string nonterm)
  					break;
 
 
- 				cout<<"second dot:"<<seconddot<<endl;
+ 				//cout<<"second dot:"<<seconddot<<endl;
  				//cout<<"dotsplit"<<endl;
 
 
  				string s= getStringBetweenTwoDots(prevdot,seconddot, str);
  				//str.substr(prevdot+1,seconddot-prevdot-1);
- 				cout<<"split string is:"<<s<<endl;
+ 				//cout<<"split string is:"<<s<<endl;
 
 				// check for terminals if found add and break
 				if(terminals.find(s) != terminals.end())
 				{
 					symbols.insert(s);
-					cout<<"foudn in terminals so added: "<<s<<endl;
+					//cout<<"foudn in terminals so added: "<<s<<endl;
 					break;
 				}				
 				
 
 				//  first check if the firstset is already computed else compute it
 				map<string, set<string> >::iterator mapit = firstSet.find(s);
-				cout<<"Searching for:"<<s<<"in already computed"<<endl;
+				//cout<<"Searching for:"<<s<<"in already computed"<<endl;
 				if(mapit == firstSet.end())
  					{
 						getFirstSet(s);
 	 				}	
-	 				cout<<"reached"<<endl;
+	 				//cout<<"reached"<<endl;
  					set<string> prdfirstSet = firstSet[s];
- 					printSet(prdfirstSet);
+ 					//printSet(prdfirstSet);
  					/*debug
  					cout<<"Printing set "<<s<<endl;
  					printSet(prdfirstSet);
@@ -428,39 +538,37 @@ void Parser::getFirstSet(string nonterm)
  					if(setit == prdfirstSet.end())
 					{
  						break;
-
 					 }
  					i++;
  					prevdot = seconddot;
 					symbols.insert("e");	
-					cout<<"added e to symbols"<<endl;
+					//cout<<"added e to symbols"<<endl;
 
 			}
 	}
 
-
-
 	firstSet[nonterm]=symbols;
-
-
-	
 
  }
 
 
+void Parser::getFollowSet(string nonterm)
+{
+	//cout<<"nonterminal: "<<nonterm<<endl;
 
-
-void Parser::getFollowSet(string nonterm){
 	set<string> symbols;
 	// if the non-term is the start symbol add $ & return
 
-	if(strcmp(nonterm.c_str(),"S")==0)
+	if(nonterm=="S")
 	{
 		symbols.insert("$");
-		return;
 	}
 
 	set<string> productions = grammar[nonterm];
+	//printSet(productions);
+	//cout<<endl;
+
+	set<string> overlap;
 
 
 	// iterarte through all the productions
@@ -469,45 +577,138 @@ void Parser::getFollowSet(string nonterm){
 
 		int i=0;
  		int len= (*it).size();
- 		i=len;
+ 		i=len-1;
 
- 		
+ 		//  ex: take prdtn X-> GhB
  		string str= (*it);
-		string s= str.substr(i-1,1);
-		string prev= str.substr(i-2,1);
+ 		//cout<<"consider prdtn: " <<str<<endl;
 
-//  first check if the firstSet is already computed else compute it
-
-/*		map<string, set<string> >::iterator mapit = firstSet.find(s);
-		if(mapit == firstSet.end())
+ 		while(i>=0)
  		{
-				getFirstSet(s);
- 		}	
-*/
-
- 		// X-> GhB so first calcluate the firstSet(B) and add it to followSet(h) AND IF first(B) has 'e' 
- 		// then set followOverlap to add follow of A to follow of(h)
- 				set<string> prodfirstSet = firstSet[s];
-						
- 				set<string> followseth;  //
-				for (std::set<string>::iterator iter=prodfirstSet.begin(); iter!=prodfirstSet.end(); ++iter)
-					{
-						string temp=(*iter);
-						if(strcmp(temp.c_str(),"e")!=0)
-						followseth.insert(*iter);
-						else
-							followOverlap[nonterm]=prev; // set the followOverlap value of nonterm as e is found in the firstSet(B)
-					}
+ 			
+ 			//cout<<"i:"<<i<<endl;
+ 			int pos= getNextDotReverse(i,str);
+ 			//cout<<"nextdotrev(pos): "<<pos<<endl;
 
 
-					followSet.insert(std::pair<string, set<string> > (prev,followseth) );
-					  
-					
- 		
+ 			if(pos < 0)
+ 				break;
+
+ 			string s= getStringBetweenTwoDots(pos,i,str); // get B
+			int flag = 1;
+
+			//cout<<" Adding firstsets to :"<<s<<endl;
+
+			int curdot=i;
+			while(flag==1)
+			{
+				flag=0;
+				int nextdot= getNextDotLocation(curdot,str);
+				//cout<<"nextdot"<<nextdot<<endl;
+		
+				if(nextdot<0)
+					break;
+
+				string next= getStringBetweenTwoDots(curdot,nextdot,str);
+				//cout<<"adding firstsets of following"<<endl;
+				//cout<<"next: "<<next<<endl;
+
+				set<string> prodfirstSet = firstSet[next];
+				//printSet (prodfirstSet);
+
+	 			set<string> followseth;  //
+					for (std::set<string>::iterator iter=prodfirstSet.begin(); iter!=prodfirstSet.end(); ++iter)
+						{
+							string temp=(*iter);
+							//cout<<"Temp: "<<temp<<endl;
+							if(strcmp(temp.c_str(),"e")!=0)
+								followseth.insert(*iter);
+							else
+								flag=1;
+						}
+
+				curdot=nextdot;//
+
+				set<string> temp = followSet[s];
+				temp = appendSets(temp, followseth);
+				pit it2=followSet.find(s);
+				it2->second=temp;
+				//followSet.insert(std::pair<string, set<string> > (s,temp) );
+
+			}					  
+			i=pos;		
+	 	}
+
+	 	i=len-1;
+	 	int curpos= getNextDotReverse(i,str);
+	 	string last= getStringBetweenTwoDots(curpos,i,str); // get B
+	 	
+	 	if(terminals.find(last) == terminals.end())
+		{
+			overlap.insert(last);
+		}
+	 		
+
+	 	int prevdot= getNextDotReverse(curpos,str);
+	 	string prev = getStringBetweenTwoDots(prevdot,curpos,str);
+	 	curpos= prevdot;
+
+	 	while(checkepsfirst(last))
+	 	{
+	 		overlap.insert(prev);
+	 		last=prev;
+	 		prevdot= getNextDotReverse(curpos,str);
+	 		if(prevdot<0) break;
+	 		prev = getStringBetweenTwoDots(prevdot,curpos,str);
+	 		curpos=prevdot;
+	 	}
 	}
+	//cout<<"printint set overlap "<<nonterm<<endl;
+	//printSet(overlap);
+	
 
+	set<string> temp = followOverlap[nonterm];
+	//cout<<"old temp: "<<endl;
+	//printSet(temp);
+	//cout<<"overlap:"<<endl;
+	//printSet(overlap);
+
+	temp.insert(overlap.begin(), overlap.end());
+	//temp = appendSets(temp, overlap);
+	//cout<<"new temp: "<<endl;
+	//printSet(temp);
+	pit it3=followOverlap.find(nonterm);
+	it3->second=temp;
+
+	//followOverlap.insert(std::pair<string, set<string> > (nonterm,temp) );
+	//followOverlap.insert(std::pair<string, set<string> > (nonterm, overlap));
+
+
+
+
+
+
+
+
+	temp = followSet[nonterm];
+	//temp = appendSets(temp, symbols);
+	//cout<<"oldtemp"<<endl;
+	//printSet(temp);
+	//cout<<"symbols:"<<endl;
+	//printSet(symbols);
+	temp.insert(symbols.begin(), symbols.end());
+	//cout<<"newtemp";
+	//printSet(temp);
+	pit it1=followSet.find(nonterm);
+	it1->second=temp;
+	//followSet.insert(std::pair<string, set<string> > (nonterm,temp) );
+	//followSet.insert(std::pair <string, set<string> > (nonterm, symbols));
+
+
+	//cout<<"printing aftert inserting:"<<endl;
+	//printMap(followSet);
+	//cout<<"done"<<endl;
 }
-
 
 
 void Parser::parse(string tokensfile)
@@ -516,24 +717,37 @@ void Parser::parse(string tokensfile)
 	parserstack.push("$");
 	parserstack.push("S");
 
+	//printStack(parserstack);
+	cout<<"Stack contents:"<<endl;
+
 	string x,a;
 
 	ifstream tokensfilestream(tokensfile.c_str());
-
+	
 	if (tokensfilestream.is_open())
   	{
+  		getline(tokensfilestream, a);
 		while (!parserstack.empty())
 		{
+			printStack(parserstack);
+
 			x = parserstack.top();
+			//cout << x<< endl;
 			parserstack.pop();
-			getline(tokensfilestream, a);
+
+			
+			//cout << a << endl;
+			//cout << x << " " <<   a << endl;
 			if (tokensfilestream.eof())
 				a = "$";
 
 			if(terminals.find(x)!=terminals.end() || !strcmp(x.c_str(),"$"))
 			{
 				if(x==a)
+				{
+					getline(tokensfilestream, a);
 					continue;
+				}
 				else
 				{
 					cout << "Syntax error" << endl;
@@ -544,52 +758,27 @@ void Parser::parse(string tokensfile)
 			{
 				string value = parsing_table[make_pair(x,a)];
 
-
 				if(parsing_table.find(make_pair(x,a)) == parsing_table.end()) {
-					cout << "Syntax error";
+					cout << "Syntax error" << endl;
+				 	return ;
 				} else {
 					string value = parsing_table[make_pair(x,a)];
 					vector<string> nterms = tokenize(value,".");
-					for(int i=nterms.size()-1;i>0;i--) 
+					for(int i=nterms.size()-1;i>=0;i--) 
 					{
 						parserstack.push(nterms[i]);
 					}
 				}
-
-
-				/*if ( parsing_table.find(x) == parsing_table.end() ) 
-				{
-					cout << "Syntax error" << endl;
-					
-				 	return ;
-				} 
-				else 
-				{
-				 	if ( parsing_table[x].find(a) == parsing_table[x].end()  ) 
-				 	{
-
-				 		cout << "Syntax error" << endl;
-						
-						  return ;
-					} 
-					else 
-					{
-						  string value = parsing_table[make_pair(x,a)];
-						  vector<string> nterms = tokenize(value,".");
-						  for(int i=nterms.size()-1;i>0;i--) 
-						  {
-						  	parserstack.push(nterms[i]);
-						  }
-					}
-
-				}*/
-
 			}
+
 		}
 		
 		if (!tokensfilestream.eof())
+		{
+			cout << "Syntax error" << endl;
 			return ;
-
+		}
+		cout << codefile<< " has been parsed successfully." << endl;
 		return ;
 	}
 	tokensfilestream.close();
@@ -614,7 +803,22 @@ int Parser::getNextDotReverse(int currdot, string str)
 
 	std::reverse(str.begin(), str.end());
 	int newcurdot= str.length() - currdot -1;
-	
-	return str.find(".",newcurdot+1);
+	int newnextdot = str.find(".",newcurdot+1);
+	if(newnextdot == -1)
+		return -1;
+	else
+		{int oldnextdot = str.length() - str.find(".",newcurdot+1) -1;
+		return oldnextdot;}
 
+}
+
+bool Parser::checkepsfirst(string nonterm)
+{
+	set<string> prdfirstSet = firstSet[nonterm];
+ 						set<string>::iterator setit= prdfirstSet.find("e");
+
+ 						if(setit == prdfirstSet.end())
+							return false;
+						else
+							return true;
 }

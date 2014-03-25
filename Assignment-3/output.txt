@@ -1,0 +1,56 @@
+Grammar is:
+F is .X.a.
+F is .b.
+S is .(.S.+.F.).
+S is .F.
+X is .c.
+
+Eliminated Grammar is:
+F is .X.a.
+F is .b.
+S is .(.S.+.F.).
+S is .F.
+X is .c.
+
+Firstset is:
+( is (
+) is )
++ is +
+F is b
+F is c
+S is (
+S is b
+S is c
+X is c
+a is a
+b is b
+c is c
+
+Followset is:
+F is $
+F is )
+F is +
+S is $
+S is +
+X is a
+
+Created Table:
+F	b	.b.
+F	c	.X.a.
+S	(	.(.S.+.F.).
+S	b	.F.
+S	c	.F.
+X	c	.c.
+
+Stack contents:
+S $ 
+( S + F ) $ 
+S + F ) $ 
+F + F ) $ 
+b + F ) $ 
++ F ) $ 
+F ) $ 
+b ) $ 
+) $ 
+$ 
+simplecode.txt has been parsed successfully.

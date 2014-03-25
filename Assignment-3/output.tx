@@ -1,0 +1,328 @@
+Grammar is:
+F is .X.a.
+F is .b.
+S is .(.S.+.F.).
+S is .F.
+X is .c.
+
+calling F
+i:0
+string is:.X.a.
+prevdot is:0
+second dot:2
+split string is:X
+Searching for:Xin already computed
+added c
+reached
+c value in set
+added b
+
+calling S
+i:0
+string is:.(.S.+.F.).
+prevdot is:0
+second dot:2
+split string is:(
+foudn in terminals so added: (
+i:0
+string is:.F.
+prevdot is:0
+second dot:2
+split string is:F
+Searching for:Fin already computed
+reached
+b value in set
+c value in set
+
+calling X
+added c
+
+calling (
+added (
+
+calling )
+added )
+
+calling +
+added +
+
+calling a
+added a
+
+calling b
+added b
+
+calling c
+added c
+
+Firstset is:
+( is (
+) is )
++ is +
+F is b
+F is c
+S is (
+S is b
+S is c
+X is c
+a is a
+b is b
+c is c
+
+nonterminal: (
+
+old temp: 
+overlap:
+new temp: 
+oldtemp
+symbols:
+newtempprinting aftert inserting:
+done
+nonterminal: )
+
+old temp: 
+overlap:
+new temp: 
+oldtemp
+symbols:
+newtempprinting aftert inserting:
+done
+nonterminal: +
+
+old temp: 
+overlap:
+new temp: 
+oldtemp
+symbols:
+newtempprinting aftert inserting:
+done
+nonterminal: F
+.X.a. value in set
+.b. value in set
+
+consider prdtn: .X.a.
+i:4
+nextdotrev(pos): 2
+ Adding firstsets to :a
+nextdot-1
+i:2
+nextdotrev(pos): 0
+ Adding firstsets to :X
+nextdot4
+adding firstsets of following
+next: a
+a value in set
+Temp: a
+i:0
+nextdotrev(pos): -1
+consider prdtn: .b.
+i:2
+nextdotrev(pos): 0
+ Adding firstsets to :b
+nextdot-1
+i:0
+nextdotrev(pos): -1
+old temp: 
+overlap:
+new temp: 
+oldtemp
+symbols:
+newtempprinting aftert inserting:
+X is a
+done
+nonterminal: S
+.(.S.+.F.). value in set
+.F. value in set
+
+consider prdtn: .(.S.+.F.).
+i:10
+nextdotrev(pos): 8
+ Adding firstsets to :)
+nextdot-1
+i:8
+nextdotrev(pos): 6
+ Adding firstsets to :F
+nextdot10
+adding firstsets of following
+next: )
+) value in set
+Temp: )
+i:6
+nextdotrev(pos): 4
+ Adding firstsets to :+
+nextdot8
+adding firstsets of following
+next: F
+b value in set
+c value in set
+Temp: b
+Temp: c
+i:4
+nextdotrev(pos): 2
+ Adding firstsets to :S
+nextdot6
+adding firstsets of following
+next: +
++ value in set
+Temp: +
+i:2
+nextdotrev(pos): 0
+ Adding firstsets to :(
+nextdot4
+adding firstsets of following
+next: S
+( value in set
+b value in set
+c value in set
+Temp: (
+Temp: b
+Temp: c
+i:0
+nextdotrev(pos): -1
+consider prdtn: .F.
+i:2
+nextdotrev(pos): 0
+ Adding firstsets to :F
+nextdot-1
+i:0
+nextdotrev(pos): -1
+old temp: 
+overlap:
+F value in set
+new temp: 
+F value in set
+oldtemp
++ value in set
+symbols:
+$ value in set
+newtemp$ value in set
++ value in set
+printing aftert inserting:
+( is (
+( is b
+( is c
++ is b
++ is c
+F is )
+S is $
+S is +
+X is a
+done
+nonterminal: X
+.c. value in set
+
+consider prdtn: .c.
+i:2
+nextdotrev(pos): 0
+ Adding firstsets to :c
+nextdot-1
+i:0
+nextdotrev(pos): -1
+old temp: 
+overlap:
+new temp: 
+oldtemp
+a value in set
+symbols:
+newtempa value in set
+printing aftert inserting:
+( is (
+( is b
+( is c
++ is b
++ is c
+F is )
+S is $
+S is +
+X is a
+done
+nonterminal: a
+
+old temp: 
+overlap:
+new temp: 
+oldtemp
+symbols:
+newtempprinting aftert inserting:
+( is (
+( is b
+( is c
++ is b
++ is c
+F is )
+S is $
+S is +
+X is a
+done
+nonterminal: b
+
+old temp: 
+overlap:
+new temp: 
+oldtemp
+symbols:
+newtempprinting aftert inserting:
+( is (
+( is b
+( is c
++ is b
++ is c
+F is )
+S is $
+S is +
+X is a
+done
+nonterminal: c
+
+old temp: 
+overlap:
+new temp: 
+oldtemp
+symbols:
+newtempprinting aftert inserting:
+( is (
+( is b
+( is c
++ is b
++ is c
+F is )
+S is $
+S is +
+X is a
+done
+follow overlap printing
+S is F
+iter first(
+emptpy
+iter first)
+emptpy
+iter first+
+emptpy
+iter firstF
+emptpy
+iter firstS
+F value in set
+iter first: S
+copyset: $ value in set
++ value in set
+iter firstX
+emptpy
+iter firsta
+emptpy
+iter firstb
+emptpy
+iter firstc
+emptpy
+Followset is:
+( is (
+( is b
+( is c
++ is b
++ is c
+F is $
+F is )
+F is +
+S is $
+S is +
+X is a
+
