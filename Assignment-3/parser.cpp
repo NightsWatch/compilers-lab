@@ -542,9 +542,22 @@ void Parser::parse(string tokensfile)
 			}
 			else
 			{
-				string value = parsing_table[x][a];
+				string value = parsing_table[make_pair(x,a)];
 
-				if ( parsing_table.find(x) == parsing_table.end() ) 
+
+				if(parsing_table.find(make_pair(x,a)) == parsing_table.end()) {
+					cout << "Syntax error";
+				} else {
+					string value = parsing_table[make_pair(x,a)];
+					vector<string> nterms = tokenize(value,".");
+					for(int i=nterms.size()-1;i>0;i--) 
+					{
+						parserstack.push(nterms[i]);
+					}
+				}
+
+
+				/*if ( parsing_table.find(x) == parsing_table.end() ) 
 				{
 					cout << "Syntax error" << endl;
 					
@@ -561,7 +574,7 @@ void Parser::parse(string tokensfile)
 					} 
 					else 
 					{
-						  string value = parsing_table[x][a];
+						  string value = parsing_table[make_pair(x,a)];
 						  vector<string> nterms = tokenize(value,".");
 						  for(int i=nterms.size()-1;i>0;i--) 
 						  {
@@ -569,7 +582,7 @@ void Parser::parse(string tokensfile)
 						  }
 					}
 
-				}
+				}*/
 
 			}
 		}
