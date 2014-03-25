@@ -264,6 +264,9 @@ void Parser::createTable() {
  					parsing_table[make_pair(iter->first,*fs)]=*it;
  					else
  					{
+ 						cout << iter->first << " " << *fs << "  " << endl;
+ 						cout << "New prod " << *it << endl;
+ 						cout << "Old prod" << parsing_table[make_pair(iter->first,*fs)] <<endl;
  						cout << "Grammar is not LL(1)." << endl;
  						exit(1);
  					}
@@ -383,7 +386,7 @@ void Parser::start()
 		if((iter->second).empty())
 			continue;
 
-		cout<<"fololow ovcerlap\n";
+		//cout<<"fololow ovcerlap\n";
 
 		printMap(followOverlap);
 		for(pit iter2 = followOverlap.begin(); iter2 != followOverlap.end(); iter2++ ) 
@@ -403,10 +406,10 @@ void Parser::start()
 					// set<string> tempset;
 					// for (std::set<string>::iterator iter3=fromset.begin(); iter3!=fromset.end(); ++iter3)
 					// 	tempset.insert(*iter3);
-					cout<<"inserting"<<endl;
-					cout<<"iter first: "<<iter->first<<endl;
-					cout<<"fromset: ";
-					cout << "ser" <<endl;
+					//cout<<"inserting"<<endl;
+					//cout<<"iter first: "<<iter->first<<endl;
+					//cout<<"fromset: ";
+					//cout << "ser" <<endl;
 					//pit it4=followSet.find(iter->first);
 					pit iter10=followSet.find(iter->first);
 					if(iter10!=followSet.end())
@@ -431,13 +434,13 @@ void Parser::start()
 		for(sit iter4=overlapset.begin(); iter4!=overlapset.end(); ++iter4)
 			{		
 				pit it5=followSet.find(*iter4);
-				cout << "iter4 " <<  *iter4 << endl;
+				//cout << "iter4 " <<  *iter4 << endl;
 
 				//sit inserter = followSet[*iter4];
 			if(it5!=followSet.end())
 				printSet(it5->second);
-			else
-				cout <<  *iter4 << "Not found" << endl;
+			
+				//cout <<  *iter4 << "Not found" << endl;
 				if(it5!=followSet.end())
 					(it5->second).insert(copyset.begin(), copyset.end());
 				//followSet.insert(std::pair<string, set<string> >((*iter4), copyset));
@@ -665,7 +668,7 @@ void Parser::getFollowSet(string nonterm)
 	 	
 	 	if(terminals.find(last) == terminals.end() && last!="e")
 		{
-			cout<<"last is"<<last<<endl;
+			//cout<<"last is"<<last<<endl;
 			overlap.insert(last);
 		}
 	 		
@@ -676,7 +679,7 @@ void Parser::getFollowSet(string nonterm)
 
 	 	while(checkepsfirst(last))
 	 	{
-	 		cout<<"prev is"<<prev<<endl;
+	 		//cout<<"prev is"<<prev<<endl;
 	 		overlap.insert(prev);
 	 		last=prev;
 	 		prevdot= getNextDotReverse(curpos,str);
@@ -685,7 +688,7 @@ void Parser::getFollowSet(string nonterm)
 	 		curpos=prevdot;
 	 	}
 	}
-	cout<<"printint set overlap "<<nonterm<<endl;
+	//cout<<"printint set overlap "<<nonterm<<endl;
 	printSet(overlap);
 	
 

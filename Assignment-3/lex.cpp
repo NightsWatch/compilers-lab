@@ -174,7 +174,7 @@ char* lex (void) {
                       }
 
 
-                      if (*current=='r' && *(current+1)=='e' && *(current+2)=='t' && *(current+3)=='u' && *(current+4)=='r' &&  *(current+5)=='n'  && (*(current+8)==' ' || *(current+8)==';' ))
+                      if (*current=='r' && *(current+1)=='e' && *(current+2)=='t' && *(current+3)=='u' && *(current+4)=='r' &&  *(current+5)=='n'  && (*(current+6)==' ' || *(current+6)==';' ))
                        {     //current+=3;
                           yyleng=6;
 
@@ -241,7 +241,7 @@ char* lex (void) {
                           return DATA_TYPE;
                       }
 
-                     if (*current=='f' && *(current+1)=='l' && *(current+2)=='o'&& *(current+3)=='a'&& *(current+2)=='t' && *(current+3)==' ') 
+                     if (*current=='f' && *(current+1)=='l' && *(current+2)=='o'&& *(current+3)=='a'&& *(current+4)=='t' && *(current+5)==' ') 
                       {
                           yyleng=5;
                           return DATA_TYPE;
