@@ -1,148 +1,573 @@
+here
 Grammar is:
-C is .S.
-F is .NUM.
-F is .X.Y.Z.
-R is .e.
-S is .F.
-S is .R.PLUS.X.
-X is .VOID.
-Y is .NUM.
-Y is .e.
-Z is .F.
-Z is .e.
+S is .e.
+S is .func.S.
+arg is .DATA_TYPE.ID.
+arg_list is .arg.x.
+arg_list_or_void is .VOID.
+arg_list_or_void is .arg_list.
+arg_list_or_void is .e.
+arg_passed is .ID.z.
+assign is .EQUALS.expr.
+assign is .e.
+declaration is .DATA_TYPE.ID.assign.
+ell is .ELSE.y.
+ell is .e.
+eval is .termp.expr2.
+expr is .eval.
+expr is .func_call.
+expr1 is .MINUS.term.expr1.
+expr1 is .PLUS.term.expr1.
+expr1 is .e.
+expr2 is .EQUALTO.termp.expr2.
+expr2 is .GREATERTHAN.termp.expr2.
+expr2 is .LESSTHAN.termp.expr2.
+expr2 is .e.
+factor is .LP.expr.RP.
+factor is .id_or_data.
+func is .void_or_datatype.FUNCNAME.LP.arg_list_or_void.RP.LFP.stmnts.RFP.
+func_call is .FUNCNAME.LP.arg_passed.RP.
+id_or_data is .ID.
+id_or_data is .num_or_char.
+iff is .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
+num_or_char is .CHAR.
+num_or_char is .FLOAT.
+num_or_char is .NUM.
+stmnt is .BREAK.SEMI.
+stmnt is .CONTINUE.SEMI.
+stmnt is .FOR.LP.ID.EQUALS.expr.SEMI.expr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
+stmnt is .ID.EQUALS.expr.SEMI.
+stmnt is .RETURN.id_or_data.SEMI.
+stmnt is .WHILE.LP.expr.RP.LFP.stmnts.RFP.
+stmnt is .declaration.SEMI.
+stmnt is .func_call.SEMI.
+stmnt is .iff.
+stmnts is .e.
+stmnts is .stmnt.stmnts.
+term is .factor.term1.
+term1 is .DIVIDE.factor.term1.
+term1 is .TIMES.factor.term1.
+term1 is .e.
+termp is .term.expr1.
+void_or_datatype is .DATA_TYPE.
+void_or_datatype is .VOID.
+x is .COMMA.arg_list.
+x is .e.
+y is .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
+y is .LP.expr.RP.LFP.stmnts.RFP.
+z is .COMMA.arg_passed.
+z is .e.
 
 Eliminated Grammar is:
-C is .S.
-F is .NUM.
-F is .X.Y.Z.
-R is .e.
-S is .F.
-S is .R.PLUS.X.
-X is .VOID.
-Y is .NUM.
-Y is .e.
-Z is .F.
-Z is .e.
+S is .e.
+S is .func.S.
+arg is .DATA_TYPE.ID.
+arg_list is .arg.x.
+arg_list_or_void is .VOID.
+arg_list_or_void is .arg_list.
+arg_list_or_void is .e.
+arg_passed is .ID.z.
+assign is .EQUALS.expr.
+assign is .e.
+declaration is .DATA_TYPE.ID.assign.
+ell is .ELSE.y.
+ell is .e.
+eval is .termp.expr2.
+expr is .eval.
+expr is .func_call.
+expr1 is .MINUS.term.expr1.
+expr1 is .PLUS.term.expr1.
+expr1 is .e.
+expr2 is .EQUALTO.termp.expr2.
+expr2 is .GREATERTHAN.termp.expr2.
+expr2 is .LESSTHAN.termp.expr2.
+expr2 is .e.
+factor is .LP.expr.RP.
+factor is .id_or_data.
+func is .void_or_datatype.FUNCNAME.LP.arg_list_or_void.RP.LFP.stmnts.RFP.
+func_call is .FUNCNAME.LP.arg_passed.RP.
+id_or_data is .ID.
+id_or_data is .num_or_char.
+iff is .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
+num_or_char is .CHAR.
+num_or_char is .FLOAT.
+num_or_char is .NUM.
+stmnt is .BREAK.SEMI.
+stmnt is .CONTINUE.SEMI.
+stmnt is .FOR.LP.ID.EQUALS.expr.SEMI.expr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
+stmnt is .ID.EQUALS.expr.SEMI.
+stmnt is .RETURN.id_or_data.SEMI.
+stmnt is .WHILE.LP.expr.RP.LFP.stmnts.RFP.
+stmnt is .declaration.SEMI.
+stmnt is .func_call.SEMI.
+stmnt is .iff.
+stmnts is .e.
+stmnts is .stmnt.stmnts.
+term is .factor.term1.
+term1 is .DIVIDE.factor.term1.
+term1 is .TIMES.factor.term1.
+term1 is .e.
+termp is .term.expr1.
+void_or_datatype is .DATA_TYPE.
+void_or_datatype is .VOID.
+x is .COMMA.arg_list.
+x is .e.
+y is .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
+y is .LP.expr.RP.LFP.stmnts.RFP.
+z is .COMMA.arg_passed.
+z is .e.
 
 Firstset is:
-C is NUM
-C is PLUS
-C is VOID
-C is e
-F is NUM
-F is VOID
+BREAK is BREAK
+CHAR is CHAR
+COMMA is COMMA
+CONTINUE is CONTINUE
+DATA_TYPE is DATA_TYPE
+DIVIDE is DIVIDE
+ELSE is ELSE
+EQUALS is EQUALS
+EQUALTO is EQUALTO
+FLOAT is FLOAT
+FOR is FOR
+FUNCNAME is FUNCNAME
+GREATERTHAN is GREATERTHAN
 ID is ID
 IF is IF
+LESSTHAN is LESSTHAN
+LFP is LFP
 LP is LP
+MINUS is MINUS
 NUM is NUM
 PLUS is PLUS
-R is e
+RETURN is RETURN
+RFP is RFP
 RP is RP
-S is NUM
-S is PLUS
+S is DATA_TYPE
 S is VOID
 S is e
+SEMI is SEMI
+TIMES is TIMES
 VOID is VOID
-X is VOID
-Y is NUM
-Y is e
-Z is NUM
-Z is VOID
-Z is e
+WHILE is WHILE
+arg is DATA_TYPE
+arg_list is DATA_TYPE
+arg_list_or_void is DATA_TYPE
+arg_list_or_void is VOID
+arg_list_or_void is e
+arg_passed is ID
+assign is EQUALS
+assign is e
+declaration is DATA_TYPE
+ell is ELSE
+ell is e
+eval is CHAR
+eval is FLOAT
+eval is ID
+eval is LP
+eval is NUM
+expr is CHAR
+expr is FLOAT
+expr is FUNCNAME
+expr is ID
+expr is LP
+expr is NUM
+expr1 is MINUS
+expr1 is PLUS
+expr1 is e
+expr2 is EQUALTO
+expr2 is GREATERTHAN
+expr2 is LESSTHAN
+expr2 is e
+factor is CHAR
+factor is FLOAT
+factor is ID
+factor is LP
+factor is NUM
+func is DATA_TYPE
+func is VOID
+func_call is FUNCNAME
+id_or_data is CHAR
+id_or_data is FLOAT
+id_or_data is ID
+id_or_data is NUM
+iff is IF
+num_or_char is CHAR
+num_or_char is FLOAT
+num_or_char is NUM
+stmnt is BREAK
+stmnt is CONTINUE
+stmnt is DATA_TYPE
+stmnt is FOR
+stmnt is FUNCNAME
+stmnt is ID
+stmnt is IF
+stmnt is RETURN
+stmnt is WHILE
+stmnts is BREAK
+stmnts is CONTINUE
+stmnts is DATA_TYPE
+stmnts is FOR
+stmnts is FUNCNAME
+stmnts is ID
+stmnts is IF
+stmnts is RETURN
+stmnts is WHILE
+stmnts is e
+term is CHAR
+term is FLOAT
+term is ID
+term is LP
+term is NUM
+term1 is DIVIDE
+term1 is TIMES
+term1 is e
+termp is CHAR
+termp is FLOAT
+termp is ID
+termp is LP
+termp is NUM
+void_or_datatype is DATA_TYPE
+void_or_datatype is VOID
+x is COMMA
+x is e
+y is IF
+y is LP
+z is COMMA
+z is e
 
- value in set
-S value in set
-X value in set
-Y value in set
-Z value in set
-F value in set
-X value in set
-F value in set
-C is 
-C is S
-F is X
-F is Y
-F is Z
-S is F
-S is X
-Z is F
-copysetC
-$ value in set
-C is 
-C is S
-F is X
-F is Y
-F is Z
-S is F
-S is X
-Z is F
-$ value in set
-$ value in set
-copysetF
-$ value in set
-NUM value in set
-VOID value in set
-NUM value in set
-VOID value in set
-C is 
-C is S
-F is X
-F is Y
-F is Z
-S is F
-S is X
-Z is F
-$ value in set
-copysetS
-$ value in set
-$ value in set
-$ value in set
-NUM value in set
-VOID value in set
-C is 
-C is S
-F is X
-F is Y
-F is Z
-S is F
-S is X
-Z is F
-$ value in set
-copysetZ
-$ value in set
-$ value in set
 Followset is:
-F is $
-R is PLUS
 S is $
-X is $
-X is NUM
-X is VOID
-Y is $
-Y is NUM
-Y is VOID
-Z is $
+arg is COMMA
+arg is RP
+arg_list is RP
+arg_list_or_void is RP
+arg_passed is RP
+assign is SEMI
+declaration is SEMI
+ell is BREAK
+ell is CONTINUE
+ell is DATA_TYPE
+ell is FOR
+ell is FUNCNAME
+ell is ID
+ell is IF
+ell is RETURN
+ell is WHILE
+eval is RP
+eval is SEMI
+expr is RP
+expr is SEMI
+expr1 is EQUALTO
+expr1 is GREATERTHAN
+expr1 is LESSTHAN
+expr1 is RP
+expr1 is SEMI
+expr2 is RP
+expr2 is SEMI
+factor is DIVIDE
+factor is EQUALTO
+factor is GREATERTHAN
+factor is LESSTHAN
+factor is MINUS
+factor is PLUS
+factor is RP
+factor is SEMI
+factor is TIMES
+func is $
+func is DATA_TYPE
+func is VOID
+func_call is RP
+func_call is SEMI
+id_or_data is DIVIDE
+id_or_data is EQUALTO
+id_or_data is GREATERTHAN
+id_or_data is LESSTHAN
+id_or_data is MINUS
+id_or_data is PLUS
+id_or_data is RP
+id_or_data is SEMI
+id_or_data is TIMES
+iff is BREAK
+iff is CONTINUE
+iff is DATA_TYPE
+iff is FOR
+iff is FUNCNAME
+iff is ID
+iff is IF
+iff is RETURN
+iff is RFP
+iff is WHILE
+num_or_char is DIVIDE
+num_or_char is EQUALTO
+num_or_char is GREATERTHAN
+num_or_char is LESSTHAN
+num_or_char is MINUS
+num_or_char is PLUS
+num_or_char is RP
+num_or_char is SEMI
+num_or_char is TIMES
+stmnt is BREAK
+stmnt is CONTINUE
+stmnt is DATA_TYPE
+stmnt is FOR
+stmnt is FUNCNAME
+stmnt is ID
+stmnt is IF
+stmnt is RETURN
+stmnt is RFP
+stmnt is WHILE
+stmnts is RFP
+term is EQUALTO
+term is GREATERTHAN
+term is LESSTHAN
+term is MINUS
+term is PLUS
+term is RP
+term is SEMI
+term1 is EQUALTO
+term1 is GREATERTHAN
+term1 is LESSTHAN
+term1 is MINUS
+term1 is PLUS
+term1 is RP
+term1 is SEMI
+termp is EQUALTO
+termp is GREATERTHAN
+termp is LESSTHAN
+termp is RP
+termp is SEMI
+void_or_datatype is FUNCNAME
+x is RP
+y is BREAK
+y is CONTINUE
+y is DATA_TYPE
+y is FOR
+y is FUNCNAME
+y is ID
+y is IF
+y is RETURN
+y is WHILE
+z is RP
 
 Created Table:
-C	NUM	.S.
-C	PLUS	.S.
-C	VOID	.S.
-F	NUM	.NUM.
-F	VOID	.X.Y.Z.
-S	$	.R.PLUS.X.
-S	NUM	.F.
-S	PLUS	.R.PLUS.X.
-S	VOID	.F.
-X	VOID	.VOID.
-Y	NUM	.NUM.
-Z	NUM	.F.
-Z	VOID	.F.
+S	DATA_TYPE	.func.S.
+S	VOID	.func.S.
+arg	DATA_TYPE	.DATA_TYPE.ID.
+arg_list	DATA_TYPE	.arg.x.
+arg_list_or_void	DATA_TYPE	.arg_list.
+arg_list_or_void	VOID	.VOID.
+arg_passed	ID	.ID.z.
+assign	EQUALS	.EQUALS.expr.
+declaration	DATA_TYPE	.DATA_TYPE.ID.assign.
+ell	ELSE	.ELSE.y.
+eval	CHAR	.termp.expr2.
+eval	FLOAT	.termp.expr2.
+eval	ID	.termp.expr2.
+eval	LP	.termp.expr2.
+eval	NUM	.termp.expr2.
+expr	CHAR	.eval.
+expr	FLOAT	.eval.
+expr	FUNCNAME	.func_call.
+expr	ID	.eval.
+expr	LP	.eval.
+expr	NUM	.eval.
+expr1	MINUS	.MINUS.term.expr1.
+expr1	PLUS	.PLUS.term.expr1.
+expr2	EQUALTO	.EQUALTO.termp.expr2.
+expr2	GREATERTHAN	.GREATERTHAN.termp.expr2.
+expr2	LESSTHAN	.LESSTHAN.termp.expr2.
+factor	CHAR	.id_or_data.
+factor	FLOAT	.id_or_data.
+factor	ID	.id_or_data.
+factor	LP	.LP.expr.RP.
+factor	NUM	.id_or_data.
+func	DATA_TYPE	.void_or_datatype.FUNCNAME.LP.arg_list_or_void.RP.LFP.stmnts.RFP.
+func	VOID	.void_or_datatype.FUNCNAME.LP.arg_list_or_void.RP.LFP.stmnts.RFP.
+func_call	FUNCNAME	.FUNCNAME.LP.arg_passed.RP.
+id_or_data	CHAR	.num_or_char.
+id_or_data	FLOAT	.num_or_char.
+id_or_data	ID	.ID.
+id_or_data	NUM	.num_or_char.
+iff	IF	.IF.LP.expr.RP.LFP.stmnts.RFP.ell.
+num_or_char	CHAR	.CHAR.
+num_or_char	FLOAT	.FLOAT.
+num_or_char	NUM	.NUM.
+stmnt	BREAK	.BREAK.SEMI.
+stmnt	CONTINUE	.CONTINUE.SEMI.
+stmnt	DATA_TYPE	.declaration.SEMI.
+stmnt	FOR	.FOR.LP.ID.EQUALS.expr.SEMI.expr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
+stmnt	FUNCNAME	.func_call.SEMI.
+stmnt	ID	.ID.EQUALS.expr.SEMI.
+stmnt	IF	.iff.
+stmnt	RETURN	.RETURN.id_or_data.SEMI.
+stmnt	WHILE	.WHILE.LP.expr.RP.LFP.stmnts.RFP.
+stmnts	BREAK	.stmnt.stmnts.
+stmnts	CONTINUE	.stmnt.stmnts.
+stmnts	DATA_TYPE	.stmnt.stmnts.
+stmnts	FOR	.stmnt.stmnts.
+stmnts	FUNCNAME	.stmnt.stmnts.
+stmnts	ID	.stmnt.stmnts.
+stmnts	IF	.stmnt.stmnts.
+stmnts	RETURN	.stmnt.stmnts.
+stmnts	WHILE	.stmnt.stmnts.
+term	CHAR	.factor.term1.
+term	FLOAT	.factor.term1.
+term	ID	.factor.term1.
+term	LP	.factor.term1.
+term	NUM	.factor.term1.
+term1	DIVIDE	.DIVIDE.factor.term1.
+term1	TIMES	.TIMES.factor.term1.
+termp	CHAR	.term.expr1.
+termp	FLOAT	.term.expr1.
+termp	ID	.term.expr1.
+termp	LP	.term.expr1.
+termp	NUM	.term.expr1.
+void_or_datatype	DATA_TYPE	.DATA_TYPE.
+void_or_datatype	VOID	.VOID.
+x	COMMA	.COMMA.arg_list.
+y	IF	.IF.LP.expr.RP.LFP.stmnts.RFP.ell.
+y	LP	.LP.expr.RP.LFP.stmnts.RFP.
+z	COMMA	.COMMA.arg_passed.
 
 Stack contents:
 S $ 
-R PLUS X $ 
-PLUS X $ 
-a: PLUS
-X $ 
+func S $ 
+void_or_datatype FUNCNAME LP arg_list_or_void RP LFP stmnts RFP S $ 
+DATA_TYPE FUNCNAME LP arg_list_or_void RP LFP stmnts RFP S $ 
+FUNCNAME LP arg_list_or_void RP LFP stmnts RFP S $ 
+LP arg_list_or_void RP LFP stmnts RFP S $ 
+arg_list_or_void RP LFP stmnts RFP S $ 
+VOID RP LFP stmnts RFP S $ 
+RP LFP stmnts RFP S $ 
+LFP stmnts RFP S $ 
+stmnts RFP S $ 
+stmnt stmnts RFP S $ 
+declaration SEMI stmnts RFP S $ 
+DATA_TYPE ID assign SEMI stmnts RFP S $ 
+ID assign SEMI stmnts RFP S $ 
+assign SEMI stmnts RFP S $ 
+EQUALS expr SEMI stmnts RFP S $ 
+expr SEMI stmnts RFP S $ 
+eval SEMI stmnts RFP S $ 
+termp expr2 SEMI stmnts RFP S $ 
+term expr1 expr2 SEMI stmnts RFP S $ 
+factor term1 expr1 expr2 SEMI stmnts RFP S $ 
+id_or_data term1 expr1 expr2 SEMI stmnts RFP S $ 
+num_or_char term1 expr1 expr2 SEMI stmnts RFP S $ 
+FLOAT term1 expr1 expr2 SEMI stmnts RFP S $ 
+term1 expr1 expr2 SEMI stmnts RFP S $ 
+expr1 expr2 SEMI stmnts RFP S $ 
+expr2 SEMI stmnts RFP S $ 
+SEMI stmnts RFP S $ 
+stmnts RFP S $ 
+stmnt stmnts RFP S $ 
+declaration SEMI stmnts RFP S $ 
+DATA_TYPE ID assign SEMI stmnts RFP S $ 
+ID assign SEMI stmnts RFP S $ 
+assign SEMI stmnts RFP S $ 
+EQUALS expr SEMI stmnts RFP S $ 
+expr SEMI stmnts RFP S $ 
+eval SEMI stmnts RFP S $ 
+termp expr2 SEMI stmnts RFP S $ 
+term expr1 expr2 SEMI stmnts RFP S $ 
+factor term1 expr1 expr2 SEMI stmnts RFP S $ 
+id_or_data term1 expr1 expr2 SEMI stmnts RFP S $ 
+num_or_char term1 expr1 expr2 SEMI stmnts RFP S $ 
+FLOAT term1 expr1 expr2 SEMI stmnts RFP S $ 
+term1 expr1 expr2 SEMI stmnts RFP S $ 
+expr1 expr2 SEMI stmnts RFP S $ 
+expr2 SEMI stmnts RFP S $ 
+SEMI stmnts RFP S $ 
+stmnts RFP S $ 
+stmnt stmnts RFP S $ 
+declaration SEMI stmnts RFP S $ 
+DATA_TYPE ID assign SEMI stmnts RFP S $ 
+ID assign SEMI stmnts RFP S $ 
+assign SEMI stmnts RFP S $ 
+EQUALS expr SEMI stmnts RFP S $ 
+expr SEMI stmnts RFP S $ 
+func_call SEMI stmnts RFP S $ 
+FUNCNAME LP arg_passed RP SEMI stmnts RFP S $ 
+LP arg_passed RP SEMI stmnts RFP S $ 
+arg_passed RP SEMI stmnts RFP S $ 
+ID z RP SEMI stmnts RFP S $ 
+z RP SEMI stmnts RFP S $ 
+COMMA arg_passed RP SEMI stmnts RFP S $ 
+arg_passed RP SEMI stmnts RFP S $ 
+ID z RP SEMI stmnts RFP S $ 
+z RP SEMI stmnts RFP S $ 
+RP SEMI stmnts RFP S $ 
+SEMI stmnts RFP S $ 
+stmnts RFP S $ 
+stmnt stmnts RFP S $ 
+RETURN id_or_data SEMI stmnts RFP S $ 
+id_or_data SEMI stmnts RFP S $ 
+num_or_char SEMI stmnts RFP S $ 
+NUM SEMI stmnts RFP S $ 
+SEMI stmnts RFP S $ 
+stmnts RFP S $ 
+RFP S $ 
+S $ 
+func S $ 
+void_or_datatype FUNCNAME LP arg_list_or_void RP LFP stmnts RFP S $ 
+DATA_TYPE FUNCNAME LP arg_list_or_void RP LFP stmnts RFP S $ 
+FUNCNAME LP arg_list_or_void RP LFP stmnts RFP S $ 
+LP arg_list_or_void RP LFP stmnts RFP S $ 
+arg_list_or_void RP LFP stmnts RFP S $ 
+arg_list RP LFP stmnts RFP S $ 
+arg x RP LFP stmnts RFP S $ 
+DATA_TYPE ID x RP LFP stmnts RFP S $ 
+ID x RP LFP stmnts RFP S $ 
+x RP LFP stmnts RFP S $ 
+COMMA arg_list RP LFP stmnts RFP S $ 
+arg_list RP LFP stmnts RFP S $ 
+arg x RP LFP stmnts RFP S $ 
+DATA_TYPE ID x RP LFP stmnts RFP S $ 
+ID x RP LFP stmnts RFP S $ 
+x RP LFP stmnts RFP S $ 
+RP LFP stmnts RFP S $ 
+LFP stmnts RFP S $ 
+stmnts RFP S $ 
+stmnt stmnts RFP S $ 
+declaration SEMI stmnts RFP S $ 
+DATA_TYPE ID assign SEMI stmnts RFP S $ 
+ID assign SEMI stmnts RFP S $ 
+assign SEMI stmnts RFP S $ 
+EQUALS expr SEMI stmnts RFP S $ 
+expr SEMI stmnts RFP S $ 
+eval SEMI stmnts RFP S $ 
+termp expr2 SEMI stmnts RFP S $ 
+term expr1 expr2 SEMI stmnts RFP S $ 
+factor term1 expr1 expr2 SEMI stmnts RFP S $ 
+LP expr RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+expr RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+eval RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+termp expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+term expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+factor term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+id_or_data term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+ID term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+DIVIDE factor term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+factor term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+id_or_data term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+ID term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+term1 expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+expr1 expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+expr2 RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+RP term1 expr1 expr2 SEMI stmnts RFP S $ 
+term1 expr1 expr2 SEMI stmnts RFP S $ 
+expr1 expr2 SEMI stmnts RFP S $ 
+expr2 SEMI stmnts RFP S $ 
+SEMI stmnts RFP S $ 
+stmnts RFP S $ 
+stmnt stmnts RFP S $ 
+RETURN id_or_data SEMI stmnts RFP S $ 
+id_or_data SEMI stmnts RFP S $ 
+ID SEMI stmnts RFP S $ 
+SEMI stmnts RFP S $ 
+stmnts RFP S $ 
+RFP S $ 
+S $ 
 $ 
-Syntax error at ID
+fullinput2.txt has been parsed successfully.
