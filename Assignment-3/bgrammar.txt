@@ -1,5 +1,5 @@
 T: ID PLUS LP
-s .ID.x. .PLUS.y.z.
-x .s.ID.
+S .ID.x. .PLUS.y.z.
+x .S.ID.
 y .LP.
 z .ID.
