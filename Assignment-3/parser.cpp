@@ -286,10 +286,10 @@ void Parser::eliminateLRecurse() {
 		ind[i]=*it;
 		i++;
 	}
-	for(int i=1;i<=2;i++) {
+	//for(int i=1;i<=2;i++) {
 		//cout << ind[i]<<" ";
-	}
-	cout<<"\n";
+	//}
+	//cout<<"\n";
 	for(int i=1;i<=nonterminals.size();i++) {
 		for(int j=1;j<i;j++) {
 			for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
