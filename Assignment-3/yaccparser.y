@@ -22,7 +22,7 @@ void_or_datatype:
 	| DATA_TYPE
 	;
 arg_list_or_void: 
-	VOID
+	| VOID
 	| arg_list 
 	;
 arg_list:

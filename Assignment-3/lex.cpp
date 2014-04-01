@@ -75,10 +75,12 @@ char* lex (void) {
           {
              case ';':
               return SEMI;
+              case ',':
+                return COMMA;
              case '+':
-              return OPERATOR;
+              return PLUS;
              case '-':
-              return OPERATOR;
+              return MINUS;
              case '*':
              if(*(current+1)=='/')
              {
@@ -86,7 +88,7 @@ char* lex (void) {
               ++current;
               continue;
              }
-              return OPERATOR;
+              return TIMES;
 
              case '/':
               if(*(current+1)=='/')
@@ -101,7 +103,7 @@ char* lex (void) {
                  blockcommented=1;
                  continue;
                }
-              return OPERATOR;
+              return DIVIDE;
              case '(':
               return LP;
              case ')':
@@ -111,11 +113,21 @@ char* lex (void) {
             // case ']':
             //     return RSB;
             case '<':
-              return COMPOPER;
+              if(*(current+1)=='=')
+                ++current;
+              return LESSTHAN;
             case '>':
-            return COMPOPER;
+            if(*(current+1)=='=')
+                ++current;
+            return GREATERTHAN;
             case '=':
-            return COMPOPER;
+             if(*(current+1)=='=')
+                { 
+
+                  ++current;
+                  return EQUALTO;
+                }
+            return EQUALS;
             case  '{':
               return LFP;
             case  '}':
@@ -154,64 +166,99 @@ char* lex (void) {
                           continue;
                         }*/
 
+                      if (*current=='v' && *(current+1)=='o' && *(current+2)=='i' && *(current+3)=='d'   && (*(current+4)==' ' || *(current+4)==')' ) )
+                       {     //current+=3;
+                          yyleng=4;
+
+                          return VOID;
+                      }
+
+
+                      if (*current=='r' && *(current+1)=='e' && *(current+2)=='t' && *(current+3)=='u' && *(current+4)=='r' &&  *(current+5)=='n'  && (*(current+6)==' ' || *(current+6)==';' ))
+                       {     //current+=3;
+                          yyleng=6;
+
+                          return RETURN;
+                      }
+
+
+
+                      if (*current=='b' && *(current+1)=='r' && *(current+2)=='e' && *(current+3)=='a' && *(current+4)=='k'  && (*(current+5)==' ' || *(current+5)==';' ))
+                        {    //current+=3;
+                          yyleng=5;
+
+                          return BREAK;
+                      }
+
+
+                      if (*current=='c' && *(current+1)=='o' && *(current+2)=='n' && *(current+3)=='t' && *(current+4)=='i' &&  *(current+5)=='n' &&  *(current+6)=='u' &&  *(current+7)=='e' && (*(current+8)==' ' || *(current+8)==';' ))
+                        {    //current+=3;
+                          yyleng=8;
+
+                          return CONTINUE;
+                      }
+
                       if (*current=='i' && *(current+1)=='f' &&  (*(current+2)==' ' ) || *(current+2)=='(') {
                             //current+=3;
                           yyleng=2;
 
-                          return KEYWORD;
+                          return IF;
                       }
 
                       if(*current=='f' && *(current+1)=='o' && *(current+2)=='r' && (*(current+3)=='(' || *(current+3)==' ')) {
                           yyleng=3;
-                          return KEYWORD;
+                          return FOR;
                       }
 
                       if (*current=='w' && *(current+1)=='h' && *(current+2)=='i' && *(current+3)=='l' && *(current+4)=='e' &&  (*(current+5)==' ' || *(current+5)=='(' )) {
                           yyleng=5;
-                          return KEYWORD;
+                          return WHILE;
                       }
 
                       if (*current=='e' && *(current+1)=='l' && *(current+2)=='s' && *(current+3)=='s' &&  (*(current+4)==' ' || *(current+4)=='(' )) 
                       {
                           yyleng=5;
-                          return KEYWORD;
+                          return ELSE;
                       }
 
-                     if (*current=='i' && *(current+1)=='n' && *(current+2)=='t') 
+                     if (*current=='i' && *(current+1)=='n' && *(current+2)=='t' && *(current+3)==' ') 
                       {
                           yyleng=3;
-                          return KEYWORD;
+                          cout << "here" << endl;
+                          return DATA_TYPE;
                       }
 
 
-                     if (*current=='c' && *(current+1)=='h' && *(current+2)=='a'&& *(current+3)=='r') 
+                     if (*current=='c' && *(current+1)=='h' && *(current+2)=='a'&& *(current+3)=='r' && *(current+4)==' ') 
                       {
                           yyleng=4;
-                          return KEYWORD;
+                          return DATA_TYPE;
                       }
 
-                    if (*current=='d' && *(current+1)=='o' && *(current+2)=='u'&& *(current+3)=='b' && *(current+4)=='l' && *(current+5)=='e') 
+                    if (*current=='d' && *(current+1)=='o' && *(current+2)=='u'&& *(current+3)=='b' && *(current+4)=='l' && *(current+5)=='e' && *(current+6)==' ') 
                       {
                           yyleng=6;
-                          return KEYWORD;
+                          return DATA_TYPE;
                       }
 
-                     if (*current=='f' && *(current+1)=='l' && *(current+2)=='o'&& *(current+3)=='a'&& *(current+2)=='t') 
+                     if (*current=='f' && *(current+1)=='l' && *(current+2)=='o'&& *(current+3)=='a'&& *(current+4)=='t' && *(current+5)==' ') 
                       {
                           yyleng=5;
-                          return KEYWORD;
+                          return DATA_TYPE;
                       } 
-                      /*if (*current=='m' && *(current+1)=='a' && *(current+2)=='i'&& *(current+3)=='n') 
-                      {
-                          yyleng=4;
-                          return KEYWORD;
-                      } */                    
 
+                     
                      if( ( *current-'a'>=0 && 'z'-(*current)>=0 ) || ( *current-'A'>=0 && 'Z'-(*current)>=0 ) )
                        {
+
                           while(isalnum(*current))
                             ++current;
                            yyleng = current - yytext;
+                           if(*current=='(')
+                           {
+                              
+                              return FUNCNAME;
+                           }
                           return ID;
                        }
 
@@ -277,18 +324,18 @@ void LexAnalyser::getTokens( string inp, string outp)
           val=lex();
           if(val==EOI)
             break;
-          fprintf(fop,"<%s,",val);
+          fprintf(fop,"%s",val);
           
           
-         int temp=0;
+         /*int temp=0;
           for (temp=0;temp<yyleng;temp++)
           {
             fprintf(fop,"%c",yytext[temp]);
 
           }
+         */ 
           
-          
-          fprintf(fop,">\n");
+          fprintf(fop,"\n");
         }
 
         fclose(fp);

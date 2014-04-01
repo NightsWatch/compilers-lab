@@ -1,0 +1,8 @@
+T: ID LP RP PLUS NUM VOID IF
+S .F. .R.PLUS.X.
+C .S.
+F .NUM. .X.Y.Z. 
+X .VOID. 
+Y .e. .NUM.
+Z .F. .e.
+R .e.

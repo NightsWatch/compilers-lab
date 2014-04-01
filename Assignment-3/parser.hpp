@@ -28,9 +28,11 @@ public:
 
 		map< string, set<string> > followSet;
 
-		map< pair<string, string>, string > parsing_table;
 
-		map<string, string> followOverlap;
+		//map<string , map<string,string> > parsing_table;
+		map< pair<string,string>, string > parsing_table;
+		map<string, set<string> > followOverlap;
+
 
 		set<string> nonterminals;
 
@@ -38,7 +40,7 @@ public:
 		set<string> terminals;
 
 		stack <string> parserstack;
-
+		stack <string> tempstack;
 
 		void getGrammar(string);
 		void start();
@@ -50,11 +52,11 @@ public:
 		void eliminateLRecurse();
 
 		void parse(string);
+		void printFollowMap(map < string, set<string> > );
 		int getNextDotLocation(int , string );
-
 		string getStringBetweenTwoDots(int , int , string);
-
 		int getNextDotReverse(int , string );
 
+		bool checkepsfirst(string);
 		
 };

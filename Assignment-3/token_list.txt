@@ -1,5 +1,5 @@
-<lp,(>
-<id,a>
-<operator,+>
-<id,a>
-<rp,)>
+LP
+ID
+PLUS
+ID
+RP
