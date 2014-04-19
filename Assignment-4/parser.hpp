@@ -42,6 +42,8 @@ public:
 		stack <string> parserstack;
 		stack <string> tempstack;
 
+		stack <string> semanticstack;
+
 		void getGrammar(string);
 		void start();
 		void getFollowSet(string);
@@ -58,5 +60,7 @@ public:
 		int getNextDotReverse(int , string );
 
 		bool checkepsfirst(string);
+
+		void performAction(int);
 		
 };
