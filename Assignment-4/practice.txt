@@ -1,0 +1,36 @@
+exp    -> exp + term
+       -> exp - term
+       -> term
+term   -> term * factor
+       -> term / factor
+       -> factor
+factor -> INTLITERAL
+       -> ( exp )
+
+
+
+   							translation rules    						translation actions
+exp    -> exp + term        exp.val=exp.val + term.val   				#1 term.val=pop(); exp.value=pop(); push(term.val+exp.val);
+       -> exp - term 		 exp.val=exp.val - term.val   				#2 term.val=pop(); exp.value=pop(); push(exp.val-term.value);
+       -> term				exp.val = term.value 						do nothing
+term   -> term * factor		term.val = term.val*factor.val 				#3 fac.val=pop(); term.value=pop(); push(term.val*fac.val);
+       -> term / factor		term.val = term.val/factor.val  			#4 fac.val=pop(); term.value=pop(); push(term.val/fac.val);
+       -> factor			term.val = factor.val 						do nothing
+factor -> INTLITERAL		factor.val = INTLITERAL.val  		        #5 push(INTLITERAL.val)  
+       -> ( exp )			factor.val = exp.val  						do nothing
+
+
+exp    -> exp + term #1 
+       -> exp - term #2
+       -> term
+term   -> term * factor #3
+       -> term / factor #4
+       -> factor
+factor -> #5 INTLITERAL 
+       -> ( exp )
+
+
+
+
+
+
