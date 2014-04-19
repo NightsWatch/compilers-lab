@@ -215,7 +215,7 @@ char* lex (void) {
                           return WHILE;
                       }
 
-                      if (*current=='e' && *(current+1)=='l' && *(current+2)=='s' && *(current+3)=='s' &&  (*(current+4)==' ' || *(current+4)=='(' )) 
+                      if (*current=='e' && *(current+1)=='l' && *(current+2)=='s' && *(current+3)=='e' &&  (*(current+4)==' ' || *(current+4)=='(' )) 
                       {
                           yyleng=5;
                           return ELSE;

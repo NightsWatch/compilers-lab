@@ -5,7 +5,7 @@ int main(void)
 	{
 		return 0;
 	}
-	else
+	else 
 	{
 		a=a+10;
 		return 1;
