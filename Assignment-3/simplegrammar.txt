@@ -1,7 +1,1 @@
-T: a ( ) + b c *
-S .F. .F.+.X.
-C .S.
-F .b. .X.Y.Z. 
-X .c. 
-Y .e. .b.
-Z .F. .e.
+
