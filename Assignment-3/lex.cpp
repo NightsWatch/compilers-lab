@@ -198,7 +198,7 @@ char* lex (void) {
                           return CONTINUE;
                       }
 
-                      if (*current=='i' && *(current+1)=='f' &&  (*(current+2)==' ' ) || *(current+2)=='(') {
+                      if (*current=='i' && *(current+1)=='f' &&  ((*(current+2)==' ' ) || *(current+2)=='(')) {
                             //current+=3;
                           yyleng=2;
 
