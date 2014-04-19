@@ -1,0 +1,62 @@
+
+-------------------------------------------------------------------
+Assignment 4.a: Simple 3 address code generation
+
+In this assignment you need to generate three address intermediate code
+from the output of your parser.
+---------------------------------------------------------------------
+
+
+Say the output of your parser is:
+
+            x:=y op z
+
+where x,y and z are "id", and ‘op’ stands for any operator.
+
+The three address code is
+
+    t1:=y*z
+    t2:=x+t1
+    d:=t2
+
+where t1 and t2 are compiler-generated temporary variables.
+-------------------------------------------------------------------------
+
+Assignment 4.b: Generate MIPS assembly code for a 1-register stack machine.
+-------------------------------------------------------------------------
+
+
+
+
+
+
+
+As confirmed by Charanjit, we need to do the following in assignment 4.
+1. Either we need to extend last assignment or do bottom up parsing, bison is not allowed for parsing.
+2. We need to do semantic analysis (type checking, etc.).
+3. After semantic analysis, we need to generate three address code and further MIPS code.
+
+
+
+--------------------------------------------------------------------------------------
+
+Yup...i mailed him...he said that if you do bottom-up parsing manually (write the whole code and don't use yacc) he'll be more than happy....otherwise construct an SDD on top of last assignment...
+
+--------------------------------------------------------------------------------------
+For 4(a), it is preferable to extend the parser generated in Assignment 3.
+
+Regards,
+Sir
+
+> Sir,
+> In the part 4(a) we have to generate the three address code. Do we have to
+> do the semantic analysis (defining attributes , semantic rules , creating
+> AST) of the already generated parser of Assignment 3 or can we do Bottom
+> Up Parsing of the same grammar and generate three address code on the fly
+> ?
+
+----------------------------------------------------------------------------------------
+
+you mean other than defining attributes, semantic rules for AST construction and 3 addr code generation? well...there are no clear requirements...if u can , implement type checking, name uniqueness etc(not my priority)...
+
+

@@ -51,7 +51,7 @@ iff:
 	;
 ell:
 	| ELSE IF LP expr RP LFP stmnts RFP ell
-	| ELSE LP expr RP LFP stmnts RFP 
+	| ELSE LFP stmnts RFP 
 	;
 id_or_data:
 	ID
