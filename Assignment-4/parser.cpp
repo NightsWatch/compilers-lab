@@ -425,8 +425,12 @@ void Parser::start()
 
  	for(sit iter = terminals.begin(); iter != terminals.end(); iter++ ) 
 	{
+
+
 		//cout<<"calling "<<*iter<<endl;
  		getFirstSet(*iter);
+
+
  		//cout<<endl;
  	}
  	cout<<"Firstset is:"<<endl;
@@ -434,7 +438,6 @@ void Parser::start()
 	cout<<endl;
 
  	
-
  	for(map<string, set<string> >::iterator iter = grammar.begin(); iter != grammar.end(); iter++ ) 
 	{
  		getFollowSet(iter->first);
@@ -537,10 +540,9 @@ void Parser::start()
 
 void Parser::getFirstSet(string nonterm)
 {
-	set<string> productions = grammar[nonterm];
+	
  	set<string> symbols;
-
-	if(terminals.find(nonterm) != terminals.end())
+ 	if(terminals.find(nonterm) != terminals.end())
 			{
 				symbols.insert(nonterm);
 				firstSet[nonterm]=symbols;
@@ -548,8 +550,9 @@ void Parser::getFirstSet(string nonterm)
 				return;
 
 			}
-
 	
+
+	set<string> productions = grammar[nonterm];
    for (set<string>::iterator it=productions.begin(); it!=productions.end(); ++it)
 	{
 		if(strcmp((*it).c_str(),".e.")==0)
@@ -648,6 +651,7 @@ void Parser::getFirstSet(string nonterm)
 
 void Parser::getFollowSet(string nonterm)
 {
+
 	//cout<<"nonterminal: "<<nonterm<<endl;
 
 	set<string> symbols;
@@ -663,6 +667,7 @@ void Parser::getFollowSet(string nonterm)
 	//cout<<endl;
 
 	set<string> overlap;
+
 
 
 	// iterarte through all the productions
@@ -804,13 +809,13 @@ void Parser::getFollowSet(string nonterm)
 	//cout<<"printing aftert inserting:"<<endl;
 	//printMap(followSet);
 	//cout<<"done"<<endl;
-	cout << "BOOOOOOOOOOOOOOOOOOOOOOOOOo" << endl;
-	printMap(grammar);
-
+	
 }
 
 void Parser::parse(string tokensfile)
 {
+
+	printMap(grammar);
 
 	parserstack.push("$");
 	parserstack.push("S");
