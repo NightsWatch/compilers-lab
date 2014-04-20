@@ -19,8 +19,8 @@ int main(int argc, char** argv)
 	l.getTokens(argv[1],tokenfile);
 
 	p.getGrammar(argv[2]);
-
-	p.eliminateLRecurse();
+	p.getGrammar2(argv[2]);
+	//p.eliminateLRecurse();
 
 	p.start();
 
@@ -140,6 +140,7 @@ void Parser::getGrammar(string fname)
          		back_inserter<vector<string> >(tokens));
 
 			set<string> productions;
+			//set<string> productions2;
 			if(linenum==0)
 			{
   				/* finding the list of terminals */
@@ -161,7 +162,9 @@ void Parser::getGrammar(string fname)
 				{
 				  productions.insert(tokens[i]);
 				}
+			
 			grammar.insert( std::pair<string, set<string> >(tokens[0],productions) );
+			//grammar2.insert( std::pair<string, set<string> >(tokens[0],productions2) );
 
   
 		}
@@ -172,6 +175,63 @@ void Parser::getGrammar(string fname)
 	printMap(grammar);
 	cout<<endl;
 }
+
+void Parser::getGrammar2(string fname)
+{
+	ifstream cfgfile(("withtr_" + fname).c_str());
+	string line;
+	if (cfgfile.is_open())
+  	{
+  		int linenum=0;
+		while(getline(cfgfile, line))
+		{
+			istringstream iss(line);
+
+			vector<string> tokens;
+			copy(istream_iterator<string>(iss),
+         		istream_iterator<string>(),
+         		back_inserter<vector<string> >(tokens));
+
+			set<string> productions;
+			//set<string> productions2;
+			if(linenum==0)
+			{
+  				/* finding the list of terminals */
+  				// if(strcmp(tokens[0],"t:")!=0) break;
+				for(int i=1;i<tokens.size();i++)
+				{
+				  terminals.insert(tokens[i]);
+				}
+				linenum++;
+				continue;
+
+			}
+
+			// Adding the list of nonterminals
+			nonterminals.insert(tokens[0]);
+
+		/* adding productions to the grammar -*/
+			for(int i=1;i<tokens.size();i++)
+				{
+				  productions.insert(tokens[i]);
+				}
+			
+			grammar2.insert( std::pair<string, set<string> >(tokens[0],productions) );
+			//grammar2.insert( std::pair<string, set<string> >(tokens[0],productions2) );
+
+  
+		}
+
+		cfgfile.close();
+	}
+	cout<<"Grammar2 is:"<<endl;
+	printMap(grammar2);
+	cout<<endl;
+}
+
+
+
+
 
 
 set<string> Parser::appendSets(set<string> first,set<string> second) {
@@ -765,7 +825,9 @@ void Parser::parse(string tokensfile)
 			parserstack.pop();
 
 			if(x[0]=='#') {
-				performAction(atoi(x.substr(1,x.size()-1).c_str()));
+				cout << "here "<< endl;
+				performAction(atoi(x.substr(1,x.size()-1).c_str()), a);
+				continue;
 			}
 
 			if (tokensfilestream.eof())
@@ -855,7 +917,7 @@ bool Parser::checkepsfirst(string nonterm)
 							return true;
 }
 
-void Parser::performAction(int action_no) {
+void Parser::performAction(int action_no, string next) {
 	string a, b, c, d;
 	string op;
 	ofstream intcode;
@@ -873,7 +935,51 @@ void Parser::performAction(int action_no) {
 			semanticstack.push(c);
 			semanticstack.push("*");
 		case 2:
-			break;
+			op = semanticstack.top();
+			semanticstack.pop();
+			a = semanticstack.top();
+			semanticstack.pop();
+			b = semanticstack.top();
+			semanticstack.pop();
+			c=getNewTemp();
+			intcode << c << " := " << b << " " << op << " " << a << endl;
+			semanticstack.push(c);
+			semanticstack.push("/");
+		case 3:
+			semanticstack.push(next);
+		case 4:
+			op = semanticstack.top();
+			semanticstack.pop();
+			a = semanticstack.top();
+			semanticstack.pop();
+			b = semanticstack.top();
+			semanticstack.pop();
+			c=getNewTemp();
+			intcode << c << " := " << b << " " << op << " " << a << endl;
+			semanticstack.push(c);
+			semanticstack.push("+");
+		case 5:
+			op = semanticstack.top();
+			semanticstack.pop();
+			a = semanticstack.top();
+			semanticstack.pop();
+			b = semanticstack.top();
+			semanticstack.pop();
+			c=getNewTemp();
+			intcode << c << " := " << b << " " << op << " " << a << endl;
+			semanticstack.push(c);
+			semanticstack.push("-");
+		case 6:
+			b = semanticstack.top();
+			semanticstack.pop();
+			a = semanticstack.top();
+			semanticstack.pop();
+			intcode << a << " := " << b << endl;
+
+
+
+
+
 
 
 
@@ -885,6 +991,6 @@ void Parser::performAction(int action_no) {
 
 string Parser::getNewTemp(void)
 {
-	return "a";
+	return "test";
 
-}
+}		

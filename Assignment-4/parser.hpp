@@ -23,6 +23,7 @@ class Parser
 
 public:
         map< string, set<string> > grammar;
+        map< string, set<string> > grammar2;
 
         map< string, set<string> > firstSet;
 
@@ -46,6 +47,7 @@ public:
 		stack <string> semanticstack;
 
 		void getGrammar(string);
+		void getGrammar2(string);
 		void start();
 		void getFollowSet(string);
 		void getFirstSet(string);
@@ -62,7 +64,7 @@ public:
 
 		bool checkepsfirst(string);
 
-		void performAction(int);
+		void performAction(int, string);
 		string getNewTemp(void);
 		
 };

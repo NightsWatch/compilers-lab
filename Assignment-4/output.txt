@@ -1,0 +1,268 @@
+Grammar is:
+S is .e.
+S is .stmnt.S.
+eval is .termp.expr2.
+expr is .eval.
+expr1 is .MINUS.term.expr1.
+expr1 is .PLUS.term.expr1.
+expr1 is .e.
+expr2 is .EQUALTO.termp.expr2.
+expr2 is .GREATERTHAN.termp.expr2.
+expr2 is .LESSTHAN.termp.expr2.
+expr2 is .e.
+factor is .LP.expr.RP.
+factor is .id_or_data.
+id_or_data is .ID.
+id_or_data is .num_or_char.
+num_or_char is .CHAR.
+num_or_char is .FLOAT.
+num_or_char is .NUM.
+stmnt is .ID.EQUALS.expr.SEMI.
+term is .factor.term1.
+term1 is .DIVIDE.factor.term1.
+term1 is .TIMES.factor.term1.
+term1 is .e.
+termp is .term.expr1.
+
+Grammar2 is:
+S is .e.
+S is .stmnt.S.
+eval is .termp.expr2.
+expr is .eval.
+expr1 is .MINUS.term.expr1.#5.
+expr1 is .PLUS.term.expr1.#4.
+expr1 is .e.
+expr2 is .EQUALTO.termp.expr2.
+expr2 is .GREATERTHAN.termp.expr2.
+expr2 is .LESSTHAN.termp.expr2.
+expr2 is .e.
+factor is .LP.expr.RP.
+factor is .id_or_data.
+id_or_data is #3.ID.
+id_or_data is .num_or_char.
+num_or_char is #3.CHAR.
+num_or_char is #3.FLOAT.
+num_or_char is #3.NUM.
+stmnt is .#3.ID.EQUALS.expr.#6.SEMI.
+term is .factor.term1.
+term1 is .DIVIDE.factor.term1.#2.
+term1 is .TIMES.factor.term1.#1.
+term1 is .e.
+termp is .term.expr1.
+
+Firstset is:
+BREAK is BREAK
+CHAR is CHAR
+COMMA is COMMA
+CONTINUE is CONTINUE
+DATA_TYPE is DATA_TYPE
+DIVIDE is DIVIDE
+ELSE is ELSE
+EQUALS is EQUALS
+EQUALTO is EQUALTO
+FLOAT is FLOAT
+FOR is FOR
+FUNCNAME is FUNCNAME
+GREATERTHAN is GREATERTHAN
+ID is ID
+IF is IF
+LESSTHAN is LESSTHAN
+LFP is LFP
+LP is LP
+MINUS is MINUS
+NUM is NUM
+PLUS is PLUS
+RETURN is RETURN
+RFP is RFP
+RP is RP
+S is ID
+S is e
+SEMI is SEMI
+TIMES is TIMES
+VOID is VOID
+WHILE is WHILE
+eval is CHAR
+eval is FLOAT
+eval is ID
+eval is LP
+eval is NUM
+expr is CHAR
+expr is FLOAT
+expr is ID
+expr is LP
+expr is NUM
+expr1 is MINUS
+expr1 is PLUS
+expr1 is e
+expr2 is EQUALTO
+expr2 is GREATERTHAN
+expr2 is LESSTHAN
+expr2 is e
+factor is CHAR
+factor is FLOAT
+factor is ID
+factor is LP
+factor is NUM
+id_or_data is CHAR
+id_or_data is FLOAT
+id_or_data is ID
+id_or_data is NUM
+num_or_char is CHAR
+num_or_char is FLOAT
+num_or_char is NUM
+stmnt is ID
+term is CHAR
+term is FLOAT
+term is ID
+term is LP
+term is NUM
+term1 is DIVIDE
+term1 is TIMES
+term1 is e
+termp is CHAR
+termp is FLOAT
+termp is ID
+termp is LP
+termp is NUM
+
+Followset is:
+S is $
+eval is RP
+eval is SEMI
+expr is RP
+expr is SEMI
+expr1 is EQUALTO
+expr1 is GREATERTHAN
+expr1 is LESSTHAN
+expr1 is RP
+expr1 is SEMI
+expr2 is RP
+expr2 is SEMI
+factor is DIVIDE
+factor is EQUALTO
+factor is GREATERTHAN
+factor is LESSTHAN
+factor is MINUS
+factor is PLUS
+factor is RP
+factor is SEMI
+factor is TIMES
+id_or_data is DIVIDE
+id_or_data is EQUALTO
+id_or_data is GREATERTHAN
+id_or_data is LESSTHAN
+id_or_data is MINUS
+id_or_data is PLUS
+id_or_data is RP
+id_or_data is SEMI
+id_or_data is TIMES
+num_or_char is DIVIDE
+num_or_char is EQUALTO
+num_or_char is GREATERTHAN
+num_or_char is LESSTHAN
+num_or_char is MINUS
+num_or_char is PLUS
+num_or_char is RP
+num_or_char is SEMI
+num_or_char is TIMES
+stmnt is $
+stmnt is ID
+term is EQUALTO
+term is GREATERTHAN
+term is LESSTHAN
+term is MINUS
+term is PLUS
+term is RP
+term is SEMI
+term1 is EQUALTO
+term1 is GREATERTHAN
+term1 is LESSTHAN
+term1 is MINUS
+term1 is PLUS
+term1 is RP
+term1 is SEMI
+termp is EQUALTO
+termp is GREATERTHAN
+termp is LESSTHAN
+termp is RP
+termp is SEMI
+
+Created Table:
+S	ID	.stmnt.S.
+eval	CHAR	.termp.expr2.
+eval	FLOAT	.termp.expr2.
+eval	ID	.termp.expr2.
+eval	LP	.termp.expr2.
+eval	NUM	.termp.expr2.
+expr	CHAR	.eval.
+expr	FLOAT	.eval.
+expr	ID	.eval.
+expr	LP	.eval.
+expr	NUM	.eval.
+expr1	MINUS	.MINUS.term.expr1.
+expr1	PLUS	.PLUS.term.expr1.
+expr2	EQUALTO	.EQUALTO.termp.expr2.
+expr2	GREATERTHAN	.GREATERTHAN.termp.expr2.
+expr2	LESSTHAN	.LESSTHAN.termp.expr2.
+factor	CHAR	.id_or_data.
+factor	FLOAT	.id_or_data.
+factor	ID	.id_or_data.
+factor	LP	.LP.expr.RP.
+factor	NUM	.id_or_data.
+id_or_data	CHAR	.num_or_char.
+id_or_data	FLOAT	.num_or_char.
+id_or_data	ID	.ID.
+id_or_data	NUM	.num_or_char.
+num_or_char	CHAR	.CHAR.
+num_or_char	FLOAT	.FLOAT.
+num_or_char	NUM	.NUM.
+stmnt	ID	.ID.EQUALS.expr.SEMI.
+term	CHAR	.factor.term1.
+term	FLOAT	.factor.term1.
+term	ID	.factor.term1.
+term	LP	.factor.term1.
+term	NUM	.factor.term1.
+term1	DIVIDE	.DIVIDE.factor.term1.
+term1	TIMES	.TIMES.factor.term1.
+termp	CHAR	.term.expr1.
+termp	FLOAT	.term.expr1.
+termp	ID	.term.expr1.
+termp	LP	.term.expr1.
+termp	NUM	.term.expr1.
+
+Stack contents:
+S $ 
+stmnt S $ 
+ID EQUALS expr SEMI S $ 
+EQUALS expr SEMI S $ 
+expr SEMI S $ 
+eval SEMI S $ 
+termp expr2 SEMI S $ 
+term expr1 expr2 SEMI S $ 
+factor term1 expr1 expr2 SEMI S $ 
+id_or_data term1 expr1 expr2 SEMI S $ 
+ID term1 expr1 expr2 SEMI S $ 
+term1 expr1 expr2 SEMI S $ 
+expr1 expr2 SEMI S $ 
+PLUS term expr1 expr2 SEMI S $ 
+term expr1 expr2 SEMI S $ 
+factor term1 expr1 expr2 SEMI S $ 
+id_or_data term1 expr1 expr2 SEMI S $ 
+ID term1 expr1 expr2 SEMI S $ 
+term1 expr1 expr2 SEMI S $ 
+TIMES factor term1 expr1 expr2 SEMI S $ 
+factor term1 expr1 expr2 SEMI S $ 
+id_or_data term1 expr1 expr2 SEMI S $ 
+ID term1 expr1 expr2 SEMI S $ 
+term1 expr1 expr2 SEMI S $ 
+DIVIDE factor term1 expr1 expr2 SEMI S $ 
+factor term1 expr1 expr2 SEMI S $ 
+id_or_data term1 expr1 expr2 SEMI S $ 
+ID term1 expr1 expr2 SEMI S $ 
+term1 expr1 expr2 SEMI S $ 
+expr1 expr2 SEMI S $ 
+expr2 SEMI S $ 
+SEMI S $ 
+S $ 
+$ 
+minorinput.txt has been parsed successfully.
