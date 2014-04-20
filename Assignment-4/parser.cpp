@@ -72,6 +72,7 @@ void printMap(map < string, set<string> > List)
 
 	 for(map<string, set<string> >::iterator iter = List.begin(); iter != List.end(); iter++ ) 
 	 {
+	 	cout << iter->first<<endl;
 	 	set <string> value = iter->second;
 	 	        for (sit iter2= value.begin(); iter2 != value.end(); iter2++)
 	 	      {  cout << (iter)->first << " is "<< (*iter2) << endl;} 
@@ -293,10 +294,14 @@ set<string> Parser::giveFirst(string prod) {
 
 
 void Parser::createTable() {
-	for(pit iter = grammar.begin(); iter != grammar.end(); iter++ ) {
+	printMap(grammar);
+	for(pit iter = grammar.begin(), iter2=grammar2.begin(); iter != grammar.end(); ++iter, ++iter2 ) {
+		cout << "grammar1 "<< iter->first << endl;
+		cout << "grammar2 "<< iter2->first << endl;
+
  		
- 		for(sit it=(iter->second).begin();it!=(iter->second).end();it++) {
- 			//cout<<*it<<":\n";
+ 		for(sit it=(iter->second).begin(), it2=(iter2->second).begin() ;it!=(iter->second).end();it++, it2++) {
+ 			//cout<<*it<< endl;
  			set<string> firstSymbols=giveFirst(*it);
  			//printSet(firstSymbols);
  			for(sit fs=firstSymbols.begin();fs!=firstSymbols.end();fs++) {
@@ -304,12 +309,12 @@ void Parser::createTable() {
  				if(*fs=="e")
  					continue;
  				if(parsing_table.find(make_pair(iter->first,*fs))==parsing_table.end())
- 				parsing_table[make_pair(iter->first,*fs)]=*it;
+ 				parsing_table[make_pair(iter2->first,*fs)]=*it2;
  				else
  					{
  						cout << iter->first << " " << *fs << "  " << endl;
  						cout << "New prod " << *it << endl;
- 						cout << "Old prod" << parsing_table[make_pair(iter->first,*fs)] <<endl;
+ 						cout << "Old prod" << parsing_table[make_pair(iter2->first,*fs)] <<endl;
  						cout << "Grammar is not LL(1)." << endl;
  						exit(1);
  					}
@@ -320,13 +325,13 @@ void Parser::createTable() {
  				for(sit fs=followSet[iter->first].begin(); fs!=followSet[iter->first].end(); fs++)
  				{	
  					//cout<<*it<<"adding2"<<endl;
- 					if(parsing_table.find(make_pair(iter->first,*fs))==parsing_table.end())
- 					parsing_table[make_pair(iter->first,*fs)]=*it;
+ 					if(parsing_table.find(make_pair(iter2->first,*fs))==parsing_table.end())
+ 					parsing_table[make_pair(iter2->first,*fs)]=*it2;
  					else
  					{
  						cout << iter->first << " " << *fs << "  " << endl;
  						cout << "New prod " << *it << endl;
- 						cout << "Old prod" << parsing_table[make_pair(iter->first,*fs)] <<endl;
+ 						cout << "Old prod" << parsing_table[make_pair(iter2->first,*fs)] <<endl;
  						cout << "Grammar is not LL(1)." << endl;
  						exit(1);
  					}
@@ -521,7 +526,7 @@ void Parser::start()
 	cout<<"Followset is:"<<endl;
 	printFollowMap(followSet);
 	cout<<endl;
-
+	
 
 
 	 return;
@@ -636,6 +641,7 @@ void Parser::getFirstSet(string nonterm)
 	}
 
 	firstSet[nonterm]=symbols;
+
 
  }
 
@@ -798,6 +804,9 @@ void Parser::getFollowSet(string nonterm)
 	//cout<<"printing aftert inserting:"<<endl;
 	//printMap(followSet);
 	//cout<<"done"<<endl;
+	cout << "BOOOOOOOOOOOOOOOOOOOOOOOOOo" << endl;
+	printMap(grammar);
+
 }
 
 void Parser::parse(string tokensfile)

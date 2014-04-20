@@ -9,10 +9,10 @@ yaccparser: lex.yy.c y.tab.c y.tab.h
 
 
 lex.o: lex.cpp lex.hpp lex.h
-	g++ -c lex.cpp lex.h lex.hpp -w
+	g++ -c lex.cpp lex.h lex.hpp -w -g
 
 parser.o: parser.cpp parser.hpp
-	g++ -c parser.cpp parser.hpp -w
+	g++ -c parser.cpp parser.hpp -w -g
 
 parser: lex.o parser.o
-	g++ lex.o parser.o -o parser -w
+	g++ lex.o parser.o -o parser -w -g
