@@ -1,0 +1,20 @@
+T: DATA_TYPE ID EQUALS CONTINUE BREAK RETURN NUM FLOAT CHAR IF ELSE WHILE FOR PLUS TIMES LP RP LESSTHAN GREATERTHAN EQUALTO SEMI LFP RFP COMMA VOID MINUS DIVIDE FUNCNAME
+
+
+stmnts .stmnt.stmnts. .e.
+stmnt .ID.EQUALS.expr.SEMI. 
+
+
+
+expr  .eval.
+
+
+
+eval .termp.expr2.
+termp .term.expr1.
+expr1 .e. .PLUS.term.expr1.#4. .MINUS.term.expr1.#5.
+term .factor.term1.
+term1 .e. .TIMES.factor.term1.#1. .DIVIDE.factor.term1.#2.   
+factor .#3.id_or_data. .LP.expr.RP.
+expr2 .e. .LESSTHAN.termp.expr2. .GREATERTHAN.termp.expr2. .EQUALTO.termp.expr2.
+

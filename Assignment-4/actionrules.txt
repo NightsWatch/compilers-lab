@@ -1,9 +1,18 @@
 
 
-#1 -  term2.addr=pop(), factor.addr=pop(), term1.addr=new Temp(); gen(term1.addr = factor.addr * term2.addr) , push(term1.addr);
+#1 -  term2.op=pop(), term2.val=pop(), factor.val=pop(), term.1.val= new Temp(); gen(term1.val = factor.val term2.op term2.val) , push(term1.val); push('*');
 
 
 
-#2 -  term2.addr=pop(), factor.addr=pop(), term1.addr=new Temp(); gen(term1.addr = factor.addr / term2.addr) , push(term1.addr);
+
+#2 -  term2.op=pop(), term2.val=pop(), factor.val=pop(), term.1.val= new Temp(); gen(term1.val = factor.val term2.op term2.val) , push(term1.val); push('/');
 
  #3 - push(literal.val);
+
+
+#4 -  term2.op=pop(), term2.val=pop(), factor.val=pop(), term.1.val= new Temp(); gen(term1.val = factor.val term2.op term2.val) , push(term1.val); push('+');
+
+
+#5 -  term2.op=pop(), term2.val=pop(), factor.val=pop(), term.1.val= new Temp(); gen(term1.val = factor.val term2.op term2.val) , push(term1.val); push('-');
+
+
