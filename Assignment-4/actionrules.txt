@@ -16,3 +16,4 @@
 #5 -  term2.op=pop(), term2.val=pop(), factor.val=pop(), term.1.val= new Temp(); gen(term1.val = factor.val term2.op term2.val) , push(term1.val); push('-');
 
 
+#6 - expr.val=pop(),  id.val= pop()  gen( id.val := expr.val) , 

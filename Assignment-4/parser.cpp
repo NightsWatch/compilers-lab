@@ -765,7 +765,7 @@ void Parser::parse(string tokensfile)
 			parserstack.pop();
 
 			if(x[0]=='#') {
-				performAction(atoi(x.substr(1,x.size()-1)));
+				performAction(atoi(x.substr(1,x.size()-1).c_str()));
 			}
 
 			if (tokensfilestream.eof())
@@ -857,7 +857,7 @@ bool Parser::checkepsfirst(string nonterm)
 
 void Parser::performAction(int action_no) {
 	switch(action_no) {
-		case 1:
+		case 1: break;
 		//enter the rules
 	}
 }
