@@ -295,11 +295,9 @@ void Parser::eliminateLRecurse() {
 			for(sit it=grammar[ind[i]].begin();it!=grammar[ind[i]].end();it++) {
 				int len=ind[j].size()+2;
 				string str=*it;
-<<<<<<< HEAD
-				if(str.substr(0,len)=="."+ind[j]+".") {
-=======
+
 				if(str.substr(0,len)==("."+ind[j]+".")) {
->>>>>>> dd0219cc4693945b3950525cce57f4a3c88c13bf
+
 					grammar[ind[i]].erase(it);
 					for(sit it2=grammar[ind[j]].begin();it2!=grammar[ind[j]].end();it2++) {
 						string temp=(*it2)+str.substr(len,str.size()-len);
