@@ -1,0 +1,4 @@
+test := b c *
+test := test d *
+test := + - test
+test := +

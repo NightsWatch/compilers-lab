@@ -296,8 +296,8 @@ set<string> Parser::giveFirst(string prod) {
 void Parser::createTable() {
 	printMap(grammar);
 	for(pit iter = grammar.begin(), iter2=grammar2.begin(); iter != grammar.end(); ++iter, ++iter2 ) {
-		cout << "grammar1 "<< iter->first << endl;
-		cout << "grammar2 "<< iter2->first << endl;
+		//cout << "grammar1 "<< iter->first << endl;
+		//cout << "grammar2 "<< iter2->first << endl;
 
  		
  		for(sit it=(iter->second).begin(), it2=(iter2->second).begin() ;it!=(iter->second).end();it++, it2++) {
@@ -815,8 +815,10 @@ void Parser::getFollowSet(string nonterm)
 void Parser::parse(string tokensfile)
 {
 
-	printMap(grammar);
-
+	//printMap(grammar);
+	ofstream intcode;
+	intcode.open("intcode.txt");
+	intcode.close();
 	parserstack.push("$");
 	parserstack.push("S");
 
@@ -824,23 +826,28 @@ void Parser::parse(string tokensfile)
 	cout<<"Stack contents:"<<endl;
 
 	string x,a;
-
+	string val;
 	ifstream tokensfilestream(tokensfile.c_str());
 	
 	if (tokensfilestream.is_open())
   	{
-  		getline(tokensfilestream, a);
+  		tokensfilestream >> a;
+  		tokensfilestream >> val;
 		while (!parserstack.empty())
 		{
-			printStack(parserstack);
+			//printStack(parserstack);
 
 			x = parserstack.top();
 			//cout << x<< endl;
 			parserstack.pop();
 
-			if(x[0]=='#') {
-				cout << "here "<< endl;
-				performAction(atoi(x.substr(1,x.size()-1).c_str()), a);
+			if(x.length()>1 && (x[1]=='#' || x[0]=='#')) {
+				
+				if(x[0]=='#')
+				performAction(atoi(x.substr(1,x.size()-1).c_str()), val);
+				else
+				performAction(atoi(x.substr(2,x.size()-2).c_str()), val);
+				
 				continue;
 			}
 
@@ -852,8 +859,8 @@ void Parser::parse(string tokensfile)
 				if(x==a)
 				{
 					//cout << "a: " << a << endl;
-					getline(tokensfilestream, a);
-
+					tokensfilestream >> a;
+  					tokensfilestream >> val;
 					continue;
 				}
 				else
@@ -932,6 +939,8 @@ bool Parser::checkepsfirst(string nonterm)
 }
 
 void Parser::performAction(int action_no, string next) {
+	cout << action_no << " " << next << endl;
+
 	string a, b, c, d;
 	string op;
 	ofstream intcode;
@@ -948,6 +957,7 @@ void Parser::performAction(int action_no, string next) {
 			intcode << c << " := " << b << " " << op << " " << a << endl;
 			semanticstack.push(c);
 			semanticstack.push("*");
+			break;
 		case 2:
 			op = semanticstack.top();
 			semanticstack.pop();
@@ -959,8 +969,10 @@ void Parser::performAction(int action_no, string next) {
 			intcode << c << " := " << b << " " << op << " " << a << endl;
 			semanticstack.push(c);
 			semanticstack.push("/");
+			break;
 		case 3:
 			semanticstack.push(next);
+			break;
 		case 4:
 			op = semanticstack.top();
 			semanticstack.pop();
@@ -972,6 +984,7 @@ void Parser::performAction(int action_no, string next) {
 			intcode << c << " := " << b << " " << op << " " << a << endl;
 			semanticstack.push(c);
 			semanticstack.push("+");
+			break;
 		case 5:
 			op = semanticstack.top();
 			semanticstack.pop();
@@ -983,12 +996,14 @@ void Parser::performAction(int action_no, string next) {
 			intcode << c << " := " << b << " " << op << " " << a << endl;
 			semanticstack.push(c);
 			semanticstack.push("-");
+			break;
 		case 6:
 			b = semanticstack.top();
 			semanticstack.pop();
 			a = semanticstack.top();
 			semanticstack.pop();
 			intcode << a << " := " << b << endl;
+			break;
 
 
 
@@ -1000,6 +1015,7 @@ void Parser::performAction(int action_no, string next) {
 	}
 
 	intcode.close();
+	printStack(semanticstack);
 }
 
 

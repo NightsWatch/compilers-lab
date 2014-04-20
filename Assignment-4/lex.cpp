@@ -324,16 +324,16 @@ void LexAnalyser::getTokens( string inp, string outp)
           val=lex();
           if(val==EOI)
             break;
-          fprintf(fop,"%s",val);
+          fprintf(fop,"%s ",val);
           
           
-         /*int temp=0;
+         int temp=0;
           for (temp=0;temp<yyleng;temp++)
           {
             fprintf(fop,"%c",yytext[temp]);
 
           }
-         */ 
+         
           
           fprintf(fop,"\n");
         }

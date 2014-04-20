@@ -46,7 +46,7 @@ expr
 expr is .eval.
 expr1
 expr1 is .MINUS.term.expr1.#5.
-expr1 is .PLUS.term.expr1.#4.
+expr1 is .P#3.PLUS.term.expr1.#4.
 expr1 is .e.
 expr2
 expr2 is .EQUALTO.termp.expr2.
@@ -57,19 +57,19 @@ factor
 factor is .LP.expr.RP.
 factor is .id_or_data.
 id_or_data
-id_or_data is .#3.ID.
+id_or_data is .I#3.ID.
 id_or_data is .num_or_char.
 num_or_char
-num_or_char is .#3.CHAR.
-num_or_char is .#3.FLOAT.
-num_or_char is .#3.NUM.
+num_or_char is .C#3.CHAR.
+num_or_char is .F#3.FLOAT.
+num_or_char is .N#3.NUM.
 stmnt
-stmnt is .#3.ID.EQUALS.expr.#6.SEMI.
+stmnt is .I#3.ID.EQUALS.expr.#6.SEMI.
 term
 term is .factor.term1.
 term1
 term1 is .DIVIDE.factor.term1.#2.
-term1 is .TIMES.factor.term1.#1.
+term1 is .T#3.TIMES.factor.term1.#1.
 term1 is .e.
 termp
 termp is .term.expr1.
@@ -261,30 +261,6 @@ term1 is .TIMES.factor.term1.
 term1 is .e.
 termp
 termp is .term.expr1.
-grammar1 S
-grammar2 S
-grammar1 eval
-grammar2 eval
-grammar1 expr
-grammar2 expr
-grammar1 expr1
-grammar2 expr1
-grammar1 expr2
-grammar2 expr2
-grammar1 factor
-grammar2 factor
-grammar1 id_or_data
-grammar2 id_or_data
-grammar1 num_or_char
-grammar2 num_or_char
-grammar1 stmnt
-grammar2 stmnt
-grammar1 term
-grammar2 term
-grammar1 term1
-grammar2 term1
-grammar1 termp
-grammar2 termp
 Created Table:
 S	ID	.stmnt.S.
 eval	CHAR	.termp.expr2.
@@ -298,7 +274,7 @@ expr	ID	.eval.
 expr	LP	.eval.
 expr	NUM	.eval.
 expr1	MINUS	.MINUS.term.expr1.#5.
-expr1	PLUS	.PLUS.term.expr1.#4.
+expr1	PLUS	.P#3.PLUS.term.expr1.#4.
 expr2	EQUALTO	.EQUALTO.termp.expr2.
 expr2	GREATERTHAN	.GREATERTHAN.termp.expr2.
 expr2	LESSTHAN	.LESSTHAN.termp.expr2.
@@ -309,63 +285,46 @@ factor	LP	.LP.expr.RP.
 factor	NUM	.id_or_data.
 id_or_data	CHAR	.num_or_char.
 id_or_data	FLOAT	.num_or_char.
-id_or_data	ID	.#3.ID.
+id_or_data	ID	.I#3.ID.
 id_or_data	NUM	.num_or_char.
-num_or_char	CHAR	.#3.CHAR.
-num_or_char	FLOAT	.#3.FLOAT.
-num_or_char	NUM	.#3.NUM.
-stmnt	ID	.#3.ID.EQUALS.expr.#6.SEMI.
+num_or_char	CHAR	.C#3.CHAR.
+num_or_char	FLOAT	.F#3.FLOAT.
+num_or_char	NUM	.N#3.NUM.
+stmnt	ID	.I#3.ID.EQUALS.expr.#6.SEMI.
 term	CHAR	.factor.term1.
 term	FLOAT	.factor.term1.
 term	ID	.factor.term1.
 term	LP	.factor.term1.
 term	NUM	.factor.term1.
 term1	DIVIDE	.DIVIDE.factor.term1.#2.
-term1	TIMES	.TIMES.factor.term1.#1.
+term1	TIMES	.T#3.TIMES.factor.term1.#1.
 termp	CHAR	.term.expr1.
 termp	FLOAT	.term.expr1.
 termp	ID	.term.expr1.
 termp	LP	.term.expr1.
 termp	NUM	.term.expr1.
 
-S
-S is .e.
-S is .stmnt.S.
-eval
-eval is .termp.expr2.
-expr
-expr is .eval.
-expr1
-expr1 is .MINUS.term.expr1.
-expr1 is .PLUS.term.expr1.
-expr1 is .e.
-expr2
-expr2 is .EQUALTO.termp.expr2.
-expr2 is .GREATERTHAN.termp.expr2.
-expr2 is .LESSTHAN.termp.expr2.
-expr2 is .e.
-factor
-factor is .LP.expr.RP.
-factor is .id_or_data.
-id_or_data
-id_or_data is .ID.
-id_or_data is .num_or_char.
-num_or_char
-num_or_char is .CHAR.
-num_or_char is .FLOAT.
-num_or_char is .NUM.
-stmnt
-stmnt is .ID.EQUALS.expr.SEMI.
-term
-term is .factor.term1.
-term1
-term1 is .DIVIDE.factor.term1.
-term1 is .TIMES.factor.term1.
-term1 is .e.
-termp
-termp is .term.expr1.
 Stack contents:
-S $ 
-stmnt S $ 
-#3 ID EQUALS expr #6 SEMI S $ 
-here 
+3 a
+a 
+3 e
+e a 
+3 +
++ e a 
+3 b
+b + e a 
+3 *
+* b + e a 
+3 c
+c * b + e a 
+1 -
+* test + e a 
+3 d
+d * test + e a 
+5 ;
+- test + e a 
+4 ;
++ test e a 
+6 ;
+e a 
+minorinput.txt has been parsed successfully.
