@@ -1,0 +1,9 @@
+
+
+#1 -  term2.addr=pop(), factor.addr=pop(), term1.addr=new Temp(); gen(term1.addr = factor.addr * term2.addr) , push(term1.addr);
+
+
+
+#2 -  term2.addr=pop(), factor.addr=pop(), term1.addr=new Temp(); gen(term1.addr = factor.addr / term2.addr) , push(term1.addr);
+
+ #3 - push(literal.val);

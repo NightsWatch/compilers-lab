@@ -23,6 +23,7 @@ eval .termp.expr2.
 termp .term.expr1.
 expr1 .e. .PLUS.term.expr1. .MINUS.term.expr1.
 term .factor.term1.
-term1 .e. .TIMES.factor.term1. {term1.addr=new Temp(), temp1.addr=new Temp(); gen(temp1.addr = factor.addr * term1.addr) ; gen(term1.addr '=' term1.addr * temp1.addr } .DIVIDE.factor.term1.   
+term1 .e. .TIMES.factor.#2.term1.#1 .DIVIDE.factor.term1.   
 factor .id_or_data. .LP.expr.RP.
 expr2 .e. .LESSTHAN.termp.expr2. .GREATERTHAN.termp.expr2. .EQUALTO.termp.expr2.
+
