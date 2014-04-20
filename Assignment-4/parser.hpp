@@ -42,6 +42,7 @@ public:
 		stack <string> parserstack;
 		stack <string> tempstack;
 
+
 		stack <string> semanticstack;
 
 		void getGrammar(string);
@@ -62,5 +63,6 @@ public:
 		bool checkepsfirst(string);
 
 		void performAction(int);
+		string getNewTemp(void);
 		
 };

@@ -856,8 +856,35 @@ bool Parser::checkepsfirst(string nonterm)
 }
 
 void Parser::performAction(int action_no) {
+	string a, b, c, d;
+	string op;
+	ofstream intcode;
+	intcode.open("intcode.txt", ios::app);
 	switch(action_no) {
-		case 1: break;
-		//enter the rules
+		case 1: 
+			op = semanticstack.top();
+			semanticstack.pop();
+			a = semanticstack.top();
+			semanticstack.pop();
+			b = semanticstack.top();
+			semanticstack.pop();
+			c=getNewTemp();
+			intcode << c << " := " << b << " " << op << " " << a << endl;
+			semanticstack.push(c);
+			semanticstack.push("*");
+		case 2:
+			break;
+
+
+
 	}
+
+	intcode.close();
+}
+
+
+string Parser::getNewTemp(void)
+{
+	return "a";
+
 }
