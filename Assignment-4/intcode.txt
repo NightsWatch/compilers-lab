@@ -1,4 +1,4 @@
-test := b c *
-test := test d *
-test := + - test
-test := +
+test := b * c
+test := - d t
+test := + test test
+test := a e test

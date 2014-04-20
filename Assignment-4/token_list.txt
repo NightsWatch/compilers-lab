@@ -7,4 +7,6 @@ TIMES *
 ID c
 MINUS -
 ID d
+DIVIDE /
+ID t
 SEMI ;

@@ -45,7 +45,7 @@ eval is .termp.expr2.
 expr
 expr is .eval.
 expr1
-expr1 is .MINUS.term.expr1.#5.
+expr1 is .M#3.MINUS.term.expr1.#5.
 expr1 is .P#3.PLUS.term.expr1.#4.
 expr1 is .e.
 expr2
@@ -273,7 +273,7 @@ expr	FLOAT	.eval.
 expr	ID	.eval.
 expr	LP	.eval.
 expr	NUM	.eval.
-expr1	MINUS	.MINUS.term.expr1.#5.
+expr1	MINUS	.M#3.MINUS.term.expr1.#5.
 expr1	PLUS	.P#3.PLUS.term.expr1.#4.
 expr2	EQUALTO	.EQUALTO.termp.expr2.
 expr2	GREATERTHAN	.GREATERTHAN.termp.expr2.
@@ -318,13 +318,17 @@ b + e a
 3 c
 c * b + e a 
 1 -
-* test + e a 
-3 d
-d * test + e a 
-5 ;
+test + e a 
+3 -
 - test + e a 
+3 d
+d - test + e a 
+3 t
+t d - test + e a 
+2 ;
+test test + e a 
+5 ;
+test e a 
 4 ;
-+ test e a 
+test 
 6 ;
-e a 
-minorinput.txt has been parsed successfully.

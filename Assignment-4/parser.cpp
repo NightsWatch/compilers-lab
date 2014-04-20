@@ -947,55 +947,55 @@ void Parser::performAction(int action_no, string next) {
 	intcode.open("intcode.txt", ios::app);
 	switch(action_no) {
 		case 1: 
-			op = semanticstack.top();
-			semanticstack.pop();
 			a = semanticstack.top();
+			semanticstack.pop();
+			op = semanticstack.top();
 			semanticstack.pop();
 			b = semanticstack.top();
 			semanticstack.pop();
 			c=getNewTemp();
 			intcode << c << " := " << b << " " << op << " " << a << endl;
 			semanticstack.push(c);
-			semanticstack.push("*");
+			//semanticstack.push("*");
 			break;
 		case 2:
-			op = semanticstack.top();
-			semanticstack.pop();
 			a = semanticstack.top();
+			semanticstack.pop();
+			op = semanticstack.top();
 			semanticstack.pop();
 			b = semanticstack.top();
 			semanticstack.pop();
 			c=getNewTemp();
 			intcode << c << " := " << b << " " << op << " " << a << endl;
 			semanticstack.push(c);
-			semanticstack.push("/");
+			//semanticstack.push("/");
 			break;
 		case 3:
 			semanticstack.push(next);
 			break;
 		case 4:
-			op = semanticstack.top();
-			semanticstack.pop();
 			a = semanticstack.top();
+			semanticstack.pop();
+			op = semanticstack.top();
 			semanticstack.pop();
 			b = semanticstack.top();
 			semanticstack.pop();
 			c=getNewTemp();
 			intcode << c << " := " << b << " " << op << " " << a << endl;
 			semanticstack.push(c);
-			semanticstack.push("+");
+			//semanticstack.push("+");
 			break;
 		case 5:
-			op = semanticstack.top();
-			semanticstack.pop();
 			a = semanticstack.top();
+			semanticstack.pop();
+			op = semanticstack.top();
 			semanticstack.pop();
 			b = semanticstack.top();
 			semanticstack.pop();
 			c=getNewTemp();
 			intcode << c << " := " << b << " " << op << " " << a << endl;
 			semanticstack.push(c);
-			semanticstack.push("-");
+			//semanticstack.push("-");
 			break;
 		case 6:
 			b = semanticstack.top();

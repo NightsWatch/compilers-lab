@@ -4,7 +4,7 @@ stmnt .I#3.ID.EQUALS.expr.#6.SEMI.
 expr  .eval.
 eval .termp.expr2.
 termp .term.expr1.
-expr1 .e. .P#3.PLUS.term.expr1.#4. .MINUS.term.expr1.#5.
+expr1 .e. .P#3.PLUS.term.expr1.#4. .M#3.MINUS.term.expr1.#5.
 term .factor.term1.
 term1 .e. .T#3.TIMES.factor.term1.#1. .DIVIDE.factor.term1.#2.   
 factor .id_or_data. .LP.expr.RP.
