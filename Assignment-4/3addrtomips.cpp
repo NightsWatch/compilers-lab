@@ -20,7 +20,7 @@ void printfMIPSCode(int index,string str) {
 	switch(index) {
 		case 1:		//x := y op z
 			cout << "load "<<cds[2]<<" into reg1\n";
-			cout << "load "<<cds[4]<<" into reg2\n";
+			cout << "load "<<cds[4]<<" into reg2\n";//
 			cout << "opc reg3, reg1, reg2\n";
 			cout << "store reg3 into "<<cds[0]<<endl;
 
