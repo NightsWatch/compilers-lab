@@ -1406,6 +1406,15 @@ void Parser::performAction(int action_no, string next) {
 				intcode << "leave " << b << endl;
 				break;
 			}
+		case 33:
+			semanticstack.push("==");
+			break;
+		case 34:
+			semanticstack.push(">");
+			break;
+		case 35:
+			semanticstack.push("<");
+			break;
 
 	}
 
