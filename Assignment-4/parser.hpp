@@ -29,7 +29,7 @@ public:
 
 		map< string, set<string> > followSet;
 
-
+		bool inuse[10000]={0};
 		//map<string , map<string,string> > parsing_table;
 		map< pair<string,string>, string > parsing_table;
 		map<string, set<string> > followOverlap;

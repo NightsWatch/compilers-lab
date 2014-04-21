@@ -294,7 +294,7 @@ set<string> Parser::giveFirst(string prod) {
 
 
 void Parser::createTable() {
-	printMap(grammar);
+	//printMap(grammar);
 	for(pit iter = grammar.begin(), iter2=grammar2.begin(); iter != grammar.end(); ++iter, ++iter2 ) {
 		//cout << "grammar1 "<< iter->first << endl;
 		//cout << "grammar2 "<< iter2->first << endl;
@@ -303,8 +303,8 @@ void Parser::createTable() {
  		for(sit it=(iter->second).begin(), it2=(iter2->second).begin() ;it!=(iter->second).end();it++, it2++) {
  			//cout<<*it<< endl;
  			set<string> firstSymbols=giveFirst(*it);
- 			cout << "first of " << *it << endl; 
- 			printSet(firstSymbols);
+ 			//cout << "first of " << *it << endl; 
+ 			//printSet(firstSymbols);
  			//printSet(firstSymbols);
  			for(sit fs=firstSymbols.begin();fs!=firstSymbols.end();fs++) {
  				//cout<<*it<<"adding"<<endl;
@@ -324,7 +324,7 @@ void Parser::createTable() {
 
  			if(firstSymbols.find("e")!=firstSymbols.end()) 
  			{
- 				cout << "----------------------------" << endl;
+ 				
  				for(sit fs=followSet[iter->first].begin(); fs!=followSet[iter->first].end(); fs++)
  				{	
  					//cout<<*it<<"adding2"<<endl;
@@ -885,6 +885,7 @@ void Parser::parse(string tokensfile)
 					//cout << value << endl;
 					if(value==".e.")
 					{
+						performAction(3, "epsilon");
 						continue;
 					}
 					vector<string> nterms = tokenize(value,".");
@@ -948,7 +949,6 @@ bool Parser::checkepsfirst(string nonterm)
 
 void Parser::performAction(int action_no, string next) {
 	cout << action_no << " " << next << endl;
-	return;
 	string a, b, c, d;
 	string op;
 	ofstream intcode;
@@ -959,11 +959,22 @@ void Parser::performAction(int action_no, string next) {
 			semanticstack.pop();
 			a = semanticstack.top();
 			semanticstack.pop();
-			b = semanticstack.top();
-			semanticstack.pop();
-			c=getNewTemp();
-			intcode << c << " := " << b << " " << op << " " << a << endl;
-			semanticstack.push(c);
+
+			if(op!="epsilon")
+			{
+				b = semanticstack.top();
+				semanticstack.pop();
+				c=getNewTemp();
+				intcode << c << " := " << b << " " << op << " " << a << endl;
+				semanticstack.push(c);
+			}
+			else
+			{
+				semanticstack.push(a);
+
+			}
+
+	
 			semanticstack.push("*");
 			break;
 		case 2:
@@ -971,11 +982,22 @@ void Parser::performAction(int action_no, string next) {
 			semanticstack.pop();
 			a = semanticstack.top();
 			semanticstack.pop();
-			b = semanticstack.top();
-			semanticstack.pop();
-			c=getNewTemp();
-			intcode << c << " := " << b << " " << op << " " << a << endl;
-			semanticstack.push(c);
+
+			if(op!="epsilon")
+			{
+				b = semanticstack.top();
+				semanticstack.pop();
+				c=getNewTemp();
+				intcode << c << " := " << b << " " << op << " " << a << endl;
+				semanticstack.push(c);
+			}
+			else
+			{
+				semanticstack.push(a);
+
+			}
+
+	
 			semanticstack.push("/");
 			break;
 		case 3:
@@ -986,11 +1008,22 @@ void Parser::performAction(int action_no, string next) {
 			semanticstack.pop();
 			a = semanticstack.top();
 			semanticstack.pop();
-			b = semanticstack.top();
-			semanticstack.pop();
-			c=getNewTemp();
-			intcode << c << " := " << b << " " << op << " " << a << endl;
-			semanticstack.push(c);
+
+			if(op!="epsilon")
+			{
+				b = semanticstack.top();
+				semanticstack.pop();
+				c=getNewTemp();
+				intcode << c << " := " << b << " " << op << " " << a << endl;
+				semanticstack.push(c);
+			}
+			else
+			{
+				semanticstack.push(a);
+
+			}
+
+	
 			semanticstack.push("+");
 			break;
 		case 5:
@@ -998,11 +1031,22 @@ void Parser::performAction(int action_no, string next) {
 			semanticstack.pop();
 			a = semanticstack.top();
 			semanticstack.pop();
-			b = semanticstack.top();
-			semanticstack.pop();
-			c=getNewTemp();
-			intcode << c << " := " << b << " " << op << " " << a << endl;
-			semanticstack.push(c);
+
+			if(op!="epsilon")
+			{
+				b = semanticstack.top();
+				semanticstack.pop();
+				c=getNewTemp();
+				intcode << c << " := " << b << " " << op << " " << a << endl;
+				semanticstack.push(c);
+			}
+			else
+			{
+				semanticstack.push(a);
+
+			}
+
+	
 			semanticstack.push("-");
 			break;
 		case 6:
@@ -1017,11 +1061,24 @@ void Parser::performAction(int action_no, string next) {
 			semanticstack.pop();
 			a = semanticstack.top();
 			semanticstack.pop();
-			b = semanticstack.top();
-			semanticstack.pop();
-			c=getNewTemp();
-			intcode << c << " := " << b << " " << op << " " << a << endl;
-			semanticstack.push(c);
+
+			if(op!="epsilon")
+			{
+				b = semanticstack.top();
+				semanticstack.pop();
+				c=getNewTemp();
+				intcode << c << " := " << b << " " << op << " " << a << endl;
+				semanticstack.push(c);
+			}
+			else
+			{
+				semanticstack.push(a);
+			}	
+			
+			
+		
+			
+			
 			break;
 
 
@@ -1040,6 +1097,19 @@ void Parser::performAction(int action_no, string next) {
 
 string Parser::getNewTemp(void)
 {
-	return "test";
+		
+	for(int i=0; i<10000; i++)
+	{
+		if(!inuse[i])
+		{
+			inuse[i]=true;
+			
+			stringstream ss;
+			ss << i;
+			string str = ss.str();
+			return "T" + str;
+		}
+	}
+
 
 }		
