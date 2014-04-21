@@ -198,72 +198,104 @@ term1
 term1 is .DIVIDE.factor.term1.
 term1 is .TIMES.factor.term1.
 term1 is .e.
+first of .e.
+e value in set
+----------------------------
+first of .stmnt.S.
+ID value in set
+first of .term.expr1.
+CHAR value in set
+FLOAT value in set
+ID value in set
+LP value in set
+NUM value in set
+first of .eval.
+CHAR value in set
+FLOAT value in set
+ID value in set
+LP value in set
+NUM value in set
+first of .MINUS.term.expr1.
+MINUS value in set
+first of .PLUS.term.expr1.
+PLUS value in set
+first of .e.
+e value in set
+----------------------------
+first of .LP.expr.RP.
+LP value in set
+first of .id_or_data.
+CHAR value in set
+FLOAT value in set
+ID value in set
+NUM value in set
+first of .ID.
+ID value in set
+first of .num_or_char.
+CHAR value in set
+FLOAT value in set
+NUM value in set
+first of .CHAR.
+CHAR value in set
+first of .FLOAT.
+FLOAT value in set
+first of .NUM.
+NUM value in set
+first of .ID.EQUALS.expr.SEMI.
+ID value in set
+first of .factor.term1.
+CHAR value in set
+FLOAT value in set
+ID value in set
+LP value in set
+NUM value in set
+first of .DIVIDE.factor.term1.
+DIVIDE value in set
+first of .TIMES.factor.term1.
+TIMES value in set
+first of .e.
+e value in set
+----------------------------
 Created Table:
-S	ID
+S	$	.e.
 S	ID	.stmnt.S.
-eval	CHAR
 eval	CHAR	.term.expr1.#7.
-eval	FLOAT
 eval	FLOAT	.term.expr1.#7.
-eval	ID
 eval	ID	.term.expr1.#7.
-eval	LP
 eval	LP	.term.expr1.#7.
-eval	NUM
 eval	NUM	.term.expr1.#7.
-expr	CHAR
 expr	CHAR	.eval.
-expr	FLOAT
 expr	FLOAT	.eval.
-expr	ID
 expr	ID	.eval.
-expr	LP
 expr	LP	.eval.
-expr	NUM
 expr	NUM	.eval.
-expr1	MINUS
 expr1	MINUS	.MINUS.term.expr1.#5.
-expr1	PLUS
 expr1	PLUS	.PLUS.term.expr1.#4.
-factor	CHAR
+expr1	RP	.e.
+expr1	SEMI	.e.
 factor	CHAR	.id_or_data.
-factor	FLOAT
 factor	FLOAT	.id_or_data.
-factor	ID
 factor	ID	.id_or_data.
-factor	LP
 factor	LP	.LP.expr.RP.
-factor	NUM
 factor	NUM	.id_or_data.
-id_or_data	CHAR
 id_or_data	CHAR	.num_or_char.
-id_or_data	FLOAT
 id_or_data	FLOAT	.num_or_char.
-id_or_data	ID
 id_or_data	ID	.I#3.ID.
-id_or_data	NUM
 id_or_data	NUM	.num_or_char.
-num_or_char	CHAR
 num_or_char	CHAR	.C#3.CHAR.
-num_or_char	FLOAT
 num_or_char	FLOAT	.F#3.FLOAT.
-num_or_char	NUM
 num_or_char	NUM	.N#3.NUM.
-stmnt	ID
 stmnt	ID	.I#3.ID.EQUALS.expr.#6.SEMI.
-term	CHAR
 term	CHAR	.factor.term1.#7.
-term	FLOAT
 term	FLOAT	.factor.term1.#7.
-term	ID
 term	ID	.factor.term1.#7.
-term	LP
 term	LP	.factor.term1.#7.
-term	NUM
 term	NUM	.factor.term1.#7.
-term1	DIVIDE
 term1	DIVIDE	.DIVIDE.factor.term1.#2.
-term1	TIMES
+term1	MINUS	.e.
+term1	PLUS	.e.
+term1	RP	.e.
+term1	SEMI	.e.
 term1	TIMES	.TIMES.factor.term1.#1.
 
 Stack contents:
@@ -282,4 +314,58 @@ I#3 ID term1 #7 expr1 #7 #6 SEMI S $
 3 e
 ID term1 #7 expr1 #7 #6 SEMI S $ 
 term1 #7 expr1 #7 #6 SEMI S $ 
-Syntax error at PLUS
+#7 expr1 #7 #6 SEMI S $ 
+7 +
+expr1 #7 #6 SEMI S $ 
+PLUS term expr1 #4 #7 #6 SEMI S $ 
+term expr1 #4 #7 #6 SEMI S $ 
+factor term1 #7 expr1 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 expr1 #4 #7 #6 SEMI S $ 
+I#3 ID term1 #7 expr1 #4 #7 #6 SEMI S $ 
+3 b
+ID term1 #7 expr1 #4 #7 #6 SEMI S $ 
+term1 #7 expr1 #4 #7 #6 SEMI S $ 
+TIMES factor term1 #1 #7 expr1 #4 #7 #6 SEMI S $ 
+factor term1 #1 #7 expr1 #4 #7 #6 SEMI S $ 
+id_or_data term1 #1 #7 expr1 #4 #7 #6 SEMI S $ 
+I#3 ID term1 #1 #7 expr1 #4 #7 #6 SEMI S $ 
+3 c
+ID term1 #1 #7 expr1 #4 #7 #6 SEMI S $ 
+term1 #1 #7 expr1 #4 #7 #6 SEMI S $ 
+#1 #7 expr1 #4 #7 #6 SEMI S $ 
+1 -
+#7 expr1 #4 #7 #6 SEMI S $ 
+7 -
+expr1 #4 #7 #6 SEMI S $ 
+MINUS term expr1 #5 #4 #7 #6 SEMI S $ 
+term expr1 #5 #4 #7 #6 SEMI S $ 
+factor term1 #7 expr1 #5 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 expr1 #5 #4 #7 #6 SEMI S $ 
+I#3 ID term1 #7 expr1 #5 #4 #7 #6 SEMI S $ 
+3 d
+ID term1 #7 expr1 #5 #4 #7 #6 SEMI S $ 
+term1 #7 expr1 #5 #4 #7 #6 SEMI S $ 
+DIVIDE factor term1 #2 #7 expr1 #5 #4 #7 #6 SEMI S $ 
+factor term1 #2 #7 expr1 #5 #4 #7 #6 SEMI S $ 
+id_or_data term1 #2 #7 expr1 #5 #4 #7 #6 SEMI S $ 
+I#3 ID term1 #2 #7 expr1 #5 #4 #7 #6 SEMI S $ 
+3 t
+ID term1 #2 #7 expr1 #5 #4 #7 #6 SEMI S $ 
+term1 #2 #7 expr1 #5 #4 #7 #6 SEMI S $ 
+#2 #7 expr1 #5 #4 #7 #6 SEMI S $ 
+2 ;
+#7 expr1 #5 #4 #7 #6 SEMI S $ 
+7 ;
+expr1 #5 #4 #7 #6 SEMI S $ 
+#5 #4 #7 #6 SEMI S $ 
+5 ;
+#4 #7 #6 SEMI S $ 
+4 ;
+#7 #6 SEMI S $ 
+7 ;
+#6 SEMI S $ 
+6 ;
+SEMI S $ 
+S $ 
+$ 
+minorinput.txt has been parsed successfully.

@@ -60,7 +60,7 @@ void printTable(map < pair<string, string>, string > table) {
 	
 	for(tab_it it=table.begin();it!=table.end();it++) 
 	{
-		cout<<(it->first).first<<"\t"<<(it->first).second << endl;
+		//cout<<(it->first).first<<"\t"<<(it->first).second << endl;
 		cout<<(it->first).first<<"\t"<<(it->first).second<<"\t" << it->second<<"\n";
 	}
 	cout<<endl;
@@ -260,7 +260,7 @@ set<string> Parser::giveFirst(string prod) {
 		//cout<<"error"<<endl;
 	string token = getStringBetweenTwoDots(firstloc,secloc,prod);
 
-	if(token=="" || secloc<0)
+	if(token=="" || secloc<0 || token=="e")
 	{
 		result.insert("e");
 		return result;
@@ -303,6 +303,8 @@ void Parser::createTable() {
  		for(sit it=(iter->second).begin(), it2=(iter2->second).begin() ;it!=(iter->second).end();it++, it2++) {
  			//cout<<*it<< endl;
  			set<string> firstSymbols=giveFirst(*it);
+ 			cout << "first of " << *it << endl; 
+ 			printSet(firstSymbols);
  			//printSet(firstSymbols);
  			for(sit fs=firstSymbols.begin();fs!=firstSymbols.end();fs++) {
  				//cout<<*it<<"adding"<<endl;
@@ -322,6 +324,7 @@ void Parser::createTable() {
 
  			if(firstSymbols.find("e")!=firstSymbols.end()) 
  			{
+ 				cout << "----------------------------" << endl;
  				for(sit fs=followSet[iter->first].begin(); fs!=followSet[iter->first].end(); fs++)
  				{	
  					//cout<<*it<<"adding2"<<endl;
@@ -880,6 +883,10 @@ void Parser::parse(string tokensfile)
 				} else {
 					string value = parsing_table[make_pair(x,a)];
 					//cout << value << endl;
+					if(value==".e.")
+					{
+						continue;
+					}
 					vector<string> nterms = tokenize(value,".");
 					for(int i=nterms.size()-1;i>=0;i--) 
 					{
