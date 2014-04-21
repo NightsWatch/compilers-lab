@@ -1058,12 +1058,23 @@ void Parser::performAction(int action_no, string next) {
 			c = semanticstack.top();
 			semanticstack.pop();
 			if(c=="eval")
-			b = semanticstack.top();
-			semanticstack.pop();
-			a = semanticstack.top();
-			semanticstack.pop();
-			intcode << a << " := " << b << endl;
-			break;
+			{
+				b = semanticstack.top();
+				semanticstack.pop();
+				a = semanticstack.top();
+				semanticstack.pop();
+				intcode << a << " := " << b << endl;
+				break;
+
+
+			}
+			else
+			{
+				a = semanticstack.top();
+				semanticstack.pop();
+				intcode << "retrieve " << a << endl;
+				break;
+			}
 		case 7:
 			op = semanticstack.top();
 			semanticstack.pop();
@@ -1112,16 +1123,16 @@ void Parser::performAction(int action_no, string next) {
 			semanticstack.pop();
 			b = semanticstack.top();
 			semanticstack.pop();
-			intcode << b << " " << comp << " " << a;
+			intcode << b << " " << comp << " " << a << " " ;
 			break;
 		case 10:
-			semanticstack.push("<");
+			semanticstack.push(">=");
 			break;
 		case 11:
-			semanticstack.push(">");
+			semanticstack.push("<=");
 			break;
 		case 12:
-			semanticstack.push("==");
+			semanticstack.push("!=");
 			break;
 		case 13:
 			assign=semanticstack.top();
@@ -1198,8 +1209,41 @@ void Parser::performAction(int action_no, string next) {
 			}
 		case 18:
 			{
-				semanticstack.push("funcs");
+				semanticstack.push("func");
 				break;
+
+			}
+		case 19:
+			{
+				intcode << "if " ;
+				break;
+			}
+		case 20:
+			{	
+				c = getNewLabel();
+				intcode << "goto " << c << endl;
+				semanticstack.push(c);
+
+			}
+		case 21:
+			{
+				a = semanticstack.top();
+				semanticstack.pop();
+				intcode << "label " << a << endl;
+			}
+		case 22:
+			{
+				a = semanticstack.top();
+				if(a=="epsilon")
+				{
+					semanticstack.pop();
+					b = semanticstack.top();
+					semanticstack.pop();
+					intcode << "label " << b << endl;
+				}
+
+				break;
+
 
 			}
 
@@ -1217,9 +1261,9 @@ string Parser::getNewTemp(void)
 		
 	for(int i=0; i<10000; i++)
 	{
-		if(!inuse[i])
+		if(!inuseT[i])
 		{
-			inuse[i]=true;
+			inuseT[i]=true;
 			
 			stringstream ss;
 			ss << i;
@@ -1227,6 +1271,27 @@ string Parser::getNewTemp(void)
 			return "T" + str;
 		}
 	}
+	return "Out of temps";
+
+
+}		
+
+string Parser::getNewLabel(void)
+{
+		
+	for(int i=0; i<10000; i++)
+	{
+		if(!inuseL[i])
+		{
+			inuseL[i]=true;
+			
+			stringstream ss;
+			ss << i;
+			string str = ss.str();
+			return "L" + str;
+		}
+	}
+	return "Out of labels";
 
 
 }		
