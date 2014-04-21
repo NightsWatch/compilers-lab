@@ -1,3 +1,4 @@
+enter main
 global i int
 i := 5
 label L0
@@ -15,3 +16,4 @@ j := T1
 goto L2
 label L3
 return 0
+leave main

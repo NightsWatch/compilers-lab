@@ -1386,9 +1386,26 @@ void Parser::performAction(int action_no, string next) {
 				semanticstack.pop();
 				intcode << "goto " << c << endl; 
 				intcode << "label " << b << endl;
-
+				break;
 			}
-
+		case 31:
+			{
+				b = semanticstack.top();
+				intcode << "enter " << b << endl;
+				break;
+			}
+		case 32:
+			{
+				b = semanticstack.top();
+				semanticstack.pop();
+				if(b=="epsilon")
+				{
+					b = semanticstack.top();
+					semanticstack.pop();
+				}
+				intcode << "leave " << b << endl;
+				break;
+			}
 
 	}
 
