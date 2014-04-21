@@ -1,13 +1,11 @@
-T: ID EQUALS SEMI PLUS MINUS TIMES DIVIDE LESSTHAN GREATERTHAN EQUALTO NUM FLOAT CHAR
+T: ID EQUALS SEMI PLUS MINUS TIMES DIVIDE NUM FLOAT CHAR LP RP
 S .stmnt.S. .e.
 stmnt .I#3.ID.EQUALS.expr.#6.SEMI. 
 expr  .eval.
-eval .termp.expr2.
-termp .term.expr1.
-expr1 .e. .P#3.PLUS.term.expr1.#4. .M#3.MINUS.term.expr1.#5.
-term .factor.term1.
-term1 .e. .T#3.TIMES.factor.term1.#1. .DIVIDE.factor.term1.#2.   
+eval .term.expr1.#7.
+expr1 .e. .PLUS.term.expr1.#4. .MINUS.term.expr1.#5.
+term .factor.term1.#7.
+term1 .e. .TIMES.factor.term1.#1. .DIVIDE.factor.term1.#2.   
 factor .id_or_data. .LP.expr.RP.
-expr2 .e. .LESSTHAN.termp.expr2. .GREATERTHAN.termp.expr2. .EQUALTO.termp.expr2.
 id_or_data	.I#3.ID. .num_or_char.
 num_or_char .N#3.NUM. .F#3.FLOAT. .C#3.CHAR.

@@ -1,4 +1,0 @@
-test := b * c
-test := - d t
-test := + test test
-test := a e test

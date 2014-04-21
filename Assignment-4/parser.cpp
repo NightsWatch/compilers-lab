@@ -60,7 +60,7 @@ void printTable(map < pair<string, string>, string > table) {
 	
 	for(tab_it it=table.begin();it!=table.end();it++) 
 	{
-
+		cout<<(it->first).first<<"\t"<<(it->first).second << endl;
 		cout<<(it->first).first<<"\t"<<(it->first).second<<"\t" << it->second<<"\n";
 	}
 	cout<<endl;
@@ -858,6 +858,7 @@ void Parser::parse(string tokensfile)
 			{
 				if(x==a)
 				{
+					//cout << "Yooohooo" << endl;
 					//cout << "a: " << a << endl;
 					tokensfilestream >> a;
   					tokensfilestream >> val;
@@ -871,14 +872,14 @@ void Parser::parse(string tokensfile)
 			}
 			else
 			{
-				string value = parsing_table[make_pair(x,a)];
-
+				
 				if(parsing_table.find(make_pair(x,a)) == parsing_table.end()) {
 					
 					cout << "Syntax error at " << a  << endl;
 				 	return ;
 				} else {
 					string value = parsing_table[make_pair(x,a)];
+					//cout << value << endl;
 					vector<string> nterms = tokenize(value,".");
 					for(int i=nterms.size()-1;i>=0;i--) 
 					{
@@ -940,62 +941,62 @@ bool Parser::checkepsfirst(string nonterm)
 
 void Parser::performAction(int action_no, string next) {
 	cout << action_no << " " << next << endl;
-
+	return;
 	string a, b, c, d;
 	string op;
 	ofstream intcode;
 	intcode.open("intcode.txt", ios::app);
 	switch(action_no) {
 		case 1: 
-			a = semanticstack.top();
-			semanticstack.pop();
 			op = semanticstack.top();
+			semanticstack.pop();
+			a = semanticstack.top();
 			semanticstack.pop();
 			b = semanticstack.top();
 			semanticstack.pop();
 			c=getNewTemp();
 			intcode << c << " := " << b << " " << op << " " << a << endl;
 			semanticstack.push(c);
-			//semanticstack.push("*");
+			semanticstack.push("*");
 			break;
 		case 2:
-			a = semanticstack.top();
-			semanticstack.pop();
 			op = semanticstack.top();
+			semanticstack.pop();
+			a = semanticstack.top();
 			semanticstack.pop();
 			b = semanticstack.top();
 			semanticstack.pop();
 			c=getNewTemp();
 			intcode << c << " := " << b << " " << op << " " << a << endl;
 			semanticstack.push(c);
-			//semanticstack.push("/");
+			semanticstack.push("/");
 			break;
 		case 3:
 			semanticstack.push(next);
 			break;
 		case 4:
-			a = semanticstack.top();
-			semanticstack.pop();
 			op = semanticstack.top();
+			semanticstack.pop();
+			a = semanticstack.top();
 			semanticstack.pop();
 			b = semanticstack.top();
 			semanticstack.pop();
 			c=getNewTemp();
 			intcode << c << " := " << b << " " << op << " " << a << endl;
 			semanticstack.push(c);
-			//semanticstack.push("+");
+			semanticstack.push("+");
 			break;
 		case 5:
-			a = semanticstack.top();
-			semanticstack.pop();
 			op = semanticstack.top();
+			semanticstack.pop();
+			a = semanticstack.top();
 			semanticstack.pop();
 			b = semanticstack.top();
 			semanticstack.pop();
 			c=getNewTemp();
 			intcode << c << " := " << b << " " << op << " " << a << endl;
 			semanticstack.push(c);
-			//semanticstack.push("-");
+			semanticstack.push("-");
 			break;
 		case 6:
 			b = semanticstack.top();
@@ -1003,6 +1004,17 @@ void Parser::performAction(int action_no, string next) {
 			a = semanticstack.top();
 			semanticstack.pop();
 			intcode << a << " := " << b << endl;
+			break;
+		case 7:
+			op = semanticstack.top();
+			semanticstack.pop();
+			a = semanticstack.top();
+			semanticstack.pop();
+			b = semanticstack.top();
+			semanticstack.pop();
+			c=getNewTemp();
+			intcode << c << " := " << b << " " << op << " " << a << endl;
+			semanticstack.push(c);
 			break;
 
 

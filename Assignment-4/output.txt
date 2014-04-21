@@ -3,18 +3,13 @@ S
 S is .e.
 S is .stmnt.S.
 eval
-eval is .termp.expr2.
+eval is .term.expr1.
 expr
 expr is .eval.
 expr1
 expr1 is .MINUS.term.expr1.
 expr1 is .PLUS.term.expr1.
 expr1 is .e.
-expr2
-expr2 is .EQUALTO.termp.expr2.
-expr2 is .GREATERTHAN.termp.expr2.
-expr2 is .LESSTHAN.termp.expr2.
-expr2 is .e.
 factor
 factor is .LP.expr.RP.
 factor is .id_or_data.
@@ -33,26 +28,19 @@ term1
 term1 is .DIVIDE.factor.term1.
 term1 is .TIMES.factor.term1.
 term1 is .e.
-termp
-termp is .term.expr1.
 
 Grammar2 is:
 S
 S is .e.
 S is .stmnt.S.
 eval
-eval is .termp.expr2.
+eval is .term.expr1.#7.
 expr
 expr is .eval.
 expr1
-expr1 is .M#3.MINUS.term.expr1.#5.
-expr1 is .P#3.PLUS.term.expr1.#4.
+expr1 is .MINUS.term.expr1.#5.
+expr1 is .PLUS.term.expr1.#4.
 expr1 is .e.
-expr2
-expr2 is .EQUALTO.termp.expr2.
-expr2 is .GREATERTHAN.termp.expr2.
-expr2 is .LESSTHAN.termp.expr2.
-expr2 is .e.
 factor
 factor is .LP.expr.RP.
 factor is .id_or_data.
@@ -66,13 +54,11 @@ num_or_char is .N#3.NUM.
 stmnt
 stmnt is .I#3.ID.EQUALS.expr.#6.SEMI.
 term
-term is .factor.term1.
+term is .factor.term1.#7.
 term1
 term1 is .DIVIDE.factor.term1.#2.
-term1 is .T#3.TIMES.factor.term1.#1.
+term1 is .TIMES.factor.term1.#1.
 term1 is .e.
-termp
-termp is .term.expr1.
 
 Firstset is:
 CHAR
@@ -81,16 +67,10 @@ DIVIDE
 DIVIDE is DIVIDE
 EQUALS
 EQUALS is EQUALS
-EQUALTO
-EQUALTO is EQUALTO
 FLOAT
 FLOAT is FLOAT
-GREATERTHAN
-GREATERTHAN is GREATERTHAN
 ID
 ID is ID
-LESSTHAN
-LESSTHAN is LESSTHAN
 LP
 LP is LP
 MINUS
@@ -124,11 +104,6 @@ expr1
 expr1 is MINUS
 expr1 is PLUS
 expr1 is e
-expr2
-expr2 is EQUALTO
-expr2 is GREATERTHAN
-expr2 is LESSTHAN
-expr2 is e
 factor
 factor is CHAR
 factor is FLOAT
@@ -156,12 +131,6 @@ term1
 term1 is DIVIDE
 term1 is TIMES
 term1 is e
-termp
-termp is CHAR
-termp is FLOAT
-termp is ID
-termp is LP
-termp is NUM
 
 Followset is:
 S is $
@@ -169,35 +138,21 @@ eval is RP
 eval is SEMI
 expr is RP
 expr is SEMI
-expr1 is EQUALTO
-expr1 is GREATERTHAN
-expr1 is LESSTHAN
 expr1 is RP
 expr1 is SEMI
-expr2 is RP
-expr2 is SEMI
 factor is DIVIDE
-factor is EQUALTO
-factor is GREATERTHAN
-factor is LESSTHAN
 factor is MINUS
 factor is PLUS
 factor is RP
 factor is SEMI
 factor is TIMES
 id_or_data is DIVIDE
-id_or_data is EQUALTO
-id_or_data is GREATERTHAN
-id_or_data is LESSTHAN
 id_or_data is MINUS
 id_or_data is PLUS
 id_or_data is RP
 id_or_data is SEMI
 id_or_data is TIMES
 num_or_char is DIVIDE
-num_or_char is EQUALTO
-num_or_char is GREATERTHAN
-num_or_char is LESSTHAN
 num_or_char is MINUS
 num_or_char is PLUS
 num_or_char is RP
@@ -205,42 +160,26 @@ num_or_char is SEMI
 num_or_char is TIMES
 stmnt is $
 stmnt is ID
-term is EQUALTO
-term is GREATERTHAN
-term is LESSTHAN
 term is MINUS
 term is PLUS
 term is RP
 term is SEMI
-term1 is EQUALTO
-term1 is GREATERTHAN
-term1 is LESSTHAN
 term1 is MINUS
 term1 is PLUS
 term1 is RP
 term1 is SEMI
-termp is EQUALTO
-termp is GREATERTHAN
-termp is LESSTHAN
-termp is RP
-termp is SEMI
 
 S
 S is .e.
 S is .stmnt.S.
 eval
-eval is .termp.expr2.
+eval is .term.expr1.
 expr
 expr is .eval.
 expr1
 expr1 is .MINUS.term.expr1.
 expr1 is .PLUS.term.expr1.
 expr1 is .e.
-expr2
-expr2 is .EQUALTO.termp.expr2.
-expr2 is .GREATERTHAN.termp.expr2.
-expr2 is .LESSTHAN.termp.expr2.
-expr2 is .e.
 factor
 factor is .LP.expr.RP.
 factor is .id_or_data.
@@ -259,76 +198,88 @@ term1
 term1 is .DIVIDE.factor.term1.
 term1 is .TIMES.factor.term1.
 term1 is .e.
-termp
-termp is .term.expr1.
 Created Table:
+S	ID
 S	ID	.stmnt.S.
-eval	CHAR	.termp.expr2.
-eval	FLOAT	.termp.expr2.
-eval	ID	.termp.expr2.
-eval	LP	.termp.expr2.
-eval	NUM	.termp.expr2.
+eval	CHAR
+eval	CHAR	.term.expr1.#7.
+eval	FLOAT
+eval	FLOAT	.term.expr1.#7.
+eval	ID
+eval	ID	.term.expr1.#7.
+eval	LP
+eval	LP	.term.expr1.#7.
+eval	NUM
+eval	NUM	.term.expr1.#7.
+expr	CHAR
 expr	CHAR	.eval.
+expr	FLOAT
 expr	FLOAT	.eval.
+expr	ID
 expr	ID	.eval.
+expr	LP
 expr	LP	.eval.
+expr	NUM
 expr	NUM	.eval.
-expr1	MINUS	.M#3.MINUS.term.expr1.#5.
-expr1	PLUS	.P#3.PLUS.term.expr1.#4.
-expr2	EQUALTO	.EQUALTO.termp.expr2.
-expr2	GREATERTHAN	.GREATERTHAN.termp.expr2.
-expr2	LESSTHAN	.LESSTHAN.termp.expr2.
+expr1	MINUS
+expr1	MINUS	.MINUS.term.expr1.#5.
+expr1	PLUS
+expr1	PLUS	.PLUS.term.expr1.#4.
+factor	CHAR
 factor	CHAR	.id_or_data.
+factor	FLOAT
 factor	FLOAT	.id_or_data.
+factor	ID
 factor	ID	.id_or_data.
+factor	LP
 factor	LP	.LP.expr.RP.
+factor	NUM
 factor	NUM	.id_or_data.
+id_or_data	CHAR
 id_or_data	CHAR	.num_or_char.
+id_or_data	FLOAT
 id_or_data	FLOAT	.num_or_char.
+id_or_data	ID
 id_or_data	ID	.I#3.ID.
+id_or_data	NUM
 id_or_data	NUM	.num_or_char.
+num_or_char	CHAR
 num_or_char	CHAR	.C#3.CHAR.
+num_or_char	FLOAT
 num_or_char	FLOAT	.F#3.FLOAT.
+num_or_char	NUM
 num_or_char	NUM	.N#3.NUM.
+stmnt	ID
 stmnt	ID	.I#3.ID.EQUALS.expr.#6.SEMI.
-term	CHAR	.factor.term1.
-term	FLOAT	.factor.term1.
-term	ID	.factor.term1.
-term	LP	.factor.term1.
-term	NUM	.factor.term1.
+term	CHAR
+term	CHAR	.factor.term1.#7.
+term	FLOAT
+term	FLOAT	.factor.term1.#7.
+term	ID
+term	ID	.factor.term1.#7.
+term	LP
+term	LP	.factor.term1.#7.
+term	NUM
+term	NUM	.factor.term1.#7.
+term1	DIVIDE
 term1	DIVIDE	.DIVIDE.factor.term1.#2.
-term1	TIMES	.T#3.TIMES.factor.term1.#1.
-termp	CHAR	.term.expr1.
-termp	FLOAT	.term.expr1.
-termp	ID	.term.expr1.
-termp	LP	.term.expr1.
-termp	NUM	.term.expr1.
+term1	TIMES
+term1	TIMES	.TIMES.factor.term1.#1.
 
 Stack contents:
+S $ 
+stmnt S $ 
+I#3 ID EQUALS expr #6 SEMI S $ 
 3 a
-a 
+ID EQUALS expr #6 SEMI S $ 
+EQUALS expr #6 SEMI S $ 
+expr #6 SEMI S $ 
+eval #6 SEMI S $ 
+term expr1 #7 #6 SEMI S $ 
+factor term1 #7 expr1 #7 #6 SEMI S $ 
+id_or_data term1 #7 expr1 #7 #6 SEMI S $ 
+I#3 ID term1 #7 expr1 #7 #6 SEMI S $ 
 3 e
-e a 
-3 +
-+ e a 
-3 b
-b + e a 
-3 *
-* b + e a 
-3 c
-c * b + e a 
-1 -
-test + e a 
-3 -
-- test + e a 
-3 d
-d - test + e a 
-3 t
-t d - test + e a 
-2 ;
-test test + e a 
-5 ;
-test e a 
-4 ;
-test 
-6 ;
+ID term1 #7 expr1 #7 #6 SEMI S $ 
+term1 #7 expr1 #7 #6 SEMI S $ 
+Syntax error at PLUS
