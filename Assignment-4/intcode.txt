@@ -6,4 +6,12 @@ T0 := i - 1
 i := T0
 goto L0
 label L1
+j := 4
+label L2
+if j >= 5 goto L3
+T1 := j + 2
+h := 1
+j := T1
+goto L2
+label L3
 return 0

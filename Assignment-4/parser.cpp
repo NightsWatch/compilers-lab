@@ -1355,7 +1355,39 @@ void Parser::performAction(int action_no, string next) {
 				}
 				break;
 			}
+		case 30:
+			{
+				a = semanticstack.top();
+				semanticstack.pop();
+				if(a=="epsilon")
+				{
+					a = semanticstack.top();
+					semanticstack.pop();
 
+				}
+				if(a=="eval")
+				{
+					b = semanticstack.top();
+					semanticstack.pop();
+					c = semanticstack.top();
+					semanticstack.pop();
+					intcode << c << " := " << b << endl;
+
+				}
+				else
+				{
+					b = semanticstack.top();
+					semanticstack.pop();
+					intcode << "retrieve " << b << endl;
+				}
+				b = semanticstack.top();
+				semanticstack.pop();
+				c = semanticstack.top();
+				semanticstack.pop();
+				intcode << "goto " << c << endl; 
+				intcode << "label " << b << endl;
+
+			}
 
 
 	}
