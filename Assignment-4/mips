@@ -1,0 +1,9 @@
+x := y + z
+x := -y
+x := y
+enter f
+a := b * c
+if x <= val goto L
+label L
+leave f
+call f, n 
