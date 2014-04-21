@@ -1,8 +1,13 @@
 int main(void)
 {
-	
+	if(x>a)
+	{
 	a=b+c/d;
-
+	}
+	else
+	{
+		p=9;
+	}
 	return 0;
 
 }

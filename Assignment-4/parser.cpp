@@ -1252,8 +1252,15 @@ void Parser::performAction(int action_no, string next) {
 			}
 		case 23:
 			{
+
 				a = semanticstack.top();
 				semanticstack.pop();
+				if(a=="epsilon")
+				{
+					a = semanticstack.top();
+					semanticstack.pop();
+
+				}
 				b = semanticstack.top();
 				intcode << "goto " << b << endl;
 				semanticstack.push(a);
@@ -1270,13 +1277,24 @@ void Parser::performAction(int action_no, string next) {
 				break; 
 
 			}
+		case 25:
+			{
+				a = semanticstack.top();
+				if(a=="epsilon")
+				{
+					semanticstack.pop();
 
+				}
+
+				break;
+			}
 
 
 
 	}
 
 	intcode.close();
+	cout << "Stack: ";
 	printStack(semanticstack);
 }
 

@@ -10,7 +10,7 @@ stmnts .stmnt.stmnts. .e.
 stmnt .declaration.SEMI. .I#3.ID.EQUALS.expr.#6.SEMI. .func_call.SEMI. .iff. .WHILE.LP.compr.RP.LFP.stmnts.RFP. .FOR.LP.ID.EQUALS.expr.SEMI.compr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP. .CONTINUE.SEMI. .BREAK.SEMI. .RETURN.id_or_data_or_blank.SEMI.
 iff .IF.#19.LP.compr.RP.#20.LFP.stmnts.RFP.#23.ell.#22.#24.
 ell .e. .ELSE.#21.y.
-y .IF.LP.compr.RP.#20.LFP.stmnts.RFP.#23.ell.#22. .LFP.stmnts.RFP.
+y .IF.LP.compr.RP.#20.LFP.stmnts.RFP.#23.ell.#22. .LFP.stmnts.RFP.#25.
 id_or_data	.I#3.ID. .num_or_char.
 expr .func_call.#18. .eval.#17.
 func_call .FUNCNAME.LP.arg_passed_or_blank.#14.RP.
@@ -25,7 +25,7 @@ sub .e. .MINUS.term.sub.#5.
 term .factor.term1.#7.
 term1 .e. .TIMES.term.#1. .DIVIDE.term.#2. 
 factor .id_or_data. .LP.expr.RP.
-expr2 .LESSTHAN.expr.#10. .GREATERTHAN.expr2.#11. .EQUALTO.expr.#12.
+expr2 .LESSTHAN.eval.#10. .GREATERTHAN.eval.#11. .EQUALTO.eval.#12.
 num_or_char .N#3.NUM. .F#3.FLOAT. .C#3.CHAR.
-compr .expr.expr2.#9.
+compr .eval.expr2.#9.
 id_or_data_or_blank .e. .id_or_data.

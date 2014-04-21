@@ -1,3 +1,8 @@
+if x <= a goto L1
 T0 := c / d
 T1 := b + T0
 a := T1
+goto L0
+label L1
+p := 9
+label L0

@@ -25,7 +25,7 @@ sub .e. .MINUS.term.sub.
 term .factor.term1.
 term1 .e. .TIMES.term. .DIVIDE.term. 
 factor .id_or_data. .LP.expr.RP.
-expr2 .LESSTHAN.expr. .GREATERTHAN.expr2. .EQUALTO.expr.
+expr2 .LESSTHAN.eval. .GREATERTHAN.eval. .EQUALTO.eval.
 num_or_char .NUM. .FLOAT. .CHAR.
-compr .expr.expr2.
+compr .eval.expr2.
 id_or_data_or_blank .e. .id_or_data.
