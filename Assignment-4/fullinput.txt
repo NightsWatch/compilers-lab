@@ -1,12 +1,11 @@
 int main(void)
 {
-	if(x>a)
+	int i=5;
+	while(i>0)
 	{
-	a=b+c/d;
-	}
-	else
-	{
-		p=9;
+		i=i-1;
+
+
 	}
 	return 0;
 

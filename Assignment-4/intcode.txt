@@ -1,8 +1,8 @@
-if x <= a goto L1
-T0 := c / d
-T1 := b + T0
-a := T1
+global i int
+i := 5
+label L0
+if i <= 0 goto L1
+T0 := i - 1
+i := T0
 goto L0
 label L1
-p := 9
-label L0

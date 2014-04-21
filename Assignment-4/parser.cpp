@@ -1137,17 +1137,40 @@ void Parser::performAction(int action_no, string next) {
 		case 13:
 			assign=semanticstack.top();
 			semanticstack.pop();
-			a = semanticstack.top();
-			semanticstack.pop();
-			b = semanticstack.top();
-			semanticstack.pop();
-			intcode << "global " << a << " " << b <<endl;
-
-
-
-			if(assign!="epsilon")
+			if(assign=="epsilon")
 			{
-				intcode << a << " := " << assign << endl; 
+
+
+				a = semanticstack.top();
+				semanticstack.pop();
+				b = semanticstack.top();
+				semanticstack.pop();
+				intcode << "global " << a << " " << b <<endl;
+			}
+
+
+			else
+			{
+				c = semanticstack.top();
+				semanticstack.pop();
+				a = semanticstack.top();
+				semanticstack.pop();
+				
+				if(assign=="eval")
+				{
+					b = semanticstack.top();
+					semanticstack.pop();
+					intcode << "global " << a << " " << b <<endl;
+					
+					
+					intcode << a << " := " << c << endl; 
+				}
+				else
+				{
+					intcode << "retrieve " << c << endl;
+
+				}
+				
 			}
 			break;
 		case 14:
@@ -1286,6 +1309,36 @@ void Parser::performAction(int action_no, string next) {
 
 				}
 
+				break;
+			}
+		case 26:
+			{
+				intcode << "if " ;
+				break;
+			}
+		case 27:
+			{
+				c = getNewLabel();
+				semanticstack.push(c);
+				intcode << "label " << c << endl;
+				intcode << "if " ;
+				
+				break;
+			}
+		case 28:
+			{
+				a = semanticstack.top();
+				semanticstack.pop();
+				if(a=="epsilon")
+				{
+					a = semanticstack.top();
+					semanticstack.pop();
+
+				}	
+				b = semanticstack.top();
+				semanticstack.pop();
+				intcode << "goto " << b << endl;
+				intcode << "label " << a << endl;
 				break;
 			}
 
