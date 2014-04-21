@@ -296,8 +296,8 @@ set<string> Parser::giveFirst(string prod) {
 void Parser::createTable() {
 	//printMap(grammar);
 	for(pit iter = grammar.begin(), iter2=grammar2.begin(); iter != grammar.end(); ++iter, ++iter2 ) {
-		//cout << "grammar1 "<< iter->first << endl;
-		//cout << "grammar2 "<< iter2->first << endl;
+		cout << "grammar1 "<< iter->first << endl;
+		cout << "grammar2 "<< iter2->first << endl;
 
  		
  		for(sit it=(iter->second).begin(), it2=(iter2->second).begin() ;it!=(iter->second).end();it++, it2++) {
