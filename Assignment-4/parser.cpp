@@ -949,6 +949,7 @@ bool Parser::checkepsfirst(string nonterm)
 
 void Parser::performAction(int action_no, string next) {
 	cout << action_no << " " << next << endl;
+	//return;
 	string a, b, c, d;
 	string op;
 	ofstream intcode;
@@ -957,11 +958,12 @@ void Parser::performAction(int action_no, string next) {
 		case 1: 
 			op = semanticstack.top();
 			semanticstack.pop();
-			a = semanticstack.top();
-			semanticstack.pop();
+			
 
-			if(op!="epsilon")
+			if(op=="*" || op=="/" || op=="+" || op=="-")
 			{
+				a = semanticstack.top();
+				semanticstack.pop();
 				b = semanticstack.top();
 				semanticstack.pop();
 				c=getNewTemp();
@@ -970,8 +972,9 @@ void Parser::performAction(int action_no, string next) {
 			}
 			else
 			{
-				semanticstack.push(a);
 
+				semanticstack.push(op);
+				
 			}
 
 	
@@ -980,11 +983,12 @@ void Parser::performAction(int action_no, string next) {
 		case 2:
 			op = semanticstack.top();
 			semanticstack.pop();
-			a = semanticstack.top();
-			semanticstack.pop();
+			
 
-			if(op!="epsilon")
+			if(op=="*" || op=="/" || op=="+" || op=="-")
 			{
+				a = semanticstack.top();
+				semanticstack.pop();
 				b = semanticstack.top();
 				semanticstack.pop();
 				c=getNewTemp();
@@ -993,8 +997,9 @@ void Parser::performAction(int action_no, string next) {
 			}
 			else
 			{
-				semanticstack.push(a);
 
+				semanticstack.push(op);
+				
 			}
 
 	
@@ -1075,11 +1080,29 @@ void Parser::performAction(int action_no, string next) {
 				semanticstack.push(a);
 			}	
 			
-			
-		
-			
-			
 			break;
+		case 8:
+			op = semanticstack.top();
+			semanticstack.pop();
+			a = semanticstack.top();
+			semanticstack.pop();
+
+			if(op!="epsilon")
+			{
+				b = semanticstack.top();
+				semanticstack.pop();
+				c=getNewTemp();
+				intcode << c << " := " << b << " " << op << " " << a << endl;
+				semanticstack.push(c);
+			}
+			else
+			{
+				semanticstack.push(a);
+			}	
+			
+				break;
+
+
 
 
 

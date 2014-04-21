@@ -3,11 +3,11 @@ S
 S is .e.
 S is .stmnt.S.
 eval
-eval is .term2.term.expr1.
+eval is .term.sub.expr1.
 expr
 expr is .eval.
 expr1
-expr1 is .PLUS.term2.term.expr1.
+expr1 is .PLUS.term.sub.expr1.
 expr1 is .e.
 factor
 factor is .LP.expr.RP.
@@ -22,14 +22,566 @@ num_or_char is .NUM.
 stmnt
 stmnt is .ID.EQUALS.expr.SEMI.
 sub
-sub is .MINUS.term2.term.
+sub is .MINUS.term.sub.
 sub is .e.
 term
-term is .factor.sub.
+term is .factor.term1.
 term1
-term1 is .DIVIDE.factor.term1.
-term1 is .TIMES.factor.term1.
+term1 is .DIVIDE.term.
+term1 is .TIMES.term.
 term1 is .e.
-term2
-term2 is .factor.term1.
 
+Grammar2 is:
+S
+S is .e.
+S is .stmnt.S.
+eval
+eval is .term.sub.#7.expr1.#7.
+expr
+expr is .eval.
+expr1
+expr1 is .PLUS.term.sub.#7.expr1.#4.
+expr1 is .e.
+factor
+factor is .LP.expr.RP.
+factor is .id_or_data.
+id_or_data
+id_or_data is .I#3.ID.
+id_or_data is .num_or_char.
+num_or_char
+num_or_char is .C#3.CHAR.
+num_or_char is .F#3.FLOAT.
+num_or_char is .N#3.NUM.
+stmnt
+stmnt is .I#3.ID.EQUALS.expr.#6.SEMI.
+sub
+sub is .MINUS.term.sub.#5.
+sub is .e.
+term
+term is .factor.term1.#7.
+term1
+term1 is .DIVIDE.term.#2.
+term1 is .TIMES.term.#1.
+term1 is .e.
+
+Firstset is:
+CHAR
+CHAR is CHAR
+DIVIDE
+DIVIDE is DIVIDE
+EQUALS
+EQUALS is EQUALS
+FLOAT
+FLOAT is FLOAT
+ID
+ID is ID
+LP
+LP is LP
+MINUS
+MINUS is MINUS
+NUM
+NUM is NUM
+PLUS
+PLUS is PLUS
+RP
+RP is RP
+S
+S is ID
+S is e
+SEMI
+SEMI is SEMI
+TIMES
+TIMES is TIMES
+eval
+eval is CHAR
+eval is FLOAT
+eval is ID
+eval is LP
+eval is NUM
+expr
+expr is CHAR
+expr is FLOAT
+expr is ID
+expr is LP
+expr is NUM
+expr1
+expr1 is PLUS
+expr1 is e
+factor
+factor is CHAR
+factor is FLOAT
+factor is ID
+factor is LP
+factor is NUM
+id_or_data
+id_or_data is CHAR
+id_or_data is FLOAT
+id_or_data is ID
+id_or_data is NUM
+num_or_char
+num_or_char is CHAR
+num_or_char is FLOAT
+num_or_char is NUM
+stmnt
+stmnt is ID
+sub
+sub is MINUS
+sub is e
+term
+term is CHAR
+term is FLOAT
+term is ID
+term is LP
+term is NUM
+term1
+term1 is DIVIDE
+term1 is TIMES
+term1 is e
+
+Followset is:
+S is $
+eval is RP
+eval is SEMI
+expr is RP
+expr is SEMI
+expr1 is RP
+expr1 is SEMI
+factor is DIVIDE
+factor is MINUS
+factor is PLUS
+factor is RP
+factor is SEMI
+factor is TIMES
+id_or_data is DIVIDE
+id_or_data is MINUS
+id_or_data is PLUS
+id_or_data is RP
+id_or_data is SEMI
+id_or_data is TIMES
+num_or_char is DIVIDE
+num_or_char is MINUS
+num_or_char is PLUS
+num_or_char is RP
+num_or_char is SEMI
+num_or_char is TIMES
+stmnt is $
+stmnt is ID
+sub is PLUS
+sub is RP
+sub is SEMI
+term is MINUS
+term is PLUS
+term is RP
+term is SEMI
+term1 is MINUS
+term1 is PLUS
+term1 is RP
+term1 is SEMI
+
+Created Table:
+S	$	.e.
+S	ID	.stmnt.S.
+eval	CHAR	.term.sub.#7.expr1.#7.
+eval	FLOAT	.term.sub.#7.expr1.#7.
+eval	ID	.term.sub.#7.expr1.#7.
+eval	LP	.term.sub.#7.expr1.#7.
+eval	NUM	.term.sub.#7.expr1.#7.
+expr	CHAR	.eval.
+expr	FLOAT	.eval.
+expr	ID	.eval.
+expr	LP	.eval.
+expr	NUM	.eval.
+expr1	PLUS	.PLUS.term.sub.#7.expr1.#4.
+expr1	RP	.e.
+expr1	SEMI	.e.
+factor	CHAR	.id_or_data.
+factor	FLOAT	.id_or_data.
+factor	ID	.id_or_data.
+factor	LP	.LP.expr.RP.
+factor	NUM	.id_or_data.
+id_or_data	CHAR	.num_or_char.
+id_or_data	FLOAT	.num_or_char.
+id_or_data	ID	.I#3.ID.
+id_or_data	NUM	.num_or_char.
+num_or_char	CHAR	.C#3.CHAR.
+num_or_char	FLOAT	.F#3.FLOAT.
+num_or_char	NUM	.N#3.NUM.
+stmnt	ID	.I#3.ID.EQUALS.expr.#6.SEMI.
+sub	MINUS	.MINUS.term.sub.#5.
+sub	PLUS	.e.
+sub	RP	.e.
+sub	SEMI	.e.
+term	CHAR	.factor.term1.#7.
+term	FLOAT	.factor.term1.#7.
+term	ID	.factor.term1.#7.
+term	LP	.factor.term1.#7.
+term	NUM	.factor.term1.#7.
+term1	DIVIDE	.DIVIDE.term.#2.
+term1	MINUS	.e.
+term1	PLUS	.e.
+term1	RP	.e.
+term1	SEMI	.e.
+term1	TIMES	.TIMES.term.#1.
+
+Stack contents:
+S $ 
+stmnt S $ 
+I#3 ID EQUALS expr #6 SEMI S $ 
+3 a
+a 
+ID EQUALS expr #6 SEMI S $ 
+EQUALS expr #6 SEMI S $ 
+expr #6 SEMI S $ 
+eval #6 SEMI S $ 
+term sub #7 expr1 #7 #6 SEMI S $ 
+factor term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+id_or_data term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+I#3 ID term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+3 e
+e a 
+ID term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+3 epsilon
+epsilon e a 
+#7 sub #7 expr1 #7 #6 SEMI S $ 
+7 +
+e a 
+sub #7 expr1 #7 #6 SEMI S $ 
+3 epsilon
+epsilon e a 
+#7 expr1 #7 #6 SEMI S $ 
+7 +
+e a 
+expr1 #7 #6 SEMI S $ 
+PLUS term sub #7 expr1 #4 #7 #6 SEMI S $ 
+term sub #7 expr1 #4 #7 #6 SEMI S $ 
+factor term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+I#3 ID term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+3 b
+b e a 
+ID term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+TIMES term #1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+term #1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+factor term1 #7 #1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 #1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+I#3 ID term1 #7 #1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+3 c
+c b e a 
+ID term1 #7 #1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+term1 #7 #1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon c b e a 
+#7 #1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+7 -
+c b e a 
+#1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+1 -
+* c b e a 
+#7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+7 -
+T0 e a 
+sub #7 expr1 #4 #7 #6 SEMI S $ 
+MINUS term sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+term sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+factor term1 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+I#3 ID term1 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+3 d
+d T0 e a 
+ID term1 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+term1 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+DIVIDE term #2 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+term #2 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+factor term1 #7 #2 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 #2 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+I#3 ID term1 #7 #2 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+3 t
+t d T0 e a 
+ID term1 #7 #2 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+term1 #7 #2 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon t d T0 e a 
+#7 #2 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+7 ;
+t d T0 e a 
+#2 #7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+2 ;
+/ t d T0 e a 
+#7 sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+7 ;
+T1 T0 e a 
+sub #5 #7 expr1 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon T1 T0 e a 
+#5 #7 expr1 #4 #7 #6 SEMI S $ 
+5 ;
+- T1 T0 e a 
+#7 expr1 #4 #7 #6 SEMI S $ 
+7 ;
+T2 e a 
+expr1 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon T2 e a 
+#4 #7 #6 SEMI S $ 
+4 ;
++ T2 e a 
+#7 #6 SEMI S $ 
+7 ;
+T3 a 
+#6 SEMI S $ 
+6 ;
+
+SEMI S $ 
+S $ 
+stmnt S $ 
+I#3 ID EQUALS expr #6 SEMI S $ 
+3 r
+r 
+ID EQUALS expr #6 SEMI S $ 
+EQUALS expr #6 SEMI S $ 
+expr #6 SEMI S $ 
+eval #6 SEMI S $ 
+term sub #7 expr1 #7 #6 SEMI S $ 
+factor term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+id_or_data term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+num_or_char term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+N#3 NUM term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+3 25
+25 r 
+NUM term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+3 epsilon
+epsilon 25 r 
+#7 sub #7 expr1 #7 #6 SEMI S $ 
+7 -
+25 r 
+sub #7 expr1 #7 #6 SEMI S $ 
+MINUS term sub #5 #7 expr1 #7 #6 SEMI S $ 
+term sub #5 #7 expr1 #7 #6 SEMI S $ 
+factor term1 #7 sub #5 #7 expr1 #7 #6 SEMI S $ 
+id_or_data term1 #7 sub #5 #7 expr1 #7 #6 SEMI S $ 
+num_or_char term1 #7 sub #5 #7 expr1 #7 #6 SEMI S $ 
+N#3 NUM term1 #7 sub #5 #7 expr1 #7 #6 SEMI S $ 
+3 13
+13 25 r 
+NUM term1 #7 sub #5 #7 expr1 #7 #6 SEMI S $ 
+term1 #7 sub #5 #7 expr1 #7 #6 SEMI S $ 
+3 epsilon
+epsilon 13 25 r 
+#7 sub #5 #7 expr1 #7 #6 SEMI S $ 
+7 +
+13 25 r 
+sub #5 #7 expr1 #7 #6 SEMI S $ 
+3 epsilon
+epsilon 13 25 r 
+#5 #7 expr1 #7 #6 SEMI S $ 
+5 +
+- 13 25 r 
+#7 expr1 #7 #6 SEMI S $ 
+7 +
+T4 r 
+expr1 #7 #6 SEMI S $ 
+PLUS term sub #7 expr1 #4 #7 #6 SEMI S $ 
+term sub #7 expr1 #4 #7 #6 SEMI S $ 
+factor term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+LP expr RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+expr RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+eval RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+term sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+factor term1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+I#3 ID term1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+3 a
+a T4 r 
+ID term1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+term1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+TIMES term #1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+term #1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+factor term1 #7 #1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 #1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+num_or_char term1 #7 #1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+N#3 NUM term1 #7 #1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+3 34
+34 a T4 r 
+NUM term1 #7 #1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+term1 #7 #1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon 34 a T4 r 
+#7 #1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+7 )
+34 a T4 r 
+#1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+1 )
+* 34 a T4 r 
+#7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+7 )
+T5 T4 r 
+sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon T5 T4 r 
+#7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+7 )
+T5 T4 r 
+expr1 #7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon T5 T4 r 
+#7 RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+7 )
+T5 T4 r 
+RP term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon T5 T4 r 
+#7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+7 +
+T5 T4 r 
+sub #7 expr1 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon T5 T4 r 
+#7 expr1 #4 #7 #6 SEMI S $ 
+7 +
+T5 T4 r 
+expr1 #4 #7 #6 SEMI S $ 
+PLUS term sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+term sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+factor term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+LP expr RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+expr RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+eval RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+term sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+factor term1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+num_or_char term1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+N#3 NUM term1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+3 5
+5 T5 T4 r 
+NUM term1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+term1 #7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon 5 T5 T4 r 
+#7 sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+7 +
+5 T5 T4 r 
+sub #7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon 5 T5 T4 r 
+#7 expr1 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+7 +
+5 T5 T4 r 
+expr1 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+PLUS term sub #7 expr1 #4 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+term sub #7 expr1 #4 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+factor term1 #7 sub #7 expr1 #4 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 sub #7 expr1 #4 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+num_or_char term1 #7 sub #7 expr1 #4 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+N#3 NUM term1 #7 sub #7 expr1 #4 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+3 7
+7 5 T5 T4 r 
+NUM term1 #7 sub #7 expr1 #4 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+term1 #7 sub #7 expr1 #4 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon 7 5 T5 T4 r 
+#7 sub #7 expr1 #4 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+7 )
+7 5 T5 T4 r 
+sub #7 expr1 #4 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon 7 5 T5 T4 r 
+#7 expr1 #4 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+7 )
+7 5 T5 T4 r 
+expr1 #4 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon 7 5 T5 T4 r 
+#4 #7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+4 )
++ 7 5 T5 T4 r 
+#7 RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+7 )
+T6 T5 T4 r 
+RP term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+term1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+TIMES term #1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+term #1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+factor term1 #7 #1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 #1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+num_or_char term1 #7 #1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+N#3 NUM term1 #7 #1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+3 10
+10 T6 T5 T4 r 
+NUM term1 #7 #1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+term1 #7 #1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon 10 T6 T5 T4 r 
+#7 #1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+7 -
+10 T6 T5 T4 r 
+#1 #7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+1 -
+* 10 T6 T5 T4 r 
+#7 sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+7 -
+T7 T5 T4 r 
+sub #7 expr1 #4 #4 #7 #6 SEMI S $ 
+MINUS term sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+term sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+factor term1 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+num_or_char term1 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+N#3 NUM term1 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+3 1
+1 T7 T5 T4 r 
+NUM term1 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+term1 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+DIVIDE term #2 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+term #2 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+factor term1 #7 #2 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 #2 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+I#3 ID term1 #7 #2 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+3 d
+d 1 T7 T5 T4 r 
+ID term1 #7 #2 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+term1 #7 #2 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon d 1 T7 T5 T4 r 
+#7 #2 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+7 ;
+d 1 T7 T5 T4 r 
+#2 #7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+2 ;
+/ d 1 T7 T5 T4 r 
+#7 sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+7 ;
+T8 T7 T5 T4 r 
+sub #5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon T8 T7 T5 T4 r 
+#5 #7 expr1 #4 #4 #7 #6 SEMI S $ 
+5 ;
+- T8 T7 T5 T4 r 
+#7 expr1 #4 #4 #7 #6 SEMI S $ 
+7 ;
+T9 T5 T4 r 
+expr1 #4 #4 #7 #6 SEMI S $ 
+3 epsilon
+epsilon T9 T5 T4 r 
+#4 #4 #7 #6 SEMI S $ 
+4 ;
++ T9 T5 T4 r 
+#4 #7 #6 SEMI S $ 
+4 ;
++ T10 T4 r 
+#7 #6 SEMI S $ 
+7 ;
+T11 r 
+#6 SEMI S $ 
+6 ;
+
+SEMI S $ 
+S $ 
+3 epsilon
+epsilon 
+$ 
+minorinput.txt has been parsed successfully.

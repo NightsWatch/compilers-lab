@@ -2,12 +2,11 @@ T: ID EQUALS SEMI PLUS MINUS TIMES DIVIDE NUM FLOAT CHAR LP RP
 S .stmnt.S. .e.
 stmnt .ID.EQUALS.expr.SEMI. 
 expr  .eval.
-eval .term2.term.expr1.
-expr1 .e. .PLUS.term2.term.expr1.
-term .factor.sub. 
-sub .e. .MINUS.term2.term.
-term2 .factor.term1.
-term1 .e. .TIMES.factor.term1. .DIVIDE.factor.term1.   
+eval .term.sub.expr1.
+expr1 .e. .PLUS.term.sub.expr1. 
+sub .e. .MINUS.term.sub.
+term .factor.term1.
+term1 .e. .TIMES.term. .DIVIDE.term.   
 factor .id_or_data. .LP.expr.RP.
 id_or_data	.ID. .num_or_char.
 num_or_char .NUM. .FLOAT. .CHAR.
