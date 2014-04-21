@@ -1216,6 +1216,8 @@ void Parser::performAction(int action_no, string next) {
 		case 19:
 			{
 				intcode << "if " ;
+				c = getNewLabel();
+				semanticstack.push(c);
 				break;
 			}
 		case 20:
@@ -1223,6 +1225,7 @@ void Parser::performAction(int action_no, string next) {
 				c = getNewLabel();
 				intcode << "goto " << c << endl;
 				semanticstack.push(c);
+				break;
 
 			}
 		case 21:
@@ -1230,6 +1233,7 @@ void Parser::performAction(int action_no, string next) {
 				a = semanticstack.top();
 				semanticstack.pop();
 				intcode << "label " << a << endl;
+				break;
 			}
 		case 22:
 			{
@@ -1246,6 +1250,27 @@ void Parser::performAction(int action_no, string next) {
 
 
 			}
+		case 23:
+			{
+				a = semanticstack.top();
+				semanticstack.pop();
+				b = semanticstack.top();
+				intcode << "goto " << b << endl;
+				semanticstack.push(a);
+				break; 
+
+			}
+		case 24:
+			{
+				a = semanticstack.top();
+				semanticstack.pop();
+				
+				intcode << "label " << a << endl;
+			
+				break; 
+
+			}
+
 
 
 
