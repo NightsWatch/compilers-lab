@@ -950,7 +950,7 @@ bool Parser::checkepsfirst(string nonterm)
 void Parser::performAction(int action_no, string next) {
 	cout << action_no << " " << next << endl;
 	//return;
-	string a, b, c, d;
+	string a, b, c, d, comp, assign, num, func, arg;
 	string op;
 	ofstream intcode;
 	intcode.open("intcode.txt", ios::app);
@@ -1055,6 +1055,9 @@ void Parser::performAction(int action_no, string next) {
 			semanticstack.push("-");
 			break;
 		case 6:
+			c = semanticstack.top();
+			semanticstack.pop();
+			if(c=="eval")
 			b = semanticstack.top();
 			semanticstack.pop();
 			a = semanticstack.top();
@@ -1137,8 +1140,68 @@ void Parser::performAction(int action_no, string next) {
 			}
 			break;
 		case 14:
-				
+			{
+				num=semanticstack.top();
+				semanticstack.pop();
 
+				if(num=="epsilon")
+				{
+					func=semanticstack.top();
+					semanticstack.pop();
+
+					intcode << "call " << func << ", " << "0" << endl;
+					break;
+				}
+				
+				int n;
+				istringstream ss(num);
+				ss >> n;
+				int i=n;
+				while(i>0)
+				{
+					arg=semanticstack.top();
+					semanticstack.pop();
+					intcode << "param " << arg << endl;
+					i--;
+				}
+				
+				func=semanticstack.top();
+				semanticstack.pop();
+				intcode << "call " << func << ", " << n << endl;
+				break;
+			}
+		case 15:
+			{
+				arg=semanticstack.top();
+				semanticstack.pop();
+				num=semanticstack.top();
+				semanticstack.pop();
+				int t;
+				istringstream ss1(num);
+				ss1 >> t;
+				t++;
+				stringstream ss;
+				ss << t;
+				string str = ss.str();
+				semanticstack.push(arg);
+				semanticstack.push(str);
+				break;
+			}
+		case 16:
+			semanticstack.push("0");
+			break;
+		case 17:
+			{
+				semanticstack.push("eval");
+				break;
+
+			}
+		case 18:
+			{
+				semanticstack.push("funcs");
+				break;
+
+			}
 
 
 
