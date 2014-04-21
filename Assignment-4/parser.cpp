@@ -835,7 +835,7 @@ void Parser::parse(string tokensfile)
   		tokensfilestream >> val;
 		while (!parserstack.empty())
 		{
-			//printStack(parserstack);
+			printStack(parserstack);
 
 			x = parserstack.top();
 			//cout << x<< endl;
