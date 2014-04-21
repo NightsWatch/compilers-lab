@@ -15,8 +15,8 @@ id_or_data	.I#3.ID. .num_or_char.
 expr .func_call. .eval.
 func_call .FUNCNAME.LP.arg_passed.RP.
 arg_passed .ID.z.
-z .COMMA.arg_passed. .e.
-declaration .DATA_TYPE.ID.assign.
+z .COMMA.arg_passed.#14. .e.
+declaration .DATA_TYPE.ID.assign.#13.
 assign .e. .EQUALS.expr.
 eval .term.sub.#7.expr1.#7.
 expr1 .e. .PLUS.term.sub.#7.expr1.#4. 
@@ -24,7 +24,7 @@ sub .e. .MINUS.term.sub.#5.
 term .factor.term1.#7.
 term1 .e. .TIMES.term.#1. .DIVIDE.term.#2. 
 factor .id_or_data. .LP.expr.RP.
-expr2 .LESSTHAN.expr. .GREATERTHAN.expr2. .EQUALTO.expr.
+expr2 .LESSTHAN.expr.#10. .GREATERTHAN.expr2.#11. .EQUALTO.expr.#12.
 num_or_char .N#3.NUM. .F#3.FLOAT. .C#3.CHAR.
-compr .expr.expr2.
+compr .expr.expr2.#9.
 id_or_data_or_blank .e. .id_or_data.

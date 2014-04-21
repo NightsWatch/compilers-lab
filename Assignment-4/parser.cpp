@@ -1102,11 +1102,42 @@ void Parser::performAction(int action_no, string next) {
 			
 				break;
 
+		case 9:
+			comp = semanticstack.top();
+			semanticstack.pop();
+			a = semanticstack.top();
+			semanticstack.pop();
+			b = semanticstack.top();
+			semanticstack.pop();
+			intcode << b << " " << comp << " " << a;
+			break;
+		case 10:
+			semanticstack.push("<");
+			break;
+		case 11:
+			semanticstack.push(">");
+			break;
+		case 12:
+			semanticstack.push("==");
+			break;
+		case 13:
+			assign=semanticstack.top();
+			semanticstack.pop();
+			a = semanticstack.top();
+			semanticstack.pop();
+			b = semanticstack.top();
+			semanticstack.pop();
+			intcode << "global " << a << " " << b <<endl;
 
 
 
-
-
+			if(assign!="epsilon")
+			{
+				intcode << a << " := " << assign << endl; 
+			}
+			break;
+		case 14:
+				
 
 
 
