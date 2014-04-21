@@ -6,3 +6,4 @@ T0 := i - 1
 i := T0
 goto L0
 label L1
+return 0

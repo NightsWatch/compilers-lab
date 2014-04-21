@@ -156,7 +156,7 @@ stmnt is .BREAK.SEMI.
 stmnt is .CONTINUE.SEMI.
 stmnt is .FOR.LP.ID.EQUALS.expr.SEMI.compr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
 stmnt is .I#3.ID.EQUALS.expr.#6.SEMI.
-stmnt is .RETURN.id_or_data_or_blank.SEMI.
+stmnt is .RETURN.id_or_data_or_blank.SEMI.#29.
 stmnt is .WHILE.#27.LP.compr.RP.#20.LFP.stmnts.RFP.#28.
 stmnt is .declaration.SEMI.
 stmnt is .func_call.SEMI.
@@ -643,7 +643,7 @@ stmnt	FOR	.FOR.LP.ID.EQUALS.expr.SEMI.compr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RF
 stmnt	FUNCNAME	.func_call.SEMI.
 stmnt	ID	.I#3.ID.EQUALS.expr.#6.SEMI.
 stmnt	IF	.iff.
-stmnt	RETURN	.RETURN.id_or_data_or_blank.SEMI.
+stmnt	RETURN	.RETURN.id_or_data_or_blank.SEMI.#29.
 stmnt	WHILE	.WHILE.#27.LP.compr.RP.#20.LFP.stmnts.RFP.#28.
 stmnts	BREAK	.stmnt.stmnts.
 stmnts	CONTINUE	.stmnt.stmnts.
@@ -887,21 +887,24 @@ RFP #28 stmnts RFP S $
 Stack: 
 stmnts RFP S $ 
 stmnt stmnts RFP S $ 
-RETURN id_or_data_or_blank SEMI stmnts RFP S $ 
-id_or_data_or_blank SEMI stmnts RFP S $ 
-id_or_data SEMI stmnts RFP S $ 
-num_or_char SEMI stmnts RFP S $ 
-N#3 NUM SEMI stmnts RFP S $ 
+RETURN id_or_data_or_blank SEMI #29 stmnts RFP S $ 
+id_or_data_or_blank SEMI #29 stmnts RFP S $ 
+id_or_data SEMI #29 stmnts RFP S $ 
+num_or_char SEMI #29 stmnts RFP S $ 
+N#3 NUM SEMI #29 stmnts RFP S $ 
 3 0
 Stack: 0 
-NUM SEMI stmnts RFP S $ 
-SEMI stmnts RFP S $ 
+NUM SEMI #29 stmnts RFP S $ 
+SEMI #29 stmnts RFP S $ 
+#29 stmnts RFP S $ 
+29 }
+Stack: 
 stmnts RFP S $ 
 3 epsilon
-Stack: epsilon 0 
+Stack: epsilon 
 RFP S $ 
 S $ 
 3 epsilon
-Stack: epsilon epsilon 0 
+Stack: epsilon epsilon 
 $ 
 fullinput.txt has been parsed successfully.

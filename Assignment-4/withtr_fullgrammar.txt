@@ -7,7 +7,7 @@ arg_list .arg.x.
 x .COMMA.arg_list. .e. 
 arg .DATA_TYPE.ID.
 stmnts .stmnt.stmnts. .e.
-stmnt .declaration.SEMI. .I#3.ID.EQUALS.expr.#6.SEMI. .func_call.SEMI. .iff. .WHILE.#27.LP.compr.RP.#20.LFP.stmnts.RFP.#28. .FOR.LP.ID.EQUALS.expr.SEMI.compr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP. .CONTINUE.SEMI. .BREAK.SEMI. .RETURN.id_or_data_or_blank.SEMI.
+stmnt .declaration.SEMI. .I#3.ID.EQUALS.expr.#6.SEMI. .func_call.SEMI. .iff. .WHILE.#27.LP.compr.RP.#20.LFP.stmnts.RFP.#28. .FOR.LP.ID.EQUALS.expr.SEMI.compr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP. .CONTINUE.SEMI. .BREAK.SEMI. .RETURN.id_or_data_or_blank.SEMI.#29.
 iff .IF.#19.LP.compr.RP.#20.LFP.stmnts.RFP.#23.ell.#22.#24.
 ell .e. .ELSE.#21.y.
 y .IF.#26.LP.compr.RP.#20.LFP.stmnts.RFP.#23.ell.#22. .LFP.stmnts.RFP.#25.

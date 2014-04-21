@@ -1341,6 +1341,20 @@ void Parser::performAction(int action_no, string next) {
 				intcode << "label " << a << endl;
 				break;
 			}
+		case 29:
+			{
+				a = semanticstack.top();
+				semanticstack.pop();
+				if(a=="epsilon")
+				{
+					intcode << "return" << endl;
+				}
+				else
+				{
+					intcode << "return " << a << endl;
+				}
+				break;
+			}
 
 
 
