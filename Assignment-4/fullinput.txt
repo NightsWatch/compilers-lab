@@ -3,6 +3,6 @@ int main(void)
 	
 	a=b+c/d;
 
-	return;
+	return 0;
 
 }

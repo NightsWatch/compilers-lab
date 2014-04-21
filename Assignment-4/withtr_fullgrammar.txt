@@ -7,7 +7,7 @@ arg_list .arg.x.
 x .COMMA.arg_list. .e. 
 arg .DATA_TYPE.ID.
 stmnts .stmnt.stmnts. .e.
-stmnt .declaration.SEMI. .I#3.ID.EQUALS.expr.#6.SEMI. .func_call.SEMI. .iff. .WHILE.LP.expr.RP.LFP.stmnts.RFP. .FOR.LP.ID.EQUALS.expr.SEMI.expr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP. .CONTINUE.SEMI. .BREAK.SEMI. .RETURN.id_or_data.SEMI.
+stmnt .declaration.SEMI. .I#3.ID.EQUALS.expr.#6.SEMI. .func_call.SEMI. .iff. .WHILE.LP.compr.RP.LFP.stmnts.RFP. .FOR.LP.ID.EQUALS.expr.SEMI.compr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP. .CONTINUE.SEMI. .BREAK.SEMI. .RETURN.id_or_data_or_blank.SEMI.
 iff .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
 ell .e. .ELSE.y.
 y .IF.LP.expr.RP.LFP.stmnts.RFP.ell. .LFP.stmnts.RFP.
@@ -18,12 +18,13 @@ arg_passed .ID.z.
 z .COMMA.arg_passed. .e.
 declaration .DATA_TYPE.ID.assign.
 assign .e. .EQUALS.expr.
-eval .termp.expr2.
-termp .term.sub.#7.expr1.#7.
+eval .term.sub.#7.expr1.#7.
 expr1 .e. .PLUS.term.sub.#7.expr1.#4. 
 sub .e. .MINUS.term.sub.#5.
 term .factor.term1.#7.
 term1 .e. .TIMES.term.#1. .DIVIDE.term.#2. 
 factor .id_or_data. .LP.expr.RP.
-expr2 .e. .LESSTHAN.termp.expr2. .GREATERTHAN.termp.expr2. .EQUALTO.termp.expr2.
+expr2 .LESSTHAN.expr. .GREATERTHAN.expr2. .EQUALTO.expr.
 num_or_char .N#3.NUM. .F#3.FLOAT. .C#3.CHAR.
+compr .expr.expr2.
+id_or_data_or_blank .e. .id_or_data.

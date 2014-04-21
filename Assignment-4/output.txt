@@ -16,13 +16,15 @@ arg_passed is .ID.z.
 assign
 assign is .EQUALS.expr.
 assign is .e.
+compr
+compr is .expr.expr2.
 declaration
 declaration is .DATA_TYPE.ID.assign.
 ell
 ell is .ELSE.y.
 ell is .e.
 eval
-eval is .termp.expr2.
+eval is .term.sub.expr1.
 expr
 expr is .eval.
 expr is .func_call.
@@ -30,10 +32,9 @@ expr1
 expr1 is .PLUS.term.sub.expr1.
 expr1 is .e.
 expr2
-expr2 is .EQUALTO.termp.expr2.
-expr2 is .GREATERTHAN.termp.expr2.
-expr2 is .LESSTHAN.termp.expr2.
-expr2 is .e.
+expr2 is .EQUALTO.expr.
+expr2 is .GREATERTHAN.expr2.
+expr2 is .LESSTHAN.expr.
 factor
 factor is .LP.expr.RP.
 factor is .id_or_data.
@@ -44,6 +45,9 @@ func_call is .FUNCNAME.LP.arg_passed.RP.
 id_or_data
 id_or_data is .ID.
 id_or_data is .num_or_char.
+id_or_data_or_blank
+id_or_data_or_blank is .e.
+id_or_data_or_blank is .id_or_data.
 iff
 iff is .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
 num_or_char
@@ -53,10 +57,10 @@ num_or_char is .NUM.
 stmnt
 stmnt is .BREAK.SEMI.
 stmnt is .CONTINUE.SEMI.
-stmnt is .FOR.LP.ID.EQUALS.expr.SEMI.expr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
+stmnt is .FOR.LP.ID.EQUALS.expr.SEMI.compr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
 stmnt is .ID.EQUALS.expr.SEMI.
-stmnt is .RETURN.id_or_data.SEMI.
-stmnt is .WHILE.LP.expr.RP.LFP.stmnts.RFP.
+stmnt is .RETURN.id_or_data_or_blank.SEMI.
+stmnt is .WHILE.LP.compr.RP.LFP.stmnts.RFP.
 stmnt is .declaration.SEMI.
 stmnt is .func_call.SEMI.
 stmnt is .iff.
@@ -72,8 +76,6 @@ term1
 term1 is .DIVIDE.term.
 term1 is .TIMES.term.
 term1 is .e.
-termp
-termp is .term.sub.expr1.
 void_or_datatype
 void_or_datatype is .DATA_TYPE.
 void_or_datatype is .VOID.
@@ -104,13 +106,15 @@ arg_passed is .ID.z.
 assign
 assign is .EQUALS.expr.
 assign is .e.
+compr
+compr is .expr.expr2.
 declaration
 declaration is .DATA_TYPE.ID.assign.
 ell
 ell is .ELSE.y.
 ell is .e.
 eval
-eval is .termp.expr2.
+eval is .term.sub.#7.expr1.#7.
 expr
 expr is .eval.
 expr is .func_call.
@@ -118,10 +122,9 @@ expr1
 expr1 is .PLUS.term.sub.#7.expr1.#4.
 expr1 is .e.
 expr2
-expr2 is .EQUALTO.termp.expr2.
-expr2 is .GREATERTHAN.termp.expr2.
-expr2 is .LESSTHAN.termp.expr2.
-expr2 is .e.
+expr2 is .EQUALTO.expr.
+expr2 is .GREATERTHAN.expr2.
+expr2 is .LESSTHAN.expr.
 factor
 factor is .LP.expr.RP.
 factor is .id_or_data.
@@ -132,6 +135,9 @@ func_call is .FUNCNAME.LP.arg_passed.RP.
 id_or_data
 id_or_data is .I#3.ID.
 id_or_data is .num_or_char.
+id_or_data_or_blank
+id_or_data_or_blank is .e.
+id_or_data_or_blank is .id_or_data.
 iff
 iff is .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
 num_or_char
@@ -141,10 +147,10 @@ num_or_char is .N#3.NUM.
 stmnt
 stmnt is .BREAK.SEMI.
 stmnt is .CONTINUE.SEMI.
-stmnt is .FOR.LP.ID.EQUALS.expr.SEMI.expr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
+stmnt is .FOR.LP.ID.EQUALS.expr.SEMI.compr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
 stmnt is .I#3.ID.EQUALS.expr.#6.SEMI.
-stmnt is .RETURN.id_or_data.SEMI.
-stmnt is .WHILE.LP.expr.RP.LFP.stmnts.RFP.
+stmnt is .RETURN.id_or_data_or_blank.SEMI.
+stmnt is .WHILE.LP.compr.RP.LFP.stmnts.RFP.
 stmnt is .declaration.SEMI.
 stmnt is .func_call.SEMI.
 stmnt is .iff.
@@ -160,8 +166,6 @@ term1
 term1 is .DIVIDE.term.#2.
 term1 is .TIMES.term.#1.
 term1 is .e.
-termp
-termp is .term.sub.#7.expr1.#7.
 void_or_datatype
 void_or_datatype is .DATA_TYPE.
 void_or_datatype is .VOID.
@@ -249,6 +253,13 @@ arg_passed is ID
 assign
 assign is EQUALS
 assign is e
+compr
+compr is CHAR
+compr is FLOAT
+compr is FUNCNAME
+compr is ID
+compr is LP
+compr is NUM
 declaration
 declaration is DATA_TYPE
 ell
@@ -274,7 +285,6 @@ expr2
 expr2 is EQUALTO
 expr2 is GREATERTHAN
 expr2 is LESSTHAN
-expr2 is e
 factor
 factor is CHAR
 factor is FLOAT
@@ -291,6 +301,12 @@ id_or_data is CHAR
 id_or_data is FLOAT
 id_or_data is ID
 id_or_data is NUM
+id_or_data_or_blank
+id_or_data_or_blank is CHAR
+id_or_data_or_blank is FLOAT
+id_or_data_or_blank is ID
+id_or_data_or_blank is NUM
+id_or_data_or_blank is e
 iff
 iff is IF
 num_or_char
@@ -331,12 +347,6 @@ term1
 term1 is DIVIDE
 term1 is TIMES
 term1 is e
-termp
-termp is CHAR
-termp is FLOAT
-termp is ID
-termp is LP
-termp is NUM
 void_or_datatype
 void_or_datatype is DATA_TYPE
 void_or_datatype is VOID
@@ -358,6 +368,8 @@ arg_list is RP
 arg_list_or_void is RP
 arg_passed is RP
 assign is SEMI
+compr is RP
+compr is SEMI
 declaration is SEMI
 ell is BREAK
 ell is CONTINUE
@@ -368,8 +380,14 @@ ell is ID
 ell is IF
 ell is RETURN
 ell is WHILE
+eval is EQUALTO
+eval is GREATERTHAN
+eval is LESSTHAN
 eval is RP
 eval is SEMI
+expr is EQUALTO
+expr is GREATERTHAN
+expr is LESSTHAN
 expr is RP
 expr is SEMI
 expr1 is EQUALTO
@@ -391,6 +409,9 @@ factor is TIMES
 func is $
 func is DATA_TYPE
 func is VOID
+func_call is EQUALTO
+func_call is GREATERTHAN
+func_call is LESSTHAN
 func_call is RP
 func_call is SEMI
 id_or_data is DIVIDE
@@ -402,6 +423,7 @@ id_or_data is PLUS
 id_or_data is RP
 id_or_data is SEMI
 id_or_data is TIMES
+id_or_data_or_blank is SEMI
 iff is BREAK
 iff is CONTINUE
 iff is DATA_TYPE
@@ -452,11 +474,6 @@ term1 is MINUS
 term1 is PLUS
 term1 is RP
 term1 is SEMI
-termp is EQUALTO
-termp is GREATERTHAN
-termp is LESSTHAN
-termp is RP
-termp is SEMI
 void_or_datatype is FUNCNAME
 x is RP
 y is BREAK
@@ -482,6 +499,8 @@ grammar1 arg_passed
 grammar2 arg_passed
 grammar1 assign
 grammar2 assign
+grammar1 compr
+grammar2 compr
 grammar1 declaration
 grammar2 declaration
 grammar1 ell
@@ -502,6 +521,8 @@ grammar1 func_call
 grammar2 func_call
 grammar1 id_or_data
 grammar2 id_or_data
+grammar1 id_or_data_or_blank
+grammar2 id_or_data_or_blank
 grammar1 iff
 grammar2 iff
 grammar1 num_or_char
@@ -516,8 +537,6 @@ grammar1 term
 grammar2 term
 grammar1 term1
 grammar2 term1
-grammar1 termp
-grammar2 termp
 grammar1 void_or_datatype
 grammar2 void_or_datatype
 grammar1 x
@@ -538,6 +557,12 @@ arg_list_or_void	VOID	.VOID.
 arg_passed	ID	.ID.z.
 assign	EQUALS	.EQUALS.expr.
 assign	SEMI	.e.
+compr	CHAR	.expr.expr2.
+compr	FLOAT	.expr.expr2.
+compr	FUNCNAME	.expr.expr2.
+compr	ID	.expr.expr2.
+compr	LP	.expr.expr2.
+compr	NUM	.expr.expr2.
 declaration	DATA_TYPE	.DATA_TYPE.ID.assign.
 ell	BREAK	.e.
 ell	CONTINUE	.e.
@@ -549,11 +574,11 @@ ell	ID	.e.
 ell	IF	.e.
 ell	RETURN	.e.
 ell	WHILE	.e.
-eval	CHAR	.termp.expr2.
-eval	FLOAT	.termp.expr2.
-eval	ID	.termp.expr2.
-eval	LP	.termp.expr2.
-eval	NUM	.termp.expr2.
+eval	CHAR	.term.sub.#7.expr1.#7.
+eval	FLOAT	.term.sub.#7.expr1.#7.
+eval	ID	.term.sub.#7.expr1.#7.
+eval	LP	.term.sub.#7.expr1.#7.
+eval	NUM	.term.sub.#7.expr1.#7.
 expr	CHAR	.eval.
 expr	FLOAT	.eval.
 expr	FUNCNAME	.func_call.
@@ -566,11 +591,9 @@ expr1	LESSTHAN	.e.
 expr1	PLUS	.PLUS.term.sub.#7.expr1.#4.
 expr1	RP	.e.
 expr1	SEMI	.e.
-expr2	EQUALTO	.EQUALTO.termp.expr2.
-expr2	GREATERTHAN	.GREATERTHAN.termp.expr2.
-expr2	LESSTHAN	.LESSTHAN.termp.expr2.
-expr2	RP	.e.
-expr2	SEMI	.e.
+expr2	EQUALTO	.EQUALTO.expr.
+expr2	GREATERTHAN	.GREATERTHAN.expr2.
+expr2	LESSTHAN	.LESSTHAN.expr.
 factor	CHAR	.id_or_data.
 factor	FLOAT	.id_or_data.
 factor	ID	.id_or_data.
@@ -583,6 +606,11 @@ id_or_data	CHAR	.num_or_char.
 id_or_data	FLOAT	.num_or_char.
 id_or_data	ID	.I#3.ID.
 id_or_data	NUM	.num_or_char.
+id_or_data_or_blank	CHAR	.id_or_data.
+id_or_data_or_blank	FLOAT	.id_or_data.
+id_or_data_or_blank	ID	.id_or_data.
+id_or_data_or_blank	NUM	.id_or_data.
+id_or_data_or_blank	SEMI	.e.
 iff	IF	.IF.LP.expr.RP.LFP.stmnts.RFP.ell.
 num_or_char	CHAR	.C#3.CHAR.
 num_or_char	FLOAT	.F#3.FLOAT.
@@ -590,12 +618,12 @@ num_or_char	NUM	.N#3.NUM.
 stmnt	BREAK	.BREAK.SEMI.
 stmnt	CONTINUE	.CONTINUE.SEMI.
 stmnt	DATA_TYPE	.declaration.SEMI.
-stmnt	FOR	.FOR.LP.ID.EQUALS.expr.SEMI.expr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
+stmnt	FOR	.FOR.LP.ID.EQUALS.expr.SEMI.compr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
 stmnt	FUNCNAME	.func_call.SEMI.
 stmnt	ID	.I#3.ID.EQUALS.expr.#6.SEMI.
 stmnt	IF	.iff.
-stmnt	RETURN	.RETURN.id_or_data.SEMI.
-stmnt	WHILE	.WHILE.LP.expr.RP.LFP.stmnts.RFP.
+stmnt	RETURN	.RETURN.id_or_data_or_blank.SEMI.
+stmnt	WHILE	.WHILE.LP.compr.RP.LFP.stmnts.RFP.
 stmnts	BREAK	.stmnt.stmnts.
 stmnts	CONTINUE	.stmnt.stmnts.
 stmnts	DATA_TYPE	.stmnt.stmnts.
@@ -627,11 +655,6 @@ term1	PLUS	.e.
 term1	RP	.e.
 term1	SEMI	.e.
 term1	TIMES	.TIMES.term.#1.
-termp	CHAR	.term.sub.#7.expr1.#7.
-termp	FLOAT	.term.sub.#7.expr1.#7.
-termp	ID	.term.sub.#7.expr1.#7.
-termp	LP	.term.sub.#7.expr1.#7.
-termp	NUM	.term.sub.#7.expr1.#7.
 void_or_datatype	DATA_TYPE	.DATA_TYPE.
 void_or_datatype	VOID	.VOID.
 x	COMMA	.COMMA.arg_list.
@@ -661,80 +684,91 @@ ID EQUALS expr #6 SEMI stmnts RFP S $
 EQUALS expr #6 SEMI stmnts RFP S $ 
 expr #6 SEMI stmnts RFP S $ 
 eval #6 SEMI stmnts RFP S $ 
-termp expr2 #6 SEMI stmnts RFP S $ 
-term sub #7 expr1 #7 expr2 #6 SEMI stmnts RFP S $ 
-factor term1 #7 sub #7 expr1 #7 expr2 #6 SEMI stmnts RFP S $ 
-id_or_data term1 #7 sub #7 expr1 #7 expr2 #6 SEMI stmnts RFP S $ 
-I#3 ID term1 #7 sub #7 expr1 #7 expr2 #6 SEMI stmnts RFP S $ 
+term sub #7 expr1 #7 #6 SEMI stmnts RFP S $ 
+factor term1 #7 sub #7 expr1 #7 #6 SEMI stmnts RFP S $ 
+id_or_data term1 #7 sub #7 expr1 #7 #6 SEMI stmnts RFP S $ 
+I#3 ID term1 #7 sub #7 expr1 #7 #6 SEMI stmnts RFP S $ 
 3 b
 b a 
-ID term1 #7 sub #7 expr1 #7 expr2 #6 SEMI stmnts RFP S $ 
-term1 #7 sub #7 expr1 #7 expr2 #6 SEMI stmnts RFP S $ 
+ID term1 #7 sub #7 expr1 #7 #6 SEMI stmnts RFP S $ 
+term1 #7 sub #7 expr1 #7 #6 SEMI stmnts RFP S $ 
 3 epsilon
 epsilon b a 
-#7 sub #7 expr1 #7 expr2 #6 SEMI stmnts RFP S $ 
+#7 sub #7 expr1 #7 #6 SEMI stmnts RFP S $ 
 7 +
 b a 
-sub #7 expr1 #7 expr2 #6 SEMI stmnts RFP S $ 
+sub #7 expr1 #7 #6 SEMI stmnts RFP S $ 
 3 epsilon
 epsilon b a 
-#7 expr1 #7 expr2 #6 SEMI stmnts RFP S $ 
+#7 expr1 #7 #6 SEMI stmnts RFP S $ 
 7 +
 b a 
-expr1 #7 expr2 #6 SEMI stmnts RFP S $ 
-PLUS term sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
-term sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
-factor term1 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
-id_or_data term1 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
-I#3 ID term1 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
+expr1 #7 #6 SEMI stmnts RFP S $ 
+PLUS term sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
+term sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
+factor term1 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
+id_or_data term1 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
+I#3 ID term1 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
 3 c
 c b a 
-ID term1 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
-term1 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
-DIVIDE term #2 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
-term #2 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
-factor term1 #7 #2 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
-id_or_data term1 #7 #2 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
-I#3 ID term1 #7 #2 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
+ID term1 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
+term1 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
+DIVIDE term #2 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
+term #2 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
+factor term1 #7 #2 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
+id_or_data term1 #7 #2 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
+I#3 ID term1 #7 #2 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
 3 d
 d c b a 
-ID term1 #7 #2 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
-term1 #7 #2 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
+ID term1 #7 #2 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
+term1 #7 #2 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
 3 epsilon
 epsilon d c b a 
-#7 #2 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
+#7 #2 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
 7 ;
 d c b a 
-#2 #7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
+#2 #7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
 2 ;
 / d c b a 
-#7 sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
+#7 sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
 7 ;
 T0 b a 
-sub #7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
+sub #7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
 3 epsilon
 epsilon T0 b a 
-#7 expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
+#7 expr1 #4 #7 #6 SEMI stmnts RFP S $ 
 7 ;
 T0 b a 
-expr1 #4 #7 expr2 #6 SEMI stmnts RFP S $ 
+expr1 #4 #7 #6 SEMI stmnts RFP S $ 
 3 epsilon
 epsilon T0 b a 
-#4 #7 expr2 #6 SEMI stmnts RFP S $ 
+#4 #7 #6 SEMI stmnts RFP S $ 
 4 ;
 + T0 b a 
-#7 expr2 #6 SEMI stmnts RFP S $ 
+#7 #6 SEMI stmnts RFP S $ 
 7 ;
 T1 a 
-expr2 #6 SEMI stmnts RFP S $ 
-3 epsilon
-epsilon T1 a 
 #6 SEMI stmnts RFP S $ 
 6 ;
-a 
+
 SEMI stmnts RFP S $ 
 stmnts RFP S $ 
 stmnt stmnts RFP S $ 
-RETURN id_or_data SEMI stmnts RFP S $ 
+RETURN id_or_data_or_blank SEMI stmnts RFP S $ 
+id_or_data_or_blank SEMI stmnts RFP S $ 
 id_or_data SEMI stmnts RFP S $ 
-Syntax error at SEMI
+num_or_char SEMI stmnts RFP S $ 
+N#3 NUM SEMI stmnts RFP S $ 
+3 0
+0 
+NUM SEMI stmnts RFP S $ 
+SEMI stmnts RFP S $ 
+stmnts RFP S $ 
+3 epsilon
+epsilon 0 
+RFP S $ 
+S $ 
+3 epsilon
+epsilon epsilon 0 
+$ 
+fullinput.txt has been parsed successfully.
