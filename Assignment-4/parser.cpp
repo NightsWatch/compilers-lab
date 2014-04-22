@@ -822,6 +822,8 @@ void Parser::parse(string tokensfile)
 	ofstream intcode;
 	intcode.open("intcode.txt");
 	intcode.close();
+	intcode.open("code.txt");
+	intcode.close();
 	parserstack.push("$");
 	parserstack.push("S");
 
@@ -954,6 +956,8 @@ void Parser::performAction(int action_no, string next) {
 	string op;
 	ofstream intcode;
 	intcode.open("intcode.txt", ios::app);
+	ofstream code;
+	intcode.open("code.txt", ios::app);
 	switch(action_no) {
 		case 1: 
 			op = semanticstack.top();
@@ -968,6 +972,7 @@ void Parser::performAction(int action_no, string next) {
 				semanticstack.pop();
 				c=getNewTemp();
 				intcode << c << " := " << b << " " << op << " " << a << endl;
+				code << 1 << endl;
 				semanticstack.push(c);
 			}
 			else
@@ -993,6 +998,7 @@ void Parser::performAction(int action_no, string next) {
 				semanticstack.pop();
 				c=getNewTemp();
 				intcode << c << " := " << b << " " << op << " " << a << endl;
+				code << 1 << endl;
 				semanticstack.push(c);
 			}
 			else
@@ -1020,6 +1026,7 @@ void Parser::performAction(int action_no, string next) {
 				semanticstack.pop();
 				c=getNewTemp();
 				intcode << c << " := " << b << " " << op << " " << a << endl;
+				code << 1 << endl;
 				semanticstack.push(c);
 			}
 			else
@@ -1043,6 +1050,7 @@ void Parser::performAction(int action_no, string next) {
 				semanticstack.pop();
 				c=getNewTemp();
 				intcode << c << " := " << b << " " << op << " " << a << endl;
+				code << 1 << endl;
 				semanticstack.push(c);
 			}
 			else
@@ -1064,6 +1072,7 @@ void Parser::performAction(int action_no, string next) {
 				a = semanticstack.top();
 				semanticstack.pop();
 				intcode << a << " := " << b << endl;
+				code << 3 << endl;
 				break;
 
 
@@ -1073,6 +1082,7 @@ void Parser::performAction(int action_no, string next) {
 				a = semanticstack.top();
 				semanticstack.pop();
 				intcode << "retrieve " << a << endl;
+				code << 18 << endl;
 				break;
 			}
 		case 7:
@@ -1087,6 +1097,7 @@ void Parser::performAction(int action_no, string next) {
 				semanticstack.pop();
 				c=getNewTemp();
 				intcode << c << " := " << b << " " << op << " " << a << endl;
+				code << 1 << endl;
 				semanticstack.push(c);
 			}
 			else
@@ -1107,6 +1118,7 @@ void Parser::performAction(int action_no, string next) {
 				semanticstack.pop();
 				c=getNewTemp();
 				intcode << c << " := " << b << " " << op << " " << a << endl;
+				code << 1 << endl;
 				semanticstack.push(c);
 			}
 			else
@@ -1146,6 +1158,7 @@ void Parser::performAction(int action_no, string next) {
 				b = semanticstack.top();
 				semanticstack.pop();
 				intcode << "global " << a << " " << b <<endl;
+				code << 19 << endl;
 			}
 
 
@@ -1161,13 +1174,15 @@ void Parser::performAction(int action_no, string next) {
 					b = semanticstack.top();
 					semanticstack.pop();
 					intcode << "global " << a << " " << b <<endl;
-					
+					code << 19 << endl;
 					
 					intcode << a << " := " << c << endl; 
+					code << 3 << endl;
 				}
 				else
 				{
 					intcode << "retrieve " << c << endl;
+					code << 18 << endl;
 
 				}
 				
@@ -1184,6 +1199,7 @@ void Parser::performAction(int action_no, string next) {
 					semanticstack.pop();
 
 					intcode << "call " << func << ", " << "0" << endl;
+					code << 15 << endl;
 					break;
 				}
 				
@@ -1196,12 +1212,14 @@ void Parser::performAction(int action_no, string next) {
 					arg=semanticstack.top();
 					semanticstack.pop();
 					intcode << "param " << arg << endl;
+					code << 14 << endl;
 					i--;
 				}
 				
 				func=semanticstack.top();
 				semanticstack.pop();
 				intcode << "call " << func << ", " << n << endl;
+				code << 15 << endl;
 				break;
 			}
 		case 15:
@@ -1239,6 +1257,7 @@ void Parser::performAction(int action_no, string next) {
 		case 19:
 			{
 				intcode << "if " ;
+				code << 5 << endl;
 				c = getNewLabel();
 				semanticstack.push(c);
 				break;
@@ -1247,6 +1266,7 @@ void Parser::performAction(int action_no, string next) {
 			{	
 				c = getNewLabel();
 				intcode << "goto " << c << endl;
+				code << 4 << endl;
 				semanticstack.push(c);
 				break;
 
@@ -1256,6 +1276,7 @@ void Parser::performAction(int action_no, string next) {
 				a = semanticstack.top();
 				semanticstack.pop();
 				intcode << "label " << a << endl;
+				code << 6 << endl;
 				break;
 			}
 		case 22:
@@ -1267,6 +1288,7 @@ void Parser::performAction(int action_no, string next) {
 					b = semanticstack.top();
 					semanticstack.pop();
 					intcode << "label " << b << endl;
+					code << 6 << endl;
 				}
 
 				break;
@@ -1286,6 +1308,7 @@ void Parser::performAction(int action_no, string next) {
 				}
 				b = semanticstack.top();
 				intcode << "goto " << b << endl;
+				code << 4 << endl;
 				semanticstack.push(a);
 				break; 
 
@@ -1296,6 +1319,7 @@ void Parser::performAction(int action_no, string next) {
 				semanticstack.pop();
 				
 				intcode << "label " << a << endl;
+				code << 6 << endl;
 			
 				break; 
 
@@ -1314,6 +1338,7 @@ void Parser::performAction(int action_no, string next) {
 		case 26:
 			{
 				intcode << "if " ;
+				code << 5 << endl;
 				break;
 			}
 		case 27:
@@ -1321,8 +1346,9 @@ void Parser::performAction(int action_no, string next) {
 				c = getNewLabel();
 				semanticstack.push(c);
 				intcode << "label " << c << endl;
+				code << 6 << endl;
 				intcode << "if " ;
-				
+				code << 5 << endl;
 				break;
 			}
 		case 28:
@@ -1338,7 +1364,9 @@ void Parser::performAction(int action_no, string next) {
 				b = semanticstack.top();
 				semanticstack.pop();
 				intcode << "goto " << b << endl;
+				code << 4 << endl;
 				intcode << "label " << a << endl;
+				code << 6 << endl;
 				break;
 			}
 		case 29:
@@ -1348,10 +1376,12 @@ void Parser::performAction(int action_no, string next) {
 				if(a=="epsilon")
 				{
 					intcode << "return" << endl;
+					code << 16 << endl;
 				}
 				else
 				{
 					intcode << "return " << a << endl;
+					code << 17 << endl;
 				}
 				break;
 			}
@@ -1372,6 +1402,7 @@ void Parser::performAction(int action_no, string next) {
 					c = semanticstack.top();
 					semanticstack.pop();
 					intcode << c << " := " << b << endl;
+					code << 3 << endl;
 
 				}
 				else
@@ -1379,19 +1410,23 @@ void Parser::performAction(int action_no, string next) {
 					b = semanticstack.top();
 					semanticstack.pop();
 					intcode << "retrieve " << b << endl;
+					code << 18 << endl;
 				}
 				b = semanticstack.top();
 				semanticstack.pop();
 				c = semanticstack.top();
 				semanticstack.pop();
 				intcode << "goto " << c << endl; 
+				code << 4 << endl;
 				intcode << "label " << b << endl;
+				code << 6 << endl;
 				break;
 			}
 		case 31:
 			{
 				b = semanticstack.top();
 				intcode << "enter " << b << endl;
+				code << 12 << endl;
 				break;
 			}
 		case 32:
@@ -1404,6 +1439,7 @@ void Parser::performAction(int action_no, string next) {
 					semanticstack.pop();
 				}
 				intcode << "leave " << b << endl;
+				code << 13 << endl;
 				break;
 			}
 		case 33:
@@ -1419,6 +1455,7 @@ void Parser::performAction(int action_no, string next) {
 	}
 
 	intcode.close();
+	code.close();
 	cout << "Stack: ";
 	printStack(semanticstack);
 }
