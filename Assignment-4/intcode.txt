@@ -17,4 +17,3 @@ goto L2
 label L3
 return 0
 leave main
-

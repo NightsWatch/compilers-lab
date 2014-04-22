@@ -822,8 +822,10 @@ void Parser::parse(string tokensfile)
 	ofstream intcode;
 	intcode.open("intcode.txt");
 	intcode.close();
-	intcode.open("code.txt");
-	intcode.close();
+	ofstream code;
+	
+	code.open("code.txt");
+	code.close();
 	parserstack.push("$");
 	parserstack.push("S");
 
@@ -957,7 +959,7 @@ void Parser::performAction(int action_no, string next) {
 	ofstream intcode;
 	intcode.open("intcode.txt", ios::app);
 	ofstream code;
-	intcode.open("code.txt", ios::app);
+	code.open("code.txt", ios::app);
 	switch(action_no) {
 		case 1: 
 			op = semanticstack.top();
