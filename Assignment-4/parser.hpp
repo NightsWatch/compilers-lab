@@ -68,5 +68,6 @@ public:
 		void performAction(int, string);
 		string getNewTemp(ofstream& , ofstream& );
 		string getNewLabel(void);
+		void destroyifTemp(string temp);
 		
 };

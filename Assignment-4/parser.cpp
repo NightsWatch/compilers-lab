@@ -970,8 +970,10 @@ void Parser::performAction(int action_no, string next) {
 			{
 				a = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(a);
 				b = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(b);
 				c=getNewTemp(intcode, code);
 				intcode << c << " := " << b << " " << op << " " << a << endl;
 				code << 1 << endl;
@@ -996,8 +998,10 @@ void Parser::performAction(int action_no, string next) {
 			{
 				a = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(a);
 				b = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(b);
 				c=getNewTemp(intcode, code);
 				intcode << c << " := " << b << " " << op << " " << a << endl;
 				code << 1 << endl;
@@ -1021,11 +1025,14 @@ void Parser::performAction(int action_no, string next) {
 			semanticstack.pop();
 			a = semanticstack.top();
 			semanticstack.pop();
+			
 
 			if(op!="epsilon")
 			{
+				destroyifTemp(a);
 				b = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(b);
 				c=getNewTemp(intcode, code);
 				intcode << c << " := " << b << " " << op << " " << a << endl;
 				code << 1 << endl;
@@ -1045,11 +1052,14 @@ void Parser::performAction(int action_no, string next) {
 			semanticstack.pop();
 			a = semanticstack.top();
 			semanticstack.pop();
+			
 
 			if(op!="epsilon")
 			{
+				destroyifTemp(a);
 				b = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(b);
 				c=getNewTemp(intcode, code);
 				intcode << c << " := " << b << " " << op << " " << a << endl;
 				code << 1 << endl;
@@ -1071,8 +1081,10 @@ void Parser::performAction(int action_no, string next) {
 			{
 				b = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(b);
 				a = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(a);
 				intcode << a << " := " << b << endl;
 				code << 3 << endl;
 				break;
@@ -1083,6 +1095,7 @@ void Parser::performAction(int action_no, string next) {
 			{
 				a = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(a);
 				intcode << "retrieve " << a << endl;
 				code << 18 << endl;
 				break;
@@ -1092,11 +1105,13 @@ void Parser::performAction(int action_no, string next) {
 			semanticstack.pop();
 			a = semanticstack.top();
 			semanticstack.pop();
-
+		
 			if(op!="epsilon")
 			{
+				destroyifTemp(a);
 				b = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(b);
 				c=getNewTemp(intcode, code);
 				intcode << c << " := " << b << " " << op << " " << a << endl;
 				code << 1 << endl;
@@ -1116,8 +1131,10 @@ void Parser::performAction(int action_no, string next) {
 
 			if(op!="epsilon")
 			{
+				destroyifTemp(a);
 				b = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(b);
 				c= getNewTemp(intcode, code);
 				intcode << c << " := " << b << " " << op << " " << a << endl;
 				code << 1 << endl;
@@ -1135,8 +1152,10 @@ void Parser::performAction(int action_no, string next) {
 			semanticstack.pop();
 			a = semanticstack.top();
 			semanticstack.pop();
+			destroyifTemp(a);
 			b = semanticstack.top();
 			semanticstack.pop();
+			destroyifTemp(b);
 			intcode << b << " " << comp << " " << a << " " ;
 			break;
 		case 10:
@@ -1157,8 +1176,10 @@ void Parser::performAction(int action_no, string next) {
 
 				a = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(a);
 				b = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(b);
 				intcode << "global " << a << " " << b <<endl;
 				code << 19 << endl;
 			}
@@ -1168,13 +1189,16 @@ void Parser::performAction(int action_no, string next) {
 			{
 				c = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(c);
 				a = semanticstack.top();
 				semanticstack.pop();
+				destroyifTemp(a);
 				
 				if(assign=="eval")
 				{
 					b = semanticstack.top();
 					semanticstack.pop();
+					destroyifTemp(b);
 					intcode << "global " << a << " " << b <<endl;
 					code << 19 << endl;
 					
@@ -1215,6 +1239,7 @@ void Parser::performAction(int action_no, string next) {
 				{
 					arg=semanticstack.top();
 					semanticstack.pop();
+					destroyifTemp(arg);
 					intcode << "param " << arg << endl;
 					code << 14 << endl;
 					i--;
@@ -1279,6 +1304,7 @@ void Parser::performAction(int action_no, string next) {
 			{
 				a = semanticstack.top();
 				semanticstack.pop();
+
 				intcode << "label " << a << endl;
 				code << 6 << endl;
 				break;
@@ -1403,8 +1429,10 @@ void Parser::performAction(int action_no, string next) {
 				{
 					b = semanticstack.top();
 					semanticstack.pop();
+					destroyifTemp(b);
 					c = semanticstack.top();
 					semanticstack.pop();
+					destroyifTemp(c);
 					intcode << c << " := " << b << endl;
 					code << 3 << endl;
 
@@ -1413,6 +1441,7 @@ void Parser::performAction(int action_no, string next) {
 				{
 					b = semanticstack.top();
 					semanticstack.pop();
+					destroyifTemp(b);
 					intcode << "retrieve " << b << endl;
 					code << 18 << endl;
 				}
@@ -1463,8 +1492,10 @@ void Parser::performAction(int action_no, string next) {
 				{
 					b = semanticstack.top();
 					semanticstack.pop();
+					destroyifTemp(b);
 					a = getNewTemp(intcode, code);
 					semanticstack.push(a);
+					destroyifTemp(a);
 					intcode << a << " := " << b << endl;
 					code << 3 << endl;
 					break;
@@ -1475,6 +1506,7 @@ void Parser::performAction(int action_no, string next) {
 				{
 					a = getNewTemp(intcode, code);
 					semanticstack.push(a);
+					destroyifTemp(a);
 					intcode << "retrieve " << a << endl;
 					code << 18 << endl;
 					break;
@@ -1528,7 +1560,21 @@ string Parser::getNewTemp(ofstream& intcode, ofstream& code)
 	return "Out of temps";
 
 
-}		
+}	
+
+
+void Parser::destroyifTemp(string temp)
+{
+	int t;
+	istringstream ss1(temp);
+	ss1 >> t;
+	inuseT[t]=1;
+	return;
+
+
+}
+
+
 
 string Parser::getNewLabel(void)
 {
