@@ -24,7 +24,7 @@ expr1 .e. .PLUS.term.sub.#7.expr1.#4.
 sub .e. .MINUS.term.sub.#5.
 term .factor.term1.#7.
 term1 .e. .TIMES.term.#1. .DIVIDE.term.#2. 
-factor .id_or_data. .LP.expr.RP.
+factor .id_or_data. .LP.expr.#36.RP.
 expr2 .LESSTHAN.eval.#10. .GREATERTHAN.eval.#11. .EQUALTO.eval.#12. .NOTEQUALTO.eval.#33. .LESSTHANEQUALTO.eval.#34. .GREATERTHANEQUALTO.eval.#35.
 num_or_char .N#3.NUM. .F#3.FLOAT. .C#3.CHAR.
 compr .eval.expr2.#9.

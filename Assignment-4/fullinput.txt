@@ -5,11 +5,11 @@ int main(void)
 	int i=5;
 	while(i>0)
 	{
-		i=i-1;
+		i=(i-1)/2;
 
 
 	}
-	for(j=4; j<5; j=j+2)
+	for(j=4; j<5; j=j+2)0
 	{
 		h = 1;
 

@@ -1453,6 +1453,32 @@ void Parser::performAction(int action_no, string next) {
 		case 35:
 			semanticstack.push("<");
 			break;
+		case 36:
+			{
+				c = semanticstack.top();
+				semanticstack.pop();
+				if(c=="eval")
+				{
+					b = semanticstack.top();
+					semanticstack.pop();
+					a = getNewTemp();
+					semanticstack.push(a);
+					intcode << a << " := " << b << endl;
+					code << 3 << endl;
+					break;
+
+
+				}
+				else
+				{
+					a = getNewTemp();
+					semanticstack.push(a);
+					intcode << "retrieve " << a << endl;
+					code << 18 << endl;
+					break;
+				}
+
+			}
 
 	}
 
