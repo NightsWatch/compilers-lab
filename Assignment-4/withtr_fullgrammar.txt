@@ -10,7 +10,7 @@ stmnts .stmnt.stmnts. .e.
 stmnt .declaration.SEMI. .I#3.ID.EQUALS.expr.#6.SEMI. .func_call.SEMI. .iff. .WHILE.#27.LP.compr.RP.#20.LFP.stmnts.RFP.#28. .FOR.LP.#3.ID.EQUALS.expr.#6.#27.SEMI.compr.SEMI.#20.#3.ID.EQUALS.expr.RP.LFP.stmnts.RFP.#30. .CONTINUE.SEMI. .BREAK.SEMI. .RETURN.id_or_data_or_blank.SEMI.#29.
 iff .IF.#19.LP.compr.RP.#20.LFP.stmnts.RFP.#23.ell.#22.#24.
 ell .e. .ELSE.#21.y.
-y .IF.#26.LP.compr.RP.#20.LFP.stmnts.RFP.#23.ell.#22. .LFP.stmnts.RFP.#25.
+y .IF.LP.compr.RP.#20.LFP.stmnts.RFP.#23.ell.#22. .LFP.stmnts.RFP.#25.
 id_or_data	.I#3.ID. .num_or_char.
 expr .func_call.#18. .eval.#17.
 func_call .F#3.FUNCNAME.LP.arg_passed_or_blank.#14.RP.

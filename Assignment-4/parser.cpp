@@ -1156,7 +1156,9 @@ void Parser::performAction(int action_no, string next) {
 			b = semanticstack.top();
 			semanticstack.pop();
 			destroyifTemp(b);
-			intcode << b << " " << comp << " " << a << " " ;
+
+			intcode <<"if " <<  b << " " << comp << " " << a << " " ;
+			code << 5 << endl;
 			break;
 		case 10:
 			semanticstack.push(">=");
@@ -1180,7 +1182,7 @@ void Parser::performAction(int action_no, string next) {
 				b = semanticstack.top();
 				semanticstack.pop();
 				destroyifTemp(b);
-				intcode << "global " << a << " " << b <<endl;
+				intcode << "define " << a << " " << b <<endl;
 				code << 19 << endl;
 			}
 
@@ -1199,7 +1201,7 @@ void Parser::performAction(int action_no, string next) {
 					b = semanticstack.top();
 					semanticstack.pop();
 					destroyifTemp(b);
-					intcode << "global " << a << " " << b <<endl;
+					intcode << "define " << a << " " << b <<endl;
 					code << 19 << endl;
 					
 					intcode << a << " := " << c << endl; 
@@ -1207,7 +1209,7 @@ void Parser::performAction(int action_no, string next) {
 				}
 				else
 				{
-					intcode << "global " << c << " " << a << endl;
+					intcode << "define " << c << " " << a << endl;
 					code << 19 << endl;
  					intcode << "retrieve " << c << endl;
 					code << 18 << endl;
@@ -1285,8 +1287,7 @@ void Parser::performAction(int action_no, string next) {
 			}
 		case 19:
 			{
-				intcode << "if " ;
-				code << 5 << endl;
+				
 				c = getNewLabel();
 				semanticstack.push(c);
 				break;
@@ -1367,8 +1368,6 @@ void Parser::performAction(int action_no, string next) {
 			}
 		case 26:
 			{
-				intcode << "if " ;
-				code << 5 << endl;
 				break;
 			}
 		case 27:
@@ -1377,8 +1376,7 @@ void Parser::performAction(int action_no, string next) {
 				semanticstack.push(c);
 				intcode << "label " << c << endl;
 				code << 6 << endl;
-				intcode << "if " ;
-				code << 5 << endl;
+				
 				break;
 			}
 		case 28:
@@ -1547,7 +1545,7 @@ string Parser::getNewTemp(ofstream& intcode, ofstream& code)
 			str="T" +str;
 			if(inuseT[i]==0)
 			{
-				intcode << "global " << str << " int" << endl;
+				intcode << "define " << str << " int" << endl;
 				code << 19 << endl;
 
 			}

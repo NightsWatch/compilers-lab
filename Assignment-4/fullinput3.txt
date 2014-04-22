@@ -1,8 +1,10 @@
 int main(void)
 {
 	
-	int b=2;
-	int a;
-	a=b;
+	if(a<b)
+	{
+		d=45;
+
+	}
 	return 0;
 }
