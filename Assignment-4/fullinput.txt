@@ -1,8 +1,18 @@
 int main(void)
 {
-	if(x<4)
-		{
-		a=b+c/d;
+
+
+	int i=5;
+	while(i>0)
+	{
+		i=i-1;
+
+
+	}
+	for(j=4; j<5; j=j+2)
+	{
+		h = 1;
+
 	}
 	return 0;
 

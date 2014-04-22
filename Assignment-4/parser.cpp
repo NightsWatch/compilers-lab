@@ -1137,17 +1137,40 @@ void Parser::performAction(int action_no, string next) {
 		case 13:
 			assign=semanticstack.top();
 			semanticstack.pop();
-			a = semanticstack.top();
-			semanticstack.pop();
-			b = semanticstack.top();
-			semanticstack.pop();
-			intcode << "global " << a << " " << b <<endl;
-
-
-
-			if(assign!="epsilon")
+			if(assign=="epsilon")
 			{
-				intcode << a << " := " << assign << endl; 
+
+
+				a = semanticstack.top();
+				semanticstack.pop();
+				b = semanticstack.top();
+				semanticstack.pop();
+				intcode << "global " << a << " " << b <<endl;
+			}
+
+
+			else
+			{
+				c = semanticstack.top();
+				semanticstack.pop();
+				a = semanticstack.top();
+				semanticstack.pop();
+				
+				if(assign=="eval")
+				{
+					b = semanticstack.top();
+					semanticstack.pop();
+					intcode << "global " << a << " " << b <<endl;
+					
+					
+					intcode << a << " := " << c << endl; 
+				}
+				else
+				{
+					intcode << "retrieve " << c << endl;
+
+				}
+				
 			}
 			break;
 		case 14:
@@ -1252,8 +1275,15 @@ void Parser::performAction(int action_no, string next) {
 			}
 		case 23:
 			{
+
 				a = semanticstack.top();
 				semanticstack.pop();
+				if(a=="epsilon")
+				{
+					a = semanticstack.top();
+					semanticstack.pop();
+
+				}
 				b = semanticstack.top();
 				intcode << "goto " << b << endl;
 				semanticstack.push(a);
@@ -1270,13 +1300,126 @@ void Parser::performAction(int action_no, string next) {
 				break; 
 
 			}
+		case 25:
+			{
+				a = semanticstack.top();
+				if(a=="epsilon")
+				{
+					semanticstack.pop();
 
+				}
 
+				break;
+			}
+		case 26:
+			{
+				intcode << "if " ;
+				break;
+			}
+		case 27:
+			{
+				c = getNewLabel();
+				semanticstack.push(c);
+				intcode << "label " << c << endl;
+				intcode << "if " ;
+				
+				break;
+			}
+		case 28:
+			{
+				a = semanticstack.top();
+				semanticstack.pop();
+				if(a=="epsilon")
+				{
+					a = semanticstack.top();
+					semanticstack.pop();
 
+				}	
+				b = semanticstack.top();
+				semanticstack.pop();
+				intcode << "goto " << b << endl;
+				intcode << "label " << a << endl;
+				break;
+			}
+		case 29:
+			{
+				a = semanticstack.top();
+				semanticstack.pop();
+				if(a=="epsilon")
+				{
+					intcode << "return" << endl;
+				}
+				else
+				{
+					intcode << "return " << a << endl;
+				}
+				break;
+			}
+		case 30:
+			{
+				a = semanticstack.top();
+				semanticstack.pop();
+				if(a=="epsilon")
+				{
+					a = semanticstack.top();
+					semanticstack.pop();
+
+				}
+				if(a=="eval")
+				{
+					b = semanticstack.top();
+					semanticstack.pop();
+					c = semanticstack.top();
+					semanticstack.pop();
+					intcode << c << " := " << b << endl;
+
+				}
+				else
+				{
+					b = semanticstack.top();
+					semanticstack.pop();
+					intcode << "retrieve " << b << endl;
+				}
+				b = semanticstack.top();
+				semanticstack.pop();
+				c = semanticstack.top();
+				semanticstack.pop();
+				intcode << "goto " << c << endl; 
+				intcode << "label " << b << endl;
+				break;
+			}
+		case 31:
+			{
+				b = semanticstack.top();
+				intcode << "enter " << b << endl;
+				break;
+			}
+		case 32:
+			{
+				b = semanticstack.top();
+				semanticstack.pop();
+				if(b=="epsilon")
+				{
+					b = semanticstack.top();
+					semanticstack.pop();
+				}
+				intcode << "leave " << b << endl;
+				break;
+			}
+		case 33:
+			semanticstack.push("==");
+			break;
+		case 34:
+			semanticstack.push(">");
+			break;
+		case 35:
+			semanticstack.push("<");
+			break;
 
 	}
 
 	intcode.close();
+	cout << "Stack: ";
 	printStack(semanticstack);
 }
 
