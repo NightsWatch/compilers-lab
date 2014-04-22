@@ -114,11 +114,17 @@ char* lex (void) {
             //     return RSB;
             case '<':
               if(*(current+1)=='=')
+              {
                 ++current;
+                return LESSTHANEQUALTO;
+              }
               return LESSTHAN;
             case '>':
             if(*(current+1)=='=')
+            {
                 ++current;
+                return GREATERTHANEQUALTO;
+            }
             return GREATERTHAN;
             case '=':
              if(*(current+1)=='=')
@@ -128,6 +134,17 @@ char* lex (void) {
                   return EQUALTO;
                 }
             return EQUALS;
+            case '!':
+              if(*(current+1)=='=')
+                { 
+
+                  ++current;
+                  return NOTEQUALTO;
+                }
+              else
+              {
+                fprintf(stderr, "No valid token <%c>\n", *current);
+              }
             case  '{':
               return LFP;
             case  '}':
@@ -215,9 +232,9 @@ char* lex (void) {
                           return WHILE;
                       }
 
-                      if (*current=='e' && *(current+1)=='l' && *(current+2)=='s' && *(current+3)=='e' &&  (*(current+4)==' ' || *(current+4)=='(' )) 
+                      if (*current=='e' && *(current+1)=='l' && *(current+2)=='s' && *(current+3)=='e' &&  (*(current+4)==' ' || *(current+4)=='{' || *(current+4)=='\n') ) 
                       {
-                          yyleng=5;
+                          yyleng=4;
                           return ELSE;
                       }
 

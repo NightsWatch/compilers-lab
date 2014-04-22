@@ -8,9 +8,9 @@ x .COMMA.arg_list. .e.
 arg .DATA_TYPE.ID.
 stmnts .stmnt.stmnts. .e.
 stmnt .declaration.SEMI. .ID.EQUALS.expr.SEMI. .func_call.SEMI. .iff. .WHILE.LP.compr.RP.LFP.stmnts.RFP. .FOR.LP.ID.EQUALS.expr.SEMI.compr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP. .CONTINUE.SEMI. .BREAK.SEMI. .RETURN.id_or_data_or_blank.SEMI.
-iff .IF.LP.expr.RP.LFP.stmnts.RFP.ell.
+iff .IF.LP.compr.RP.LFP.stmnts.RFP.ell.
 ell .e. .ELSE.y.
-y .IF.LP.expr.RP.LFP.stmnts.RFP.ell. .LFP.stmnts.RFP.
+y .IF.LP.compr.RP.LFP.stmnts.RFP.ell. .LFP.stmnts.RFP.
 id_or_data	.ID. .num_or_char.
 expr .func_call. .eval.
 func_call .FUNCNAME.LP.arg_passed_or_blank.RP.
@@ -25,7 +25,7 @@ sub .e. .MINUS.term.sub.
 term .factor.term1.
 term1 .e. .TIMES.term. .DIVIDE.term. 
 factor .id_or_data. .LP.expr.RP.
-expr2 .LESSTHAN.expr. .GREATERTHAN.expr2. .EQUALTO.expr.
+expr2 .LESSTHAN.eval. .GREATERTHAN.eval. .EQUALTO.eval. .NOTEQUALTO.eval. .LESSTHANEQUALTO.eval. .GREATERTHANEQUALTO.eval.
 num_or_char .NUM. .FLOAT. .CHAR.
-compr .expr.expr2.
+compr .eval.expr2.
 id_or_data_or_blank .e. .id_or_data.
