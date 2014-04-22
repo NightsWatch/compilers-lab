@@ -1,0 +1,22 @@
+enter main
+global i int
+i := 5
+label L0
+if i <= 0 goto L1
+T0 := i - 1
+i := T0
+goto L0
+label L1
+global l int
+l := 4
+l := 4
+label L2
+if l >= 5 goto L3
+T1 := l + 2
+global h int
+h := 1
+l := T1
+goto L2
+label L3
+return 0
+leave main

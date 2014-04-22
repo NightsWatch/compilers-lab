@@ -9,8 +9,15 @@ int main(void)
 
 
 	}
+<<<<<<< HEAD
+	int l=4;
+	for(l=4; l<5; l=l+2)
+	{	
+		int h;
+=======
 	for(j=4; j<5; j=j+2)0
 	{
+>>>>>>> cea0fd6602a21b1f0fcb82bc6517a33d2b48578a
 		h = 1;
 
 	}
