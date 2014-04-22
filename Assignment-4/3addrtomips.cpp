@@ -182,7 +182,7 @@ void printfMIPSCode(int index,string str) {
 			if(cds[1]=="main") {
 				return;
 			}
-			//cout << cds[1]<<"_entry:";nl;
+			cout << cds[1]<<":";nl;
 			cout << "sw $fp, -4($sp)";nl;
 			cout << "sw $ra, -8($sp)";nl;
 			cout << "la $fp, 0($sp)";nl;
@@ -269,11 +269,6 @@ void printfMIPSCode(int index,string str) {
 
 		case 19:	// global id type 
 		{
-			if(code_flag==0) {
-				code_flag=1;
-				data_flag=0;
-				cout<<".text";nl;
-			}
 			if(!data_flag) {
 				cout<<".data";nl;
 				data_flag=1;
@@ -313,5 +308,7 @@ int main() {
 
 		printfMIPSCode(ind,str);
 	}
+	cout<<"li $v0,10";nl;
+	cout<<"syscall";
 	return 0;
 }

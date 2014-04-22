@@ -5,56 +5,33 @@ i: .space 4
 .text
 li $5, 5
 sw $5, i
-L0:
-sw $fp, -4($sp)
-sw $ra, -8($sp)
-la $fp, 0($sp)
 lw $5, i
-li $v0, 0
-ble $5, $v0, L1
-lw $5, i
-li $v0, 1
-sub $v0, $5, $v0
-sw $v0, T0
-lw $5, T0
-sw $5, i
-j L0
-L1:
-sw $fp, -4($sp)
-sw $ra, -8($sp)
-la $fp, 0($sp)
+sw $5, -4($sp)
+la $sp, -4($sp)
+jal func,
+la $sp, 4($sp)
 .data
-l: .space 4
+a: .space 4
 .text
-li $5, 4
-sw $5, l
-li $5, 4
-sw $5, l
-L2:
-sw $fp, -4($sp)
-sw $ra, -8($sp)
-la $fp, 0($sp)
-lw $5, l
-li $v0, 5
-bge $5, $v0, L3
-lw $5, l
-li $v0, 2
-add $v0, $5, $v0
-sw $v0, T1
-.data
-h: .space 4
-.text
-li $5, 1
-sw $5, h
-lw $5, T1
-sw $5, l
-j L2
-L3:
-sw $fp, -4($sp)
-sw $ra, -8($sp)
-la $fp, 0($sp)
+sw $v0, a
 lw $v0, 0
 la $sp, 0($fp)
 lw $ra, -8($sp)
 lw $fp, -4($sp)
 jr $ra
+func:
+sw $fp, -4($sp)
+sw $ra, -8($sp)
+la $fp, 0($sp)
+.data
+x: .space 4
+.text
+li $5, 0
+sw $5, x
+lw $v0, x
+la $sp, 0($fp)
+lw $ra, -8($sp)
+lw $fp, -4($sp)
+jr $ra
+li $v0,10
+syscall

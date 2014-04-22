@@ -1,0 +1,14 @@
+int main(void)
+{
+
+
+	int i=5;
+	int a=func(i);
+	return 0;
+
+}
+
+int func(int i) {
+	int x=0;
+	return x;
+}
