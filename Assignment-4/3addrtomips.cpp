@@ -31,26 +31,26 @@ void printfMIPSCode(int index,string str) {
 		{
 			//cout<<"sadad: "<<cds[3];nl;
 			if(isParam(cds[2])) {
-				cout << "li "<<"$r1, "<<cds[2];nl;
+				cout << "li "<<"$r, "<<cds[2];nl;
 			} else {
-				cout << "lw "<<"$r1, "<<cds[2];nl;
+				cout << "lw "<<"$r, "<<cds[2];nl;
 			}
 			if(isParam(cds[4])) {
-				cout << "li "<<"$r2, "<<cds[4];nl;
+				cout << "li "<<"$v0, "<<cds[4];nl;
 			} else {
-				cout << "lw "<<"$r2, "<<cds[4];nl;
+				cout << "lw "<<"$v0, "<<cds[4];nl;
 			}
 			if(cds[3]=="+") {
-				cout << "add $r3, $r1, $r2";nl;
+				cout << "add $v0, $r, $v0";nl;
 			} else if(cds[3]=="-") {
 				//cout<<"sada";
-				cout << "sub $r3, $r1, $r2";nl;
+				cout << "sub $v0, $r, $v0";nl;
 			} else if(cds[3]=="*") {
-				cout << "mul $r3, $r1, $r2";nl;
+				cout << "mul $v0, $r, $v0";nl;
 			} else if(cds[3]=="/") {
-				cout << "div $r3, $r1, $r2";nl;
+				cout << "div $v0, $r, $v0";nl;
 			}
-			cout << "sw $r3, "<<cds[0];nl;
+			cout << "sw $v0, "<<cds[0];nl;
 			return;
 		}
 		//break;
@@ -59,12 +59,12 @@ void printfMIPSCode(int index,string str) {
 		{
 			string str=cds[2].substr(1,cds[2].size()-1);
 			if(isParam(str)) {
-				cout << "li "<<"$r1, "<<str;nl;
+				cout << "li "<<"$r, "<<str;nl;
 			} else {
-				cout << "lw "<<"$r1, "<<str;nl;
+				cout << "lw "<<"$r, "<<str;nl;
 			}
-			cout << "neg $r2, $r1";nl;
-			cout << "sw $r2, "<<cds[0];nl;
+			cout << "neg $v0, $r";nl;
+			cout << "sw $v0, "<<cds[0];nl;
 			return;
 		}
 		//break;
@@ -72,11 +72,11 @@ void printfMIPSCode(int index,string str) {
  		{
  			//cout<<cds[2];nl;
  			if(isParam(cds[2])) {
-				cout << "li "<<"$r1, "<<cds[2];nl;
+				cout << "li "<<"$r, "<<cds[2];nl;
 			} else {
-				cout << "lw "<<"$r1, "<<cds[2];nl;
+				cout << "lw "<<"$r, "<<cds[2];nl;
 			}
- 			cout << "sw $r1, "<<cds[0];nl;
+ 			cout << "sw $r, "<<cds[0];nl;
  			return;
  		}
  		//break;
@@ -89,36 +89,36 @@ void printfMIPSCode(int index,string str) {
 		case 5:		//if x relop val goto label
 		{
 			if(isParam(cds[1])) {
-				cout << "li "<<"$r1, "<<cds[1];nl;
+				cout << "li "<<"$r, "<<cds[1];nl;
 			} else {
-				cout << "lw "<<"$r1, "<<cds[1];nl;
+				cout << "lw "<<"$r, "<<cds[1];nl;
 			}
 			//cout << "load "<<cds[1]<<" into reg1\n";
 			if(isParam(cds[3])) {
-				cout << "li "<<"$r2, "<<cds[3];nl;
+				cout << "li "<<"$v0, "<<cds[3];nl;
 			} else {
-				cout << "lw "<<"$r2, "<<cds[3];nl;
+				cout << "lw "<<"$v0, "<<cds[3];nl;
 			}
 			//cout << "load "<<cds[3]<<" into reg2\n";
 			string ccd=cds[2];
 			//switch(ccd) {
 			if(ccd.compare("<=")==0) {
-				cout << "ble $r1, $r2, "<<cds[5];nl;
+				cout << "ble $r, $v0, "<<cds[5];nl;
 			}
 			else if(ccd.compare("==")==0) {
-				cout << "beq $r1, $r2, "<<cds[5];nl;
+				cout << "beq $r, $v0, "<<cds[5];nl;
 			}
 			else if(ccd.compare("<")==0) {
-				cout << "blt $r1, $r2, "<<cds[5];nl;
+				cout << "blt $r, $v0, "<<cds[5];nl;
 			}
 			else if(ccd.compare(">")==0) {
-				cout << "bgt $r1, $r2, "<<cds[5];nl;
+				cout << "bgt $r, $v0, "<<cds[5];nl;
 			}
 			else if(ccd.compare("!=")==0) {
-				cout << "bne $r1, $r2, "<<cds[5];nl;
+				cout << "bne $r, $v0, "<<cds[5];nl;
 			}
 			else if(ccd.compare(">=")==0) {
-				cout << "bge $r1, $r2, "<<cds[5];nl;
+				cout << "bge $r, $v0, "<<cds[5];nl;
 			}
 			//}
 			//cout << "bcc reg2, reg1 " << cds[5];nl;
@@ -155,12 +155,12 @@ void printfMIPSCode(int index,string str) {
 		case 14:	//param x
 		{
 			if(isParam(cds[1])) {
-				cout << "li "<<"$r1, "<<cds[1];nl;
+				cout << "li "<<"$r, "<<cds[1];nl;
 			} else {
-				cout << "lw "<<"$r1, "<<cds[1];nl;
+				cout << "lw "<<"$r, "<<cds[1];nl;
 			}
 			//cout << "load "<<cds[1]<<" into reg1\n";
-			cout << "sw $r1, -4($sp)";nl;
+			cout << "sw $r, -4($sp)";nl;
 			cout << "la $sp, -4($sp)";nl;
 			return;
 		}
