@@ -1,3 +1,0 @@
-global T0 int
-T0 := b + c
-retrieve a

@@ -1,6 +1,0 @@
-ID a
-EQUALS =
-ID b
-PLUS +
-ID c
-SEMI ;
