@@ -209,6 +209,7 @@ int main() {
 	ifstream fin("mips");
 	ifstream indf("indices.txt");
 	string str;
+	cout << "main:"
 	while(getline(fin,str)) {
 		 
 		//getline(fin,str);
