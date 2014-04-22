@@ -972,7 +972,7 @@ void Parser::performAction(int action_no, string next) {
 				semanticstack.pop();
 				b = semanticstack.top();
 				semanticstack.pop();
-				c=getNewTemp();
+				c=getNewTemp(intcode, code);
 				intcode << c << " := " << b << " " << op << " " << a << endl;
 				code << 1 << endl;
 				semanticstack.push(c);
@@ -998,7 +998,7 @@ void Parser::performAction(int action_no, string next) {
 				semanticstack.pop();
 				b = semanticstack.top();
 				semanticstack.pop();
-				c=getNewTemp();
+				c=getNewTemp(intcode, code);
 				intcode << c << " := " << b << " " << op << " " << a << endl;
 				code << 1 << endl;
 				semanticstack.push(c);
@@ -1026,7 +1026,7 @@ void Parser::performAction(int action_no, string next) {
 			{
 				b = semanticstack.top();
 				semanticstack.pop();
-				c=getNewTemp();
+				c=getNewTemp(intcode, code);
 				intcode << c << " := " << b << " " << op << " " << a << endl;
 				code << 1 << endl;
 				semanticstack.push(c);
@@ -1050,7 +1050,7 @@ void Parser::performAction(int action_no, string next) {
 			{
 				b = semanticstack.top();
 				semanticstack.pop();
-				c=getNewTemp();
+				c=getNewTemp(intcode, code);
 				intcode << c << " := " << b << " " << op << " " << a << endl;
 				code << 1 << endl;
 				semanticstack.push(c);
@@ -1097,7 +1097,7 @@ void Parser::performAction(int action_no, string next) {
 			{
 				b = semanticstack.top();
 				semanticstack.pop();
-				c=getNewTemp();
+				c=getNewTemp(intcode, code);
 				intcode << c << " := " << b << " " << op << " " << a << endl;
 				code << 1 << endl;
 				semanticstack.push(c);
@@ -1118,7 +1118,7 @@ void Parser::performAction(int action_no, string next) {
 			{
 				b = semanticstack.top();
 				semanticstack.pop();
-				c=getNewTemp();
+				c= getNewTemp(intcode, code);
 				intcode << c << " := " << b << " " << op << " " << a << endl;
 				code << 1 << endl;
 				semanticstack.push(c);
@@ -1463,7 +1463,7 @@ void Parser::performAction(int action_no, string next) {
 				{
 					b = semanticstack.top();
 					semanticstack.pop();
-					a = getNewTemp();
+					a = getNewTemp(intcode, code);
 					semanticstack.push(a);
 					intcode << a << " := " << b << endl;
 					code << 3 << endl;
@@ -1473,7 +1473,7 @@ void Parser::performAction(int action_no, string next) {
 				}
 				else
 				{
-					a = getNewTemp();
+					a = getNewTemp(intcode, code);
 					semanticstack.push(a);
 					intcode << "retrieve " << a << endl;
 					code << 18 << endl;
@@ -1501,19 +1501,28 @@ void Parser::performAction(int action_no, string next) {
 }
 
 
-string Parser::getNewTemp(void)
+string Parser::getNewTemp(ofstream& intcode, ofstream& code)
 {
 		
 	for(int i=0; i<10000; i++)
 	{
-		if(!inuseT[i])
+		if(inuseT[i]!=2)
 		{
-			inuseT[i]=true;
-			
+
 			stringstream ss;
 			ss << i;
 			string str = ss.str();
-			return "T" + str;
+			str="T" +str;
+			if(inuseT[i]==0)
+			{
+				intcode << "global " << str << " int" << endl;
+				code << 19 << endl;
+
+			}
+			inuseT[i]=2;
+			
+			
+			return str;
 		}
 	}
 	return "Out of temps";

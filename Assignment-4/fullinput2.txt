@@ -1,6 +1,6 @@
 int main(void)
 {
-	int b=10+54-3*7;
+	int b=10;
 	int a = myfunction(10);
 
 	if(a==5)

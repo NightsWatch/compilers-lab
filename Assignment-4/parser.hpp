@@ -29,7 +29,7 @@ public:
 
 		map< string, set<string> > followSet;
 
-		bool inuseT[10000]={0};
+		int inuseT[10000]={0};
 		bool inuseL[10000]={0};
 		//map<string , map<string,string> > parsing_table;
 		map< pair<string,string>, string > parsing_table;
@@ -66,7 +66,7 @@ public:
 		bool checkepsfirst(string);
 
 		void performAction(int, string);
-		string getNewTemp(void);
+		string getNewTemp(ofstream& , ofstream& );
 		string getNewLabel(void);
 		
 };
