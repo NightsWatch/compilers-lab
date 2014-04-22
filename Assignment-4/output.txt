@@ -1,82 +1,26 @@
-here
-here
-here
-here
-here
 Grammar is:
 S
 S is .e.
-S is .func.S.
-arg
-arg is .DATA_TYPE.ID.
-arg_list
-arg_list is .arg.x.
-arg_list_or_void
-arg_list_or_void is .VOID.
-arg_list_or_void is .arg_list.
-arg_list_or_void is .e.
-arg_passed
-arg_passed is .id_or_data.z.
-arg_passed_or_blank
-arg_passed_or_blank is .arg_passed.
-arg_passed_or_blank is .e.
-assign
-assign is .EQUALS.expr.
-assign is .e.
-compr
-compr is .eval.expr2.
-declaration
-declaration is .DATA_TYPE.ID.assign.
-ell
-ell is .ELSE.y.
-ell is .e.
+S is .stmnt.S.
 eval
 eval is .term.sub.expr1.
 expr
 expr is .eval.
-expr is .func_call.
 expr1
 expr1 is .PLUS.term.sub.expr1.
 expr1 is .e.
-expr2
-expr2 is .EQUALTO.eval.
-expr2 is .GREATERTHAN.eval.
-expr2 is .GREATERTHANEQUALTO.eval.
-expr2 is .LESSTHAN.eval.
-expr2 is .LESSTHANEQUALTO.eval.
-expr2 is .NOTEQUALTO.eval.
 factor
 factor is .LP.expr.RP.
 factor is .id_or_data.
-func
-func is .void_or_datatype.FUNCNAME.LP.arg_list_or_void.RP.LFP.stmnts.RFP.
-func_call
-func_call is .FUNCNAME.LP.arg_passed_or_blank.RP.
 id_or_data
 id_or_data is .ID.
 id_or_data is .num_or_char.
-id_or_data_or_blank
-id_or_data_or_blank is .e.
-id_or_data_or_blank is .id_or_data.
-iff
-iff is .IF.LP.compr.RP.LFP.stmnts.RFP.ell.
 num_or_char
 num_or_char is .CHAR.
 num_or_char is .FLOAT.
 num_or_char is .NUM.
 stmnt
-stmnt is .BREAK.SEMI.
-stmnt is .CONTINUE.SEMI.
-stmnt is .FOR.LP.ID.EQUALS.expr.SEMI.compr.SEMI.ID.EQUALS.expr.RP.LFP.stmnts.RFP.
 stmnt is .ID.EQUALS.expr.SEMI.
-stmnt is .RETURN.id_or_data_or_blank.SEMI.
-stmnt is .WHILE.LP.compr.RP.LFP.stmnts.RFP.
-stmnt is .declaration.SEMI.
-stmnt is .func_call.SEMI.
-stmnt is .iff.
-stmnts
-stmnts is .e.
-stmnts is .stmnt.stmnts.
 sub
 sub is .MINUS.term.sub.
 sub is .e.
@@ -86,93 +30,30 @@ term1
 term1 is .DIVIDE.term.
 term1 is .TIMES.term.
 term1 is .e.
-void_or_datatype
-void_or_datatype is .DATA_TYPE.
-void_or_datatype is .VOID.
-x
-x is .COMMA.arg_list.
-x is .e.
-y
-y is .IF.LP.compr.RP.LFP.stmnts.RFP.ell.
-y is .LFP.stmnts.RFP.
-z
-z is .COMMA.arg_passed.
-z is .e.
 
 Grammar2 is:
 S
 S is .e.
-S is .func.S.
-arg
-arg is .DATA_TYPE.ID.
-arg_list
-arg_list is .arg.x.
-arg_list_or_void
-arg_list_or_void is .VOID.
-arg_list_or_void is .arg_list.
-arg_list_or_void is .e.
-arg_passed
-arg_passed is .id_or_data.#15.z.#37.
-arg_passed_or_blank
-arg_passed_or_blank is .a#16.arg_passed.
-arg_passed_or_blank is .e.
-assign
-assign is .EQUALS.expr.
-assign is .e.
-compr
-compr is .eval.expr2.#9.
-declaration
-declaration is .D#3.DATA_TYPE.#3.ID.assign.#13.
-ell
-ell is .ELSE.#21.y.
-ell is .e.
+S is .stmnt.S.
 eval
 eval is .term.sub.#7.expr1.#7.
 expr
-expr is .eval.#17.
-expr is .func_call.#18.
+expr is .eval.
 expr1
 expr1 is .PLUS.term.sub.#7.expr1.#4.
 expr1 is .e.
-expr2
-expr2 is .EQUALTO.eval.#12.
-expr2 is .GREATERTHAN.eval.#11.
-expr2 is .GREATERTHANEQUALTO.eval.#35.
-expr2 is .LESSTHAN.eval.#10.
-expr2 is .LESSTHANEQUALTO.eval.#34.
-expr2 is .NOTEQUALTO.eval.#33.
 factor
-factor is .LP.expr.#36.RP.
+factor is .LP.expr.RP.
 factor is .id_or_data.
-func
-func is .void_or_datatype.#3.FUNCNAME.#31.LP.arg_list_or_void.RP.LFP.stmnts.#32.RFP.
-func_call
-func_call is .F#3.FUNCNAME.LP.arg_passed_or_blank.#14.RP.
 id_or_data
 id_or_data is .I#3.ID.
 id_or_data is .num_or_char.
-id_or_data_or_blank
-id_or_data_or_blank is .e.
-id_or_data_or_blank is .id_or_data.
-iff
-iff is .IF.#19.LP.compr.RP.#20.LFP.stmnts.RFP.#23.ell.#22.#24.
 num_or_char
 num_or_char is .C#3.CHAR.
 num_or_char is .F#3.FLOAT.
 num_or_char is .N#3.NUM.
 stmnt
-stmnt is .BREAK.SEMI.
-stmnt is .CONTINUE.SEMI.
-stmnt is .FOR.LP.#3.ID.EQUALS.expr.#6.#27.SEMI.compr.SEMI.#20.#3.ID.EQUALS.expr.RP.LFP.stmnts.RFP.#30.
 stmnt is .I#3.ID.EQUALS.expr.#6.SEMI.
-stmnt is .RETURN.id_or_data_or_blank.SEMI.#29.
-stmnt is .WHILE.#27.LP.compr.RP.#20.LFP.stmnts.RFP.#28.
-stmnt is .declaration.SEMI.
-stmnt is .func_call.SEMI.
-stmnt is .iff.
-stmnts
-stmnts is .e.
-stmnts is .stmnt.stmnts.
 sub
 sub is .MINUS.term.sub.#5.
 sub is .e.
@@ -182,119 +63,35 @@ term1
 term1 is .DIVIDE.term.#2.
 term1 is .TIMES.term.#1.
 term1 is .e.
-void_or_datatype
-void_or_datatype is .DATA_TYPE.
-void_or_datatype is .VOID.
-x
-x is .COMMA.arg_list.
-x is .e.
-y
-y is .IF.#26.LP.compr.RP.#20.LFP.stmnts.RFP.#23.ell.#22.
-y is .LFP.stmnts.RFP.#25.
-z
-z is .COMMA.arg_passed.
-z is .e.
 
 Firstset is:
-BREAK
-BREAK is BREAK
 CHAR
 CHAR is CHAR
-COMMA
-COMMA is COMMA
-CONTINUE
-CONTINUE is CONTINUE
-DATA_TYPE
-DATA_TYPE is DATA_TYPE
 DIVIDE
 DIVIDE is DIVIDE
-ELSE
-ELSE is ELSE
 EQUALS
 EQUALS is EQUALS
-EQUALTO
-EQUALTO is EQUALTO
 FLOAT
 FLOAT is FLOAT
-FOR
-FOR is FOR
-FUNCNAME
-FUNCNAME is FUNCNAME
-GREATERTHAN
-GREATERTHAN is GREATERTHAN
-GREATERTHANEQUALTO
-GREATERTHANEQUALTO is GREATERTHANEQUALTO
 ID
 ID is ID
-IF
-IF is IF
-LESSTHAN
-LESSTHAN is LESSTHAN
-LESSTHANEQUALTO
-LESSTHANEQUALTO is LESSTHANEQUALTO
-LFP
-LFP is LFP
 LP
 LP is LP
 MINUS
 MINUS is MINUS
-NOTEQUALTO
-NOTEQUALTO is NOTEQUALTO
 NUM
 NUM is NUM
 PLUS
 PLUS is PLUS
-RETURN
-RETURN is RETURN
-RFP
-RFP is RFP
 RP
 RP is RP
 S
-S is DATA_TYPE
-S is VOID
+S is ID
 S is e
 SEMI
 SEMI is SEMI
 TIMES
 TIMES is TIMES
-VOID
-VOID is VOID
-WHILE
-WHILE is WHILE
-arg
-arg is DATA_TYPE
-arg_list
-arg_list is DATA_TYPE
-arg_list_or_void
-arg_list_or_void is DATA_TYPE
-arg_list_or_void is VOID
-arg_list_or_void is e
-arg_passed
-arg_passed is CHAR
-arg_passed is FLOAT
-arg_passed is ID
-arg_passed is NUM
-arg_passed_or_blank
-arg_passed_or_blank is CHAR
-arg_passed_or_blank is FLOAT
-arg_passed_or_blank is ID
-arg_passed_or_blank is NUM
-arg_passed_or_blank is e
-assign
-assign is EQUALS
-assign is e
-compr
-compr is CHAR
-compr is FLOAT
-compr is ID
-compr is LP
-compr is NUM
-declaration
-declaration is DATA_TYPE
-ell
-ell is ELSE
-ell is e
 eval
 eval is CHAR
 eval is FLOAT
@@ -304,69 +101,29 @@ eval is NUM
 expr
 expr is CHAR
 expr is FLOAT
-expr is FUNCNAME
 expr is ID
 expr is LP
 expr is NUM
 expr1
 expr1 is PLUS
 expr1 is e
-expr2
-expr2 is EQUALTO
-expr2 is GREATERTHAN
-expr2 is GREATERTHANEQUALTO
-expr2 is LESSTHAN
-expr2 is LESSTHANEQUALTO
-expr2 is NOTEQUALTO
 factor
 factor is CHAR
 factor is FLOAT
 factor is ID
 factor is LP
 factor is NUM
-func
-func is DATA_TYPE
-func is VOID
-func_call
-func_call is FUNCNAME
 id_or_data
 id_or_data is CHAR
 id_or_data is FLOAT
 id_or_data is ID
 id_or_data is NUM
-id_or_data_or_blank
-id_or_data_or_blank is CHAR
-id_or_data_or_blank is FLOAT
-id_or_data_or_blank is ID
-id_or_data_or_blank is NUM
-id_or_data_or_blank is e
-iff
-iff is IF
 num_or_char
 num_or_char is CHAR
 num_or_char is FLOAT
 num_or_char is NUM
 stmnt
-stmnt is BREAK
-stmnt is CONTINUE
-stmnt is DATA_TYPE
-stmnt is FOR
-stmnt is FUNCNAME
 stmnt is ID
-stmnt is IF
-stmnt is RETURN
-stmnt is WHILE
-stmnts
-stmnts is BREAK
-stmnts is CONTINUE
-stmnts is DATA_TYPE
-stmnts is FOR
-stmnts is FUNCNAME
-stmnts is ID
-stmnts is IF
-stmnts is RETURN
-stmnts is WHILE
-stmnts is e
 sub
 sub is MINUS
 sub is e
@@ -380,336 +137,99 @@ term1
 term1 is DIVIDE
 term1 is TIMES
 term1 is e
-void_or_datatype
-void_or_datatype is DATA_TYPE
-void_or_datatype is VOID
-x
-x is COMMA
-x is e
-y
-y is IF
-y is LFP
-z
-z is COMMA
-z is e
 
 Followset is:
 S is $
-arg is COMMA
-arg is RP
-arg_list is RP
-arg_list_or_void is RP
-arg_passed is RP
-arg_passed_or_blank is RP
-assign is SEMI
-compr is RP
-compr is SEMI
-declaration is SEMI
-ell is BREAK
-ell is CONTINUE
-ell is DATA_TYPE
-ell is FOR
-ell is FUNCNAME
-ell is ID
-ell is IF
-ell is RETURN
-ell is WHILE
-eval is EQUALTO
-eval is GREATERTHAN
-eval is GREATERTHANEQUALTO
-eval is LESSTHAN
-eval is LESSTHANEQUALTO
-eval is NOTEQUALTO
 eval is RP
 eval is SEMI
 expr is RP
 expr is SEMI
-expr1 is EQUALTO
-expr1 is GREATERTHAN
-expr1 is GREATERTHANEQUALTO
-expr1 is LESSTHAN
-expr1 is LESSTHANEQUALTO
-expr1 is NOTEQUALTO
 expr1 is RP
 expr1 is SEMI
-expr2 is RP
-expr2 is SEMI
 factor is DIVIDE
-factor is EQUALTO
-factor is GREATERTHAN
-factor is GREATERTHANEQUALTO
-factor is LESSTHAN
-factor is LESSTHANEQUALTO
 factor is MINUS
-factor is NOTEQUALTO
 factor is PLUS
 factor is RP
 factor is SEMI
 factor is TIMES
-func is $
-func is DATA_TYPE
-func is VOID
-func_call is RP
-func_call is SEMI
-id_or_data is COMMA
 id_or_data is DIVIDE
-id_or_data is EQUALTO
-id_or_data is GREATERTHAN
-id_or_data is GREATERTHANEQUALTO
-id_or_data is LESSTHAN
-id_or_data is LESSTHANEQUALTO
 id_or_data is MINUS
-id_or_data is NOTEQUALTO
 id_or_data is PLUS
 id_or_data is RP
 id_or_data is SEMI
 id_or_data is TIMES
-id_or_data_or_blank is SEMI
-iff is BREAK
-iff is CONTINUE
-iff is DATA_TYPE
-iff is FOR
-iff is FUNCNAME
-iff is ID
-iff is IF
-iff is RETURN
-iff is RFP
-iff is WHILE
-num_or_char is COMMA
 num_or_char is DIVIDE
-num_or_char is EQUALTO
-num_or_char is GREATERTHAN
-num_or_char is GREATERTHANEQUALTO
-num_or_char is LESSTHAN
-num_or_char is LESSTHANEQUALTO
 num_or_char is MINUS
-num_or_char is NOTEQUALTO
 num_or_char is PLUS
 num_or_char is RP
 num_or_char is SEMI
 num_or_char is TIMES
-stmnt is BREAK
-stmnt is CONTINUE
-stmnt is DATA_TYPE
-stmnt is FOR
-stmnt is FUNCNAME
+stmnt is $
 stmnt is ID
-stmnt is IF
-stmnt is RETURN
-stmnt is RFP
-stmnt is WHILE
-stmnts is RFP
-sub is EQUALTO
-sub is GREATERTHAN
-sub is GREATERTHANEQUALTO
-sub is LESSTHAN
-sub is LESSTHANEQUALTO
-sub is NOTEQUALTO
 sub is PLUS
 sub is RP
 sub is SEMI
-term is EQUALTO
-term is GREATERTHAN
-term is GREATERTHANEQUALTO
-term is LESSTHAN
-term is LESSTHANEQUALTO
 term is MINUS
-term is NOTEQUALTO
 term is PLUS
 term is RP
 term is SEMI
-term1 is EQUALTO
-term1 is GREATERTHAN
-term1 is GREATERTHANEQUALTO
-term1 is LESSTHAN
-term1 is LESSTHANEQUALTO
 term1 is MINUS
-term1 is NOTEQUALTO
 term1 is PLUS
 term1 is RP
 term1 is SEMI
-void_or_datatype is FUNCNAME
-x is RP
-y is BREAK
-y is CONTINUE
-y is DATA_TYPE
-y is FOR
-y is FUNCNAME
-y is ID
-y is IF
-y is RETURN
-y is WHILE
-z is RP
 
 grammar1 S
 grammar2 S
-grammar1 arg
-grammar2 arg
-grammar1 arg_list
-grammar2 arg_list
-grammar1 arg_list_or_void
-grammar2 arg_list_or_void
-grammar1 arg_passed
-grammar2 arg_passed
-grammar1 arg_passed_or_blank
-grammar2 arg_passed_or_blank
-grammar1 assign
-grammar2 assign
-grammar1 compr
-grammar2 compr
-grammar1 declaration
-grammar2 declaration
-grammar1 ell
-grammar2 ell
 grammar1 eval
 grammar2 eval
 grammar1 expr
 grammar2 expr
 grammar1 expr1
 grammar2 expr1
-grammar1 expr2
-grammar2 expr2
 grammar1 factor
 grammar2 factor
-grammar1 func
-grammar2 func
-grammar1 func_call
-grammar2 func_call
 grammar1 id_or_data
 grammar2 id_or_data
-grammar1 id_or_data_or_blank
-grammar2 id_or_data_or_blank
-grammar1 iff
-grammar2 iff
 grammar1 num_or_char
 grammar2 num_or_char
 grammar1 stmnt
 grammar2 stmnt
-grammar1 stmnts
-grammar2 stmnts
 grammar1 sub
 grammar2 sub
 grammar1 term
 grammar2 term
 grammar1 term1
 grammar2 term1
-grammar1 void_or_datatype
-grammar2 void_or_datatype
-grammar1 x
-grammar2 x
-grammar1 y
-grammar2 y
-grammar1 z
-grammar2 z
 Created Table:
 S	$	.e.
-S	DATA_TYPE	.func.S.
-S	VOID	.func.S.
-arg	DATA_TYPE	.DATA_TYPE.ID.
-arg_list	DATA_TYPE	.arg.x.
-arg_list_or_void	DATA_TYPE	.arg_list.
-arg_list_or_void	RP	.e.
-arg_list_or_void	VOID	.VOID.
-arg_passed	CHAR	.id_or_data.#15.z.#37.
-arg_passed	FLOAT	.id_or_data.#15.z.#37.
-arg_passed	ID	.id_or_data.#15.z.#37.
-arg_passed	NUM	.id_or_data.#15.z.#37.
-arg_passed_or_blank	CHAR	.a#16.arg_passed.
-arg_passed_or_blank	FLOAT	.a#16.arg_passed.
-arg_passed_or_blank	ID	.a#16.arg_passed.
-arg_passed_or_blank	NUM	.a#16.arg_passed.
-arg_passed_or_blank	RP	.e.
-assign	EQUALS	.EQUALS.expr.
-assign	SEMI	.e.
-compr	CHAR	.eval.expr2.#9.
-compr	FLOAT	.eval.expr2.#9.
-compr	ID	.eval.expr2.#9.
-compr	LP	.eval.expr2.#9.
-compr	NUM	.eval.expr2.#9.
-declaration	DATA_TYPE	.D#3.DATA_TYPE.#3.ID.assign.#13.
-ell	BREAK	.e.
-ell	CONTINUE	.e.
-ell	DATA_TYPE	.e.
-ell	ELSE	.ELSE.#21.y.
-ell	FOR	.e.
-ell	FUNCNAME	.e.
-ell	ID	.e.
-ell	IF	.e.
-ell	RETURN	.e.
-ell	WHILE	.e.
+S	ID	.stmnt.S.
 eval	CHAR	.term.sub.#7.expr1.#7.
 eval	FLOAT	.term.sub.#7.expr1.#7.
 eval	ID	.term.sub.#7.expr1.#7.
 eval	LP	.term.sub.#7.expr1.#7.
 eval	NUM	.term.sub.#7.expr1.#7.
-expr	CHAR	.eval.#17.
-expr	FLOAT	.eval.#17.
-expr	FUNCNAME	.func_call.#18.
-expr	ID	.eval.#17.
-expr	LP	.eval.#17.
-expr	NUM	.eval.#17.
-expr1	EQUALTO	.e.
-expr1	GREATERTHAN	.e.
-expr1	GREATERTHANEQUALTO	.e.
-expr1	LESSTHAN	.e.
-expr1	LESSTHANEQUALTO	.e.
-expr1	NOTEQUALTO	.e.
+expr	CHAR	.eval.
+expr	FLOAT	.eval.
+expr	ID	.eval.
+expr	LP	.eval.
+expr	NUM	.eval.
 expr1	PLUS	.PLUS.term.sub.#7.expr1.#4.
 expr1	RP	.e.
 expr1	SEMI	.e.
-expr2	EQUALTO	.EQUALTO.eval.#12.
-expr2	GREATERTHAN	.GREATERTHAN.eval.#11.
-expr2	GREATERTHANEQUALTO	.GREATERTHANEQUALTO.eval.#35.
-expr2	LESSTHAN	.LESSTHAN.eval.#10.
-expr2	LESSTHANEQUALTO	.LESSTHANEQUALTO.eval.#34.
-expr2	NOTEQUALTO	.NOTEQUALTO.eval.#33.
 factor	CHAR	.id_or_data.
 factor	FLOAT	.id_or_data.
 factor	ID	.id_or_data.
-factor	LP	.LP.expr.#36.RP.
+factor	LP	.LP.expr.RP.
 factor	NUM	.id_or_data.
-func	DATA_TYPE	.void_or_datatype.#3.FUNCNAME.#31.LP.arg_list_or_void.RP.LFP.stmnts.#32.RFP.
-func	VOID	.void_or_datatype.#3.FUNCNAME.#31.LP.arg_list_or_void.RP.LFP.stmnts.#32.RFP.
-func_call	FUNCNAME	.F#3.FUNCNAME.LP.arg_passed_or_blank.#14.RP.
 id_or_data	CHAR	.num_or_char.
 id_or_data	FLOAT	.num_or_char.
 id_or_data	ID	.I#3.ID.
 id_or_data	NUM	.num_or_char.
-id_or_data_or_blank	CHAR	.id_or_data.
-id_or_data_or_blank	FLOAT	.id_or_data.
-id_or_data_or_blank	ID	.id_or_data.
-id_or_data_or_blank	NUM	.id_or_data.
-id_or_data_or_blank	SEMI	.e.
-iff	IF	.IF.#19.LP.compr.RP.#20.LFP.stmnts.RFP.#23.ell.#22.#24.
 num_or_char	CHAR	.C#3.CHAR.
 num_or_char	FLOAT	.F#3.FLOAT.
 num_or_char	NUM	.N#3.NUM.
-stmnt	BREAK	.BREAK.SEMI.
-stmnt	CONTINUE	.CONTINUE.SEMI.
-stmnt	DATA_TYPE	.declaration.SEMI.
-stmnt	FOR	.FOR.LP.#3.ID.EQUALS.expr.#6.#27.SEMI.compr.SEMI.#20.#3.ID.EQUALS.expr.RP.LFP.stmnts.RFP.#30.
-stmnt	FUNCNAME	.func_call.SEMI.
 stmnt	ID	.I#3.ID.EQUALS.expr.#6.SEMI.
-stmnt	IF	.iff.
-stmnt	RETURN	.RETURN.id_or_data_or_blank.SEMI.#29.
-stmnt	WHILE	.WHILE.#27.LP.compr.RP.#20.LFP.stmnts.RFP.#28.
-stmnts	BREAK	.stmnt.stmnts.
-stmnts	CONTINUE	.stmnt.stmnts.
-stmnts	DATA_TYPE	.stmnt.stmnts.
-stmnts	FOR	.stmnt.stmnts.
-stmnts	FUNCNAME	.stmnt.stmnts.
-stmnts	ID	.stmnt.stmnts.
-stmnts	IF	.stmnt.stmnts.
-stmnts	RETURN	.stmnt.stmnts.
-stmnts	RFP	.e.
-stmnts	WHILE	.stmnt.stmnts.
-sub	EQUALTO	.e.
-sub	GREATERTHAN	.e.
-sub	GREATERTHANEQUALTO	.e.
-sub	LESSTHAN	.e.
-sub	LESSTHANEQUALTO	.e.
 sub	MINUS	.MINUS.term.sub.#5.
-sub	NOTEQUALTO	.e.
 sub	PLUS	.e.
 sub	RP	.e.
 sub	SEMI	.e.
@@ -719,488 +239,77 @@ term	ID	.factor.term1.#7.
 term	LP	.factor.term1.#7.
 term	NUM	.factor.term1.#7.
 term1	DIVIDE	.DIVIDE.term.#2.
-term1	EQUALTO	.e.
-term1	GREATERTHAN	.e.
-term1	GREATERTHANEQUALTO	.e.
-term1	LESSTHAN	.e.
-term1	LESSTHANEQUALTO	.e.
 term1	MINUS	.e.
-term1	NOTEQUALTO	.e.
 term1	PLUS	.e.
 term1	RP	.e.
 term1	SEMI	.e.
 term1	TIMES	.TIMES.term.#1.
-void_or_datatype	DATA_TYPE	.DATA_TYPE.
-void_or_datatype	VOID	.VOID.
-x	COMMA	.COMMA.arg_list.
-x	RP	.e.
-y	IF	.IF.#26.LP.compr.RP.#20.LFP.stmnts.RFP.#23.ell.#22.
-y	LFP	.LFP.stmnts.RFP.#25.
-z	COMMA	.COMMA.arg_passed.
-z	RP	.e.
 
 Stack contents:
 S $ 
-func S $ 
-void_or_datatype #3 FUNCNAME #31 LP arg_list_or_void RP LFP stmnts #32 RFP S $ 
-DATA_TYPE #3 FUNCNAME #31 LP arg_list_or_void RP LFP stmnts #32 RFP S $ 
-#3 FUNCNAME #31 LP arg_list_or_void RP LFP stmnts #32 RFP S $ 
-3 main
-Stack: main 
-FUNCNAME #31 LP arg_list_or_void RP LFP stmnts #32 RFP S $ 
-#31 LP arg_list_or_void RP LFP stmnts #32 RFP S $ 
-31 (
-Stack: main 
-LP arg_list_or_void RP LFP stmnts #32 RFP S $ 
-arg_list_or_void RP LFP stmnts #32 RFP S $ 
-VOID RP LFP stmnts #32 RFP S $ 
-RP LFP stmnts #32 RFP S $ 
-LFP stmnts #32 RFP S $ 
-stmnts #32 RFP S $ 
-stmnt stmnts #32 RFP S $ 
-declaration SEMI stmnts #32 RFP S $ 
-D#3 DATA_TYPE #3 ID assign #13 SEMI stmnts #32 RFP S $ 
-3 int
-Stack: int main 
-DATA_TYPE #3 ID assign #13 SEMI stmnts #32 RFP S $ 
-#3 ID assign #13 SEMI stmnts #32 RFP S $ 
+stmnt S $ 
+I#3 ID EQUALS expr #6 SEMI S $ 
 3 a
-Stack: a int main 
-ID assign #13 SEMI stmnts #32 RFP S $ 
-assign #13 SEMI stmnts #32 RFP S $ 
-EQUALS expr #13 SEMI stmnts #32 RFP S $ 
-expr #13 SEMI stmnts #32 RFP S $ 
-eval #17 #13 SEMI stmnts #32 RFP S $ 
-term sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-factor term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-id_or_data term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-num_or_char term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-N#3 NUM term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 10
-Stack: 10 a int main 
-NUM term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 10 a int main 
-#7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 -
-Stack: 10 a int main 
-sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-MINUS term sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-factor term1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-id_or_data term1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-num_or_char term1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-N#3 NUM term1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 6
-Stack: 6 10 a int main 
-NUM term1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-TIMES term #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-factor term1 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-id_or_data term1 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-num_or_char term1 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-N#3 NUM term1 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 39
-Stack: 39 6 10 a int main 
-NUM term1 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term1 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-DIVIDE term #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-factor term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-LP expr #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-expr #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-eval #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term sub #7 expr1 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-factor term1 #7 sub #7 expr1 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-id_or_data term1 #7 sub #7 expr1 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-num_or_char term1 #7 sub #7 expr1 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-N#3 NUM term1 #7 sub #7 expr1 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 5
-Stack: 5 39 6 10 a int main 
-NUM term1 #7 sub #7 expr1 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term1 #7 sub #7 expr1 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 5 39 6 10 a int main 
-#7 sub #7 expr1 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 +
-Stack: 5 39 6 10 a int main 
-sub #7 expr1 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 5 39 6 10 a int main 
-#7 expr1 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 +
-Stack: 5 39 6 10 a int main 
-expr1 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-PLUS term sub #7 expr1 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term sub #7 expr1 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-factor term1 #7 sub #7 expr1 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-id_or_data term1 #7 sub #7 expr1 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-num_or_char term1 #7 sub #7 expr1 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-N#3 NUM term1 #7 sub #7 expr1 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 3
-Stack: 3 5 39 6 10 a int main 
-NUM term1 #7 sub #7 expr1 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term1 #7 sub #7 expr1 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 3 5 39 6 10 a int main 
-#7 sub #7 expr1 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 +
-Stack: 3 5 39 6 10 a int main 
-sub #7 expr1 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 3 5 39 6 10 a int main 
-#7 expr1 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 +
-Stack: 3 5 39 6 10 a int main 
-expr1 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-PLUS term sub #7 expr1 #4 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term sub #7 expr1 #4 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-factor term1 #7 sub #7 expr1 #4 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-id_or_data term1 #7 sub #7 expr1 #4 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-num_or_char term1 #7 sub #7 expr1 #4 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-N#3 NUM term1 #7 sub #7 expr1 #4 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 10
-Stack: 10 3 5 39 6 10 a int main 
-NUM term1 #7 sub #7 expr1 #4 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term1 #7 sub #7 expr1 #4 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 10 3 5 39 6 10 a int main 
-#7 sub #7 expr1 #4 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 )
-Stack: 10 3 5 39 6 10 a int main 
-sub #7 expr1 #4 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 10 3 5 39 6 10 a int main 
-#7 expr1 #4 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 )
-Stack: 10 3 5 39 6 10 a int main 
-expr1 #4 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 10 3 5 39 6 10 a int main 
-#4 #4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-4 )
-Stack: + 10 3 5 39 6 10 a int main 
-#4 #7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-4 )
-Stack: + T0 5 39 6 10 a int main 
-#7 #17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 )
-Stack: T0 39 6 10 a int main 
-#17 #36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-17 )
-Stack: eval T0 39 6 10 a int main 
-#36 RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-36 )
-Stack: T0 39 6 10 a int main 
-RP term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term1 #7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon T0 39 6 10 a int main 
-#7 #2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 ;
-Stack: T0 39 6 10 a int main 
-#2 #7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-2 ;
-Stack: / T0 39 6 10 a int main 
-#7 #1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 ;
-Stack: T0 6 10 a int main 
-#1 #7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-1 ;
-Stack: * T0 6 10 a int main 
-#7 sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 ;
-Stack: T0 10 a int main 
-sub #5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon T0 10 a int main 
-#5 #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-5 ;
-Stack: - T0 10 a int main 
-#7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 ;
-Stack: T0 a int main 
-expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon T0 a int main 
-#7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 ;
-Stack: T0 a int main 
-#17 #13 SEMI stmnts #32 RFP S $ 
-17 ;
-Stack: eval T0 a int main 
-#13 SEMI stmnts #32 RFP S $ 
-13 ;
-Stack: main 
-SEMI stmnts #32 RFP S $ 
-stmnts #32 RFP S $ 
-stmnt stmnts #32 RFP S $ 
-declaration SEMI stmnts #32 RFP S $ 
-D#3 DATA_TYPE #3 ID assign #13 SEMI stmnts #32 RFP S $ 
-3 int
-Stack: int main 
-DATA_TYPE #3 ID assign #13 SEMI stmnts #32 RFP S $ 
-#3 ID assign #13 SEMI stmnts #32 RFP S $ 
+Stack: a 
+ID EQUALS expr #6 SEMI S $ 
+EQUALS expr #6 SEMI S $ 
+expr #6 SEMI S $ 
+eval #6 SEMI S $ 
+term sub #7 expr1 #7 #6 SEMI S $ 
+factor term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+id_or_data term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+I#3 ID term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
 3 b
-Stack: b int main 
-ID assign #13 SEMI stmnts #32 RFP S $ 
-assign #13 SEMI stmnts #32 RFP S $ 
+Stack: b a 
+ID term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
+term1 #7 sub #7 expr1 #7 #6 SEMI S $ 
 3 epsilon
-Stack: epsilon b int main 
-#13 SEMI stmnts #32 RFP S $ 
-13 ;
-Stack: main 
-SEMI stmnts #32 RFP S $ 
-stmnts #32 RFP S $ 
-stmnt stmnts #32 RFP S $ 
-declaration SEMI stmnts #32 RFP S $ 
-D#3 DATA_TYPE #3 ID assign #13 SEMI stmnts #32 RFP S $ 
-3 int
-Stack: int main 
-DATA_TYPE #3 ID assign #13 SEMI stmnts #32 RFP S $ 
-#3 ID assign #13 SEMI stmnts #32 RFP S $ 
-3 c
-Stack: c int main 
-ID assign #13 SEMI stmnts #32 RFP S $ 
-assign #13 SEMI stmnts #32 RFP S $ 
-EQUALS expr #13 SEMI stmnts #32 RFP S $ 
-expr #13 SEMI stmnts #32 RFP S $ 
-eval #17 #13 SEMI stmnts #32 RFP S $ 
-term sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-factor term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-id_or_data term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-num_or_char term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-N#3 NUM term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 1
-Stack: 1 c int main 
-NUM term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 1 c int main 
-#7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 ;
-Stack: 1 c int main 
-sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 1 c int main 
-#7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 ;
-Stack: 1 c int main 
-expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 1 c int main 
-#7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 ;
-Stack: 1 c int main 
-#17 #13 SEMI stmnts #32 RFP S $ 
-17 ;
-Stack: eval 1 c int main 
-#13 SEMI stmnts #32 RFP S $ 
-13 ;
-Stack: main 
-SEMI stmnts #32 RFP S $ 
-stmnts #32 RFP S $ 
-stmnt stmnts #32 RFP S $ 
-declaration SEMI stmnts #32 RFP S $ 
-D#3 DATA_TYPE #3 ID assign #13 SEMI stmnts #32 RFP S $ 
-3 int
-Stack: int main 
-DATA_TYPE #3 ID assign #13 SEMI stmnts #32 RFP S $ 
-#3 ID assign #13 SEMI stmnts #32 RFP S $ 
-3 d
-Stack: d int main 
-ID assign #13 SEMI stmnts #32 RFP S $ 
-assign #13 SEMI stmnts #32 RFP S $ 
-EQUALS expr #13 SEMI stmnts #32 RFP S $ 
-expr #13 SEMI stmnts #32 RFP S $ 
-eval #17 #13 SEMI stmnts #32 RFP S $ 
-term sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-factor term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-id_or_data term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-num_or_char term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-N#3 NUM term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 3
-Stack: 3 d int main 
-NUM term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 3 d int main 
-#7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 ;
-Stack: 3 d int main 
-sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 3 d int main 
-#7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 ;
-Stack: 3 d int main 
-expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon 3 d int main 
-#7 #17 #13 SEMI stmnts #32 RFP S $ 
-7 ;
-Stack: 3 d int main 
-#17 #13 SEMI stmnts #32 RFP S $ 
-17 ;
-Stack: eval 3 d int main 
-#13 SEMI stmnts #32 RFP S $ 
-13 ;
-Stack: main 
-SEMI stmnts #32 RFP S $ 
-stmnts #32 RFP S $ 
-stmnt stmnts #32 RFP S $ 
-I#3 ID EQUALS expr #6 SEMI stmnts #32 RFP S $ 
-3 b
-Stack: b main 
-ID EQUALS expr #6 SEMI stmnts #32 RFP S $ 
-EQUALS expr #6 SEMI stmnts #32 RFP S $ 
-expr #6 SEMI stmnts #32 RFP S $ 
-eval #17 #6 SEMI stmnts #32 RFP S $ 
-term sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-factor term1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-id_or_data term1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-I#3 ID term1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-3 a
-Stack: a b main 
-ID term1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-term1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-TIMES term #1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-term #1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-factor term1 #7 #1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-id_or_data term1 #7 #1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-I#3 ID term1 #7 #1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-3 c
-Stack: c a b main 
-ID term1 #7 #1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-term1 #7 #1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon c a b main 
-#7 #1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
+Stack: epsilon b a 
+#7 sub #7 expr1 #7 #6 SEMI S $ 
 7 +
-Stack: c a b main 
-#1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-1 +
-Stack: * c a b main 
-#7 sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
+Stack: b a 
+sub #7 expr1 #7 #6 SEMI S $ 
+3 epsilon
+Stack: epsilon b a 
+#7 expr1 #7 #6 SEMI S $ 
 7 +
-Stack: T0 b main 
-sub #7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon T0 b main 
-#7 expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-7 +
-Stack: T0 b main 
-expr1 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-PLUS term sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-term sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-factor term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-LP expr #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-expr #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-eval #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-term sub #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-factor term1 #7 sub #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-id_or_data term1 #7 sub #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-I#3 ID term1 #7 sub #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-3 d
-Stack: d T0 b main 
-ID term1 #7 sub #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-term1 #7 sub #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon d T0 b main 
-#7 sub #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-7 -
-Stack: d T0 b main 
-sub #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-MINUS term sub #5 #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-term sub #5 #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-factor term1 #7 sub #5 #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-id_or_data term1 #7 sub #5 #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-I#3 ID term1 #7 sub #5 #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-3 a
-Stack: a d T0 b main 
-ID term1 #7 sub #5 #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-term1 #7 sub #5 #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon a d T0 b main 
-#7 sub #5 #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-7 )
-Stack: a d T0 b main 
-sub #5 #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon a d T0 b main 
-#5 #7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-5 )
-Stack: - a d T0 b main 
-#7 expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-7 )
-Stack: T1 T0 b main 
-expr1 #7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon T1 T0 b main 
-#7 #17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-7 )
-Stack: T1 T0 b main 
-#17 #36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-17 )
-Stack: eval T1 T0 b main 
-#36 RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-36 )
-Stack: T1 T0 b main 
-RP term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-term1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-TIMES term #1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-term #1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-factor term1 #7 #1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-id_or_data term1 #7 #1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-I#3 ID term1 #7 #1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
+Stack: b a 
+expr1 #7 #6 SEMI S $ 
+PLUS term sub #7 expr1 #4 #7 #6 SEMI S $ 
+term sub #7 expr1 #4 #7 #6 SEMI S $ 
+factor term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+id_or_data term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+I#3 ID term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
 3 c
-Stack: c T1 T0 b main 
-ID term1 #7 #1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-term1 #7 #1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
+Stack: c b a 
+ID term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
+term1 #7 sub #7 expr1 #4 #7 #6 SEMI S $ 
 3 epsilon
-Stack: epsilon c T1 T0 b main 
-#7 #1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
+Stack: epsilon c b a 
+#7 sub #7 expr1 #4 #7 #6 SEMI S $ 
 7 ;
-Stack: c T1 T0 b main 
-#1 #7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-1 ;
-Stack: * c T1 T0 b main 
-#7 sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
-7 ;
-Stack: T1 T0 b main 
-sub #7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
+Stack: c b a 
+sub #7 expr1 #4 #7 #6 SEMI S $ 
 3 epsilon
-Stack: epsilon T1 T0 b main 
-#7 expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
+Stack: epsilon c b a 
+#7 expr1 #4 #7 #6 SEMI S $ 
 7 ;
-Stack: T1 T0 b main 
-expr1 #4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
+Stack: c b a 
+expr1 #4 #7 #6 SEMI S $ 
 3 epsilon
-Stack: epsilon T1 T0 b main 
-#4 #7 #17 #6 SEMI stmnts #32 RFP S $ 
+Stack: epsilon c b a 
+#4 #7 #6 SEMI S $ 
 4 ;
-Stack: + T1 T0 b main 
-#7 #17 #6 SEMI stmnts #32 RFP S $ 
+Stack: + c b a 
+#7 #6 SEMI S $ 
 7 ;
-Stack: T0 b main 
-#17 #6 SEMI stmnts #32 RFP S $ 
-17 ;
-Stack: eval T0 b main 
-#6 SEMI stmnts #32 RFP S $ 
+Stack: T0 a 
+#6 SEMI S $ 
 6 ;
-Stack: main 
-SEMI stmnts #32 RFP S $ 
-stmnts #32 RFP S $ 
-3 epsilon
-Stack: epsilon main 
-#32 RFP S $ 
-32 }
 Stack: 
-RFP S $ 
+SEMI S $ 
 S $ 
 3 epsilon
 Stack: epsilon 
 $ 
-fullinput4.txt has been parsed successfully.
+minorinput.txt has been parsed successfully.
