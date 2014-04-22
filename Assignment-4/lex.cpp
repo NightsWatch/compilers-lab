@@ -116,6 +116,7 @@ char* lex (void) {
               if(*(current+1)=='=')
               {
                 ++current;
+                 yyleng=2;
                 return LESSTHANEQUALTO;
               }
               return LESSTHAN;
@@ -123,6 +124,7 @@ char* lex (void) {
             if(*(current+1)=='=')
             {
                 ++current;
+                 yyleng=2;
                 return GREATERTHANEQUALTO;
             }
             return GREATERTHAN;
@@ -131,6 +133,7 @@ char* lex (void) {
                 { 
 
                   ++current;
+                  yyleng=2;
                   return EQUALTO;
                 }
             return EQUALS;
@@ -139,6 +142,7 @@ char* lex (void) {
                 { 
 
                   ++current;
+                   yyleng=2;
                   return NOTEQUALTO;
                 }
               else

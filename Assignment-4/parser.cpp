@@ -1183,7 +1183,9 @@ void Parser::performAction(int action_no, string next) {
 				}
 				else
 				{
-					intcode << "retrieve " << c << endl;
+					intcode << "global " << c << " " << a << endl;
+					code << 19 << endl;
+ 					intcode << "retrieve " << c << endl;
 					code << 18 << endl;
 
 				}
@@ -1477,6 +1479,16 @@ void Parser::performAction(int action_no, string next) {
 					code << 18 << endl;
 					break;
 				}
+
+			}
+		case 37:
+			{
+				c = semanticstack.top();
+				if(c=="epsilon")
+				{
+					semanticstack.pop();
+				}
+				break;
 
 			}
 
