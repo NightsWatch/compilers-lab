@@ -7,12 +7,15 @@ T0 := i - 1
 i := T0
 goto L0
 label L1
-j := 4
+global l int
+l := 4
+l := 4
 label L2
-if j >= 5 goto L3
-T1 := j + 2
+if l >= 5 goto L3
+T1 := l + 2
+global h int
 h := 1
-j := T1
+l := T1
 goto L2
 label L3
 return 0

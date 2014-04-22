@@ -9,8 +9,10 @@ int main(void)
 
 
 	}
-	for(j=4; j<5; j=j+2)
-	{
+	int l=4;
+	for(l=4; l<5; l=l+2)
+	{	
+		int h;
 		h = 1;
 
 	}

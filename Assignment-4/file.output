@@ -1,5 +1,7 @@
 here
 here
+here
+here
 Grammar is:
 S
 S is .e.
@@ -940,15 +942,63 @@ stmnts RFP #28 stmnts #32 RFP S $
 Stack: epsilon L1 L0 main 
 RFP #28 stmnts #32 RFP S $ 
 #28 stmnts #32 RFP S $ 
-28 for
+28 int
 Stack: main 
+stmnts #32 RFP S $ 
+stmnt stmnts #32 RFP S $ 
+declaration SEMI stmnts #32 RFP S $ 
+D#3 DATA_TYPE #3 ID assign #13 SEMI stmnts #32 RFP S $ 
+3 int
+Stack: int main 
+DATA_TYPE #3 ID assign #13 SEMI stmnts #32 RFP S $ 
+#3 ID assign #13 SEMI stmnts #32 RFP S $ 
+3 l
+Stack: l int main 
+ID assign #13 SEMI stmnts #32 RFP S $ 
+assign #13 SEMI stmnts #32 RFP S $ 
+EQUALS expr #13 SEMI stmnts #32 RFP S $ 
+expr #13 SEMI stmnts #32 RFP S $ 
+eval #17 #13 SEMI stmnts #32 RFP S $ 
+term sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
+factor term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
+id_or_data term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
+num_or_char term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
+N#3 NUM term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
+3 4
+Stack: 4 l int main 
+NUM term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
+term1 #7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
+3 epsilon
+Stack: epsilon 4 l int main 
+#7 sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
+7 ;
+Stack: 4 l int main 
+sub #7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
+3 epsilon
+Stack: epsilon 4 l int main 
+#7 expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
+7 ;
+Stack: 4 l int main 
+expr1 #7 #17 #13 SEMI stmnts #32 RFP S $ 
+3 epsilon
+Stack: epsilon 4 l int main 
+#7 #17 #13 SEMI stmnts #32 RFP S $ 
+7 ;
+Stack: 4 l int main 
+#17 #13 SEMI stmnts #32 RFP S $ 
+17 ;
+Stack: eval 4 l int main 
+#13 SEMI stmnts #32 RFP S $ 
+13 ;
+Stack: main 
+SEMI stmnts #32 RFP S $ 
 stmnts #32 RFP S $ 
 stmnt stmnts #32 RFP S $ 
 FOR LP #3 ID EQUALS expr #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 LP #3 ID EQUALS expr #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 #3 ID EQUALS expr #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
-3 j
-Stack: j main 
+3 l
+Stack: l main 
 ID EQUALS expr #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 EQUALS expr #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 expr #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
@@ -959,29 +1009,29 @@ id_or_data term1 #7 sub #7 expr1 #7 #17 #6 #27 SEMI compr SEMI #20 #3 ID EQUALS 
 num_or_char term1 #7 sub #7 expr1 #7 #17 #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 N#3 NUM term1 #7 sub #7 expr1 #7 #17 #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 4
-Stack: 4 j main 
+Stack: 4 l main 
 NUM term1 #7 sub #7 expr1 #7 #17 #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 term1 #7 sub #7 expr1 #7 #17 #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon 4 j main 
+Stack: epsilon 4 l main 
 #7 sub #7 expr1 #7 #17 #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 ;
-Stack: 4 j main 
+Stack: 4 l main 
 sub #7 expr1 #7 #17 #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon 4 j main 
+Stack: epsilon 4 l main 
 #7 expr1 #7 #17 #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 ;
-Stack: 4 j main 
+Stack: 4 l main 
 expr1 #7 #17 #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon 4 j main 
+Stack: epsilon 4 l main 
 #7 #17 #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 ;
-Stack: 4 j main 
+Stack: 4 l main 
 #17 #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 17 ;
-Stack: eval 4 j main 
+Stack: eval 4 l main 
 #6 #27 SEMI compr SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 6 ;
 Stack: main 
@@ -995,27 +1045,27 @@ term sub #7 expr1 #7 expr2 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 s
 factor term1 #7 sub #7 expr1 #7 expr2 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 id_or_data term1 #7 sub #7 expr1 #7 expr2 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 I#3 ID term1 #7 sub #7 expr1 #7 expr2 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
-3 j
-Stack: j L2 main 
+3 l
+Stack: l L2 main 
 ID term1 #7 sub #7 expr1 #7 expr2 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 term1 #7 sub #7 expr1 #7 expr2 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon j L2 main 
+Stack: epsilon l L2 main 
 #7 sub #7 expr1 #7 expr2 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 <
-Stack: j L2 main 
+Stack: l L2 main 
 sub #7 expr1 #7 expr2 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon j L2 main 
+Stack: epsilon l L2 main 
 #7 expr1 #7 expr2 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 <
-Stack: j L2 main 
+Stack: l L2 main 
 expr1 #7 expr2 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon j L2 main 
+Stack: epsilon l L2 main 
 #7 expr2 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 <
-Stack: j L2 main 
+Stack: l L2 main 
 expr2 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 LESSTHAN eval #10 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 eval #10 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
@@ -1025,39 +1075,39 @@ id_or_data term1 #7 sub #7 expr1 #7 #10 #9 SEMI #20 #3 ID EQUALS expr RP LFP stm
 num_or_char term1 #7 sub #7 expr1 #7 #10 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 N#3 NUM term1 #7 sub #7 expr1 #7 #10 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 5
-Stack: 5 j L2 main 
+Stack: 5 l L2 main 
 NUM term1 #7 sub #7 expr1 #7 #10 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 term1 #7 sub #7 expr1 #7 #10 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon 5 j L2 main 
+Stack: epsilon 5 l L2 main 
 #7 sub #7 expr1 #7 #10 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 ;
-Stack: 5 j L2 main 
+Stack: 5 l L2 main 
 sub #7 expr1 #7 #10 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon 5 j L2 main 
+Stack: epsilon 5 l L2 main 
 #7 expr1 #7 #10 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 ;
-Stack: 5 j L2 main 
+Stack: 5 l L2 main 
 expr1 #7 #10 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon 5 j L2 main 
+Stack: epsilon 5 l L2 main 
 #7 #10 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 ;
-Stack: 5 j L2 main 
+Stack: 5 l L2 main 
 #10 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 10 ;
-Stack: >= 5 j L2 main 
+Stack: >= 5 l L2 main 
 #9 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 9 ;
 Stack: L2 main 
 SEMI #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 #20 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
-20 j
+20 l
 Stack: L3 L2 main 
 #3 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
-3 j
-Stack: j L3 L2 main 
+3 l
+Stack: l L3 L2 main 
 ID EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 EQUALS expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 expr RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
@@ -1066,21 +1116,21 @@ term sub #7 expr1 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $
 factor term1 #7 sub #7 expr1 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 id_or_data term1 #7 sub #7 expr1 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 I#3 ID term1 #7 sub #7 expr1 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
-3 j
-Stack: j j L3 L2 main 
+3 l
+Stack: l l L3 L2 main 
 ID term1 #7 sub #7 expr1 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 term1 #7 sub #7 expr1 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon j j L3 L2 main 
+Stack: epsilon l l L3 L2 main 
 #7 sub #7 expr1 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 +
-Stack: j j L3 L2 main 
+Stack: l l L3 L2 main 
 sub #7 expr1 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon j j L3 L2 main 
+Stack: epsilon l l L3 L2 main 
 #7 expr1 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 +
-Stack: j j L3 L2 main 
+Stack: l l L3 L2 main 
 expr1 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 PLUS term sub #7 expr1 #4 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 term sub #7 expr1 #4 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
@@ -1089,39 +1139,57 @@ id_or_data term1 #7 sub #7 expr1 #4 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP 
 num_or_char term1 #7 sub #7 expr1 #4 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 N#3 NUM term1 #7 sub #7 expr1 #4 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 2
-Stack: 2 j j L3 L2 main 
+Stack: 2 l l L3 L2 main 
 NUM term1 #7 sub #7 expr1 #4 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 term1 #7 sub #7 expr1 #4 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon 2 j j L3 L2 main 
+Stack: epsilon 2 l l L3 L2 main 
 #7 sub #7 expr1 #4 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 )
-Stack: 2 j j L3 L2 main 
+Stack: 2 l l L3 L2 main 
 sub #7 expr1 #4 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon 2 j j L3 L2 main 
+Stack: epsilon 2 l l L3 L2 main 
 #7 expr1 #4 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 )
-Stack: 2 j j L3 L2 main 
+Stack: 2 l l L3 L2 main 
 expr1 #4 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon 2 j j L3 L2 main 
+Stack: epsilon 2 l l L3 L2 main 
 #4 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 4 )
-Stack: + 2 j j L3 L2 main 
+Stack: + 2 l l L3 L2 main 
 #7 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 7 )
-Stack: T1 j L3 L2 main 
+Stack: T1 l L3 L2 main 
 #17 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 17 )
-Stack: eval T1 j L3 L2 main 
+Stack: eval T1 l L3 L2 main 
 RP LFP stmnts RFP #30 stmnts #32 RFP S $ 
 LFP stmnts RFP #30 stmnts #32 RFP S $ 
 stmnts RFP #30 stmnts #32 RFP S $ 
 stmnt stmnts RFP #30 stmnts #32 RFP S $ 
+declaration SEMI stmnts RFP #30 stmnts #32 RFP S $ 
+D#3 DATA_TYPE #3 ID assign #13 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
+3 int
+Stack: int eval T1 l L3 L2 main 
+DATA_TYPE #3 ID assign #13 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
+#3 ID assign #13 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
+3 h
+Stack: h int eval T1 l L3 L2 main 
+ID assign #13 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
+assign #13 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
+3 epsilon
+Stack: epsilon h int eval T1 l L3 L2 main 
+#13 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
+13 ;
+Stack: eval T1 l L3 L2 main 
+SEMI stmnts RFP #30 stmnts #32 RFP S $ 
+stmnts RFP #30 stmnts #32 RFP S $ 
+stmnt stmnts RFP #30 stmnts #32 RFP S $ 
 I#3 ID EQUALS expr #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 3 h
-Stack: h eval T1 j L3 L2 main 
+Stack: h eval T1 l L3 L2 main 
 ID EQUALS expr #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 EQUALS expr #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 expr #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
@@ -1132,36 +1200,36 @@ id_or_data term1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts RFP #30 stmnts #32 RFP S 
 num_or_char term1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 N#3 NUM term1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 3 1
-Stack: 1 h eval T1 j L3 L2 main 
+Stack: 1 h eval T1 l L3 L2 main 
 NUM term1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 term1 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon 1 h eval T1 j L3 L2 main 
+Stack: epsilon 1 h eval T1 l L3 L2 main 
 #7 sub #7 expr1 #7 #17 #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 7 ;
-Stack: 1 h eval T1 j L3 L2 main 
+Stack: 1 h eval T1 l L3 L2 main 
 sub #7 expr1 #7 #17 #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon 1 h eval T1 j L3 L2 main 
+Stack: epsilon 1 h eval T1 l L3 L2 main 
 #7 expr1 #7 #17 #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 7 ;
-Stack: 1 h eval T1 j L3 L2 main 
+Stack: 1 h eval T1 l L3 L2 main 
 expr1 #7 #17 #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon 1 h eval T1 j L3 L2 main 
+Stack: epsilon 1 h eval T1 l L3 L2 main 
 #7 #17 #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 7 ;
-Stack: 1 h eval T1 j L3 L2 main 
+Stack: 1 h eval T1 l L3 L2 main 
 #17 #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 17 ;
-Stack: eval 1 h eval T1 j L3 L2 main 
+Stack: eval 1 h eval T1 l L3 L2 main 
 #6 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 6 ;
-Stack: eval T1 j L3 L2 main 
+Stack: eval T1 l L3 L2 main 
 SEMI stmnts RFP #30 stmnts #32 RFP S $ 
 stmnts RFP #30 stmnts #32 RFP S $ 
 3 epsilon
-Stack: epsilon eval T1 j L3 L2 main 
+Stack: epsilon eval T1 l L3 L2 main 
 RFP #30 stmnts #32 RFP S $ 
 #30 stmnts #32 RFP S $ 
 30 return
