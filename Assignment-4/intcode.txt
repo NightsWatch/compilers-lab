@@ -1,3 +1,7 @@
+if 4 >= eval goto L1
 T0 := c / d
 T1 := b + T0
 a := T1
+goto L1
+label epsilon
+label L1

@@ -1,8 +1,9 @@
 int main(void)
 {
-	
-	a=b+c/d;
-
+	if(x<4)
+		{
+		a=b+c/d;
+	}
 	return 0;
 
 }
