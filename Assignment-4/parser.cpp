@@ -1268,7 +1268,7 @@ void Parser::performAction(int action_no, string next) {
 			{	
 				c = getNewLabel();
 				intcode << "goto " << c << endl;
-				code << 4 << endl;
+			
 				semanticstack.push(c);
 				break;
 
