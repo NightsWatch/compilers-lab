@@ -1565,10 +1565,22 @@ string Parser::getNewTemp(ofstream& intcode, ofstream& code)
 
 void Parser::destroyifTemp(string temp)
 {
-	int t;
-	istringstream ss1(temp);
-	ss1 >> t;
-	inuseT[t]=1;
+	if(temp[0]=='T')
+	{
+		string sub = temp.substr(1);
+		int t;
+		istringstream ss1(sub);
+		ss1 >> t;
+		inuseT[t]=1;
+		
+
+
+		
+
+	}
+	
+
+
 	return;
 
 
